@@ -1,0 +1,252 @@
+sap.ui.define([
+    "sap/ui/core/Fragment",
+    "sap/m/MessageToast"
+], function (Fragment, MessageToast) {
+    "use strict";
+
+    return {
+
+
+
+        /* =========================================================== */
+        /* =========================================================== */
+        /* Tisk                                           */
+        /* =========================================================== */
+
+    
+        getDialogPrint: async function (that, status) {
+            //OpenDialog
+            // load asynchronous XML fragment
+            this._status = "";
+            this._status = status;
+            if (!that._oPrint) {
+                let oDialog = await Fragment.load({
+                    name:  that.getConstantBase().getConstants().DIALOG_PRINTER_SETTING,
+                    controller: that
+                })
+                that.getView().addDependent(oDialog);
+                that._oPrint = oDialog
+
+                return that._oPrint;
+            } else {
+
+                return that._oPrint;
+            }
+        },
+        onCancelPrint: function (that) {           
+            this._closeDialog(that._oPrint);
+        },
+        onConfirmPrint: function (that) {           
+            this._closeDialog(that._oPrint);
+            return this._status;
+        },
+
+        /* =========================================================== */
+        /* =========================================================== */
+        /* Potvrzení PINem od Řidiče                                   */
+        /* =========================================================== */
+
+        getDialogCustomerSignature: async function (that) {
+            if (!that._oCustomerSignature) {
+                let oDialog = await Fragment.load({
+                    name: that.getConstantBase().getConstants().CUSTOMER_SIGNATURE,
+                    controller: that
+                })
+                that.getView().addDependent(oDialog);
+                that._oCustomerSignature = oDialog;
+             
+                return that._oCustomerSignature;
+            } else {
+              
+
+                return that._oCustomerSignature;
+            }
+        },
+        onCancelCustomerSignature: function (that) {
+
+            this._closeDialog(that._oCustomerSignature);
+        },
+        clearSignatureDialog: function (dialogSignature) {
+            dialogSignature.getContent()[0].getItems()[0].clear();
+            dialogSignature.getContent()[0].getItems()[0].setEditable(true);
+        },
+        onConfirmCustomerSignature: function (that) {
+
+           this._closeDialog(that._oCustomerSignature);
+           return(that._oCustomerSignature.getContent()[0].getItems()[0]);
+        //    return(that._oCustomerSignature.getContent()[0].getItems()[0].getSVGString());
+        },
+
+        /* =========================================================== */
+        /* =========================================================== */
+        /* Odmítnutí dodacího listu                                    */
+        /* =========================================================== */
+
+        getDialogRefusedDL: async function (that, model) {
+            if (!that._oRefusedDL) {
+                let oDialog = await Fragment.load({
+                    name: that.getConstantBase().getConstants().DIALOG_DL_REFUSED,
+                    controller: that
+                })
+                that.getView().addDependent(oDialog);
+                that._oRefusedDL = oDialog;
+             
+                return that._oRefusedDL;
+            } else {
+                 return that._oRefusedDL;
+            }
+        },
+        onCancelRefusedDL: function (that) {
+            this._closeDialog(that._oRefusedDL);
+        }, 
+        onConfirmRefusedDL: function (that) {
+           this._closeDialog(that._oRefusedDL);
+           return 
+          
+        },
+
+        // /* =========================================================== */
+        // /* =========================================================== */
+        // /* Tisk                                                        */
+        // /* =========================================================== */    
+        // getDialogPrint: async function (that, model) {          
+        //     if (!that._oPrint) {
+        //         let oDialog = await Fragment.load({
+        //             name:  Constants.getConstants().DIALOG_PRINTER_SETTING,
+        //             controller: that
+        //         })
+        //         that.getView().addDependent(oDialog);
+        //         that._oPrint = oDialog
+
+        //         return that._oPrint;
+        //     } else {
+
+        //         return that._oPrint;
+        //     }
+        // },
+        // onCancelPrint: function (that) {
+           
+        //     this._closeDialog(that._oPrint);
+        // },
+        // onConfirmPrint: function (that) {
+           
+        //     this._closeDialog(that._oPrint);
+        // },
+
+
+
+
+
+        /* =========================================================== */
+        /* =========================================================== */
+        /* =========================================================== */
+        /* =========================================================== */
+        /* =========================================================== */
+        /* =========================================================== */
+        /* =========================================================== */
+        /* =========================================================== */
+        /* =========================================================== */
+        /* =========================================================== */
+        /* =========================================================== */
+        /* =========================================================== */
+        /* Public general methods                                      */
+        /* =========================================================== */
+
+        openDialog: function (dialog) {
+            this._openDialog(dialog)
+        },
+        closeDialog: function (dialog) {
+            this._closeDialog(dialog)
+        },
+
+
+
+
+
+
+
+
+
+
+
+
+        /* =========================================================== */
+        /* =========================================================== */
+        /* =========================================================== */
+        /* =========================================================== */
+        /* =========================================================== */
+        /* =========================================================== */
+        /* =========================================================== */
+        /* =========================================================== */
+        /* =========================================================== */
+        /* =========================================================== */
+        /* =========================================================== */
+        /* =========================================================== */
+        /* Busy Dialog                                                 */
+        /* =========================================================== */
+
+        openBusyDialog: function (that) {
+
+            //OpenDialog
+            // load asynchronous XML fragment
+            if (!that._oBusyLoadingDialog) {
+                Fragment.load({
+                    name: "XXX",
+                    controller: that
+                }).then(function (oDialog) {
+                    // connect dialog to the root view of this component (models, lifecycle)
+                    that.getView().addDependent(oDialog);
+                    that._oBusyLoadingDialog = oDialog
+                    that._oBusyLoadingDialog = oDialog.open();
+                }.bind(that));
+            } else {
+                that._oBusyLoadingDialog.open();
+            }
+        },
+        onBusyDialogClosed: function (that) {
+            if (that._oBusyLoadingDialog) {
+                that._oBusyLoadingDialog.close();
+                MessageToast.show("Data byla načtena...");
+
+            }
+
+        },
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /* =========================================================== */
+        /* =========================================================== */
+        /* =========================================================== */
+        /* =========================================================== */
+        /* =========================================================== */
+        /* =========================================================== */
+        /* =========================================================== */
+        /* =========================================================== */
+        /* =========================================================== */
+        /* =========================================================== */
+        /* =========================================================== */
+        /* =========================================================== */
+        /* =========================================================== */
+        /* begin: internal methods                                     */
+        /* =========================================================== */
+
+        _openDialog: function (dialog) {
+            dialog.open();
+        },
+        _closeDialog: function (dialog) {
+            dialog.close();
+        }
+
+
+    }
+})
