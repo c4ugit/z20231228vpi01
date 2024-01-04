@@ -9,6 +9,7 @@ sap.ui.define([], function () {
                 GLOBAL_MODEL_AUTH: "globalModelAuthorization", //        
                 GLOBAL_MODEL_FC: "globalModelFieldsControl", //Možnosti nastavení aplikace            
                 GLOBAL_MODEL_USER_INFO: "globalModelUserInfo",
+                GLOBAL_MODEL_VENDOR_INFO: "globalModelVendorInfo",
 
                 GLOBAL_MODEL_MATERIAL_LIST: "globalModelMaterialList", 
                 GLOBAL_MODEL_CUSTOMER_LIST: "globalModelCustomerList", 

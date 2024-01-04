@@ -21,7 +21,7 @@
         <semantic:titleHeading>
             <Title
                 id="masterPageTitle"
-                text="Správa incidentů zastavení linky"
+                text="Přehled faktur dodavatele"
                 level="H2"
             />
         </semantic:titleHeading>
@@ -38,6 +38,25 @@
                 persistencyKey="SmartFilterPKey"
             />
         </semantic:headerContent>
+            <semantic:titleExpandedHeading />
+        <semantic:titleExpandedContent>
+            <Toolbar width="auto">
+                <content>
+                    <f2:Avatar
+                        displaySize="XS"
+                        displayShape="Circle"
+                        src="sap-icon://person-placeholder"
+                        backgroundColor="Accent6"
+                    />
+                    <!-- <f2:Avatar displaySize="{globalModelUserInfo>/Avatarsize}" displayShape="{globalModelUserInfo>/Avatarshape}" src="{globalModelUserInfo>/Avataricon}" backgroundColor="{globalModelUserInfo>/Avatarcolor}"/> -->
+
+                    <!-- <Text text="{globalModelHelp>/sInfoLabel}"/> -->
+                    <Text text="Uživatel: {globalModelUserInfo>/FullName}" />
+                    <!-- <tnt:InfoLabel text="{path:'globalModelHelp>/sInfoLabel'}" renderMode="Loose" colorScheme="{path : 'globalModelAuthorization>/Colorlabel', formatter : '.formatter.colorlabel'}" displayOnly="true"/> -->
+                    <ToolbarSpacer />
+                </content>
+            </Toolbar>
+        </semantic:titleExpandedContent>
         <semantic:content>
             <VBox
                 width="100%"
@@ -193,24 +212,6 @@
                 tooltip="{i18n>messages}"
             />
         </semantic:messagesIndicator>
-        <semantic:titleExpandedHeading />
-        <semantic:titleExpandedContent>
-            <Toolbar width="auto">
-                <content>
-                    <f2:Avatar
-                        displaySize="XS"
-                        displayShape="Circle"
-                        src="sap-icon://person-placeholder"
-                        backgroundColor="Accent6"
-                    />
-                    <!-- <f2:Avatar displaySize="{globalModelUserInfo>/Avatarsize}" displayShape="{globalModelUserInfo>/Avatarshape}" src="{globalModelUserInfo>/Avataricon}" backgroundColor="{globalModelUserInfo>/Avatarcolor}"/> -->
-
-                    <!-- <Text text="{globalModelHelp>/sInfoLabel}"/> -->
-                    <Text text="Uživatel: {globalModelUserInfo>/FullName}" />
-                    <!-- <tnt:InfoLabel text="{path:'globalModelHelp>/sInfoLabel'}" renderMode="Loose" colorScheme="{path : 'globalModelAuthorization>/Colorlabel', formatter : '.formatter.colorlabel'}" displayOnly="true"/> -->
-                    <ToolbarSpacer />
-                </content>
-            </Toolbar>
-        </semantic:titleExpandedContent>
+    
     </semantic:SemanticPage>
 </mvc:View>

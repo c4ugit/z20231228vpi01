@@ -82,6 +82,10 @@
       "globalModelUserInfo": {
         "type": "sap.ui.model.json.JSONModel",
         "preload": true
+      },
+      "globalModelVendorInfo": {
+        "type": "sap.ui.model.json.JSONModel",
+        "preload": true
       }
     },
     "resources": {

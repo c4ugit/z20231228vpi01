@@ -46,7 +46,12 @@ sap.ui.define(
       /* lifecycle methods                                           */
       /* =========================================================== */
       onInit: function () {
-      }
+         // apply content density mode to root view
+         this.getView().addStyleClass(this.getOwnerComponent().getContentDensityClass());
+         this.getOwnerComponent().getModel().metadataLoaded().then(function () {
+               this._getInitialData();  
+         }.bind(this));        
+      },
        /* =========================================================== */
         /* =========================================================== */
         /* =========================================================== */
@@ -106,6 +111,26 @@ sap.ui.define(
         /* =========================================================== */
         /* begin: internal methods                                     */
         /* =========================================================== */
+        _getInitialData: function () {
+          this.getCallToBackendBase().callInfoUser(this); 
+          // this.getCallToBackendBase().callMaterialList(this);     
+          // this.getCallToBackendBase().callReasonRequestList(this);     
+          Promise.all([         
+           this._oComponent._PromiseInfoUser,         
+          //  this._oComponent._PromiseMaterialList,      
+          //  this._oComponent._PromiseReasonRequestList      
+          ]).then(function (aPromise) {
+
+              this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_USER_INFO).setData(aPromise[0].results[0]); 
+              // this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_MATERIAL_LIST).setData(aPromise[1]);           
+              // this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_REASON_REQ_LIST).setData(aPromise[2]);           
+         
+              this._oComponent._fnResolveDataLoadedInit();    
+          }.bind(this)).catch(async function (oError) {      
+              await this.messageBoxError(this.getMessagesBase().findFirstErrorMessage(this));
+          }.bind(this));
+
+      },
 
 
         
