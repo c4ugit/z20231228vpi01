@@ -115,7 +115,7 @@ sap.ui.define([
                 }.bind(that));
 
                 oParam.sNamePromise = "1";
-                oParam.sObjectPath = "/ZC_UserInfo";
+                oParam.sObjectPath = "/ZC_UserInfo02";
                 oParam.sViewmodel = that.CO_VIEW_MODEL;
                 oParam.scope = that;
                 oParam.component = that._oComponent;

@@ -46,6 +46,7 @@ sap.ui.define(
       /* lifecycle methods                                           */
       /* =========================================================== */
       onInit: function () {
+        this._oComponent = this.getOwnerComponent();
          // apply content density mode to root view
          this.getView().addStyleClass(this.getOwnerComponent().getContentDensityClass());
          this.getOwnerComponent().getModel().metadataLoaded().then(function () {
@@ -125,7 +126,7 @@ sap.ui.define(
               // this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_MATERIAL_LIST).setData(aPromise[1]);           
               // this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_REASON_REQ_LIST).setData(aPromise[2]);           
          
-              this._oComponent._fnResolveDataLoadedInit();    
+              this.getOwnerComponent()._fnResolveDataLoadedInit();    
           }.bind(this)).catch(async function (oError) {      
               await this.messageBoxError(this.getMessagesBase().findFirstErrorMessage(this));
           }.bind(this));

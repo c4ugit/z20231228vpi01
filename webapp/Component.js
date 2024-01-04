@@ -27,6 +27,10 @@ sap.ui.define([
                 // call the base component's init function
                 UIComponent.prototype.init.apply(this, arguments);
 
+                this._PromiseDataLoadedInit = new Promise(function (fnResolveDataLoadedInit) {
+                    this._fnResolveDataLoadedInit = fnResolveDataLoadedInit;
+                }.bind(this));
+
 
                 let oDataHelp = {
                     bFooterDisplay: true

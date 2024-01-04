@@ -34,7 +34,7 @@
                 id="smartFilterBarInc"
                 initialized=".onSFBInitialized"
                 smartVariant="pageVariantIdInc"
-                entitySet="ZinvoicrId"
+                entitySet="ZC_Invoice"
                 persistencyKey="SmartFilterPKey"
             />
         </semantic:headerContent>
