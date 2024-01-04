@@ -9,12 +9,19 @@ server:
     - name: fiori-tools-proxy
       afterMiddleware: compression
       configuration:
-        ignoreCertError: false # If set to true, certificate errors will be ignored. E.g. self-signed certificates will be accepted
+        ignoreCertError: true # If set to true, certificate errors will be ignored. E.g. self-signed certificates will be accepted
         ui5:
           path:
             - /resources
             - /test-resources
           url: https://ui5.sap.com
+        backend:
+        - path: /sap
+            # url: http://hnk49d:8400
+          url: https://czsap-d.linetgroup.com
+            #url: https://d89.heicz.cz:8492/sap/bc/ui2/flp?saml2=disabled
+          client: '400'
+            # destination: D49_odata_C4U_LIC
     - name: fiori-tools-appreload
       afterMiddleware: compression
       configuration:

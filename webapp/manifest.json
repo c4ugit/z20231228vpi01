@@ -11,7 +11,7 @@
     "description": "{{appDescription}}",
     "dataSources": {
       "mainService": {
-        "uri": "/sap/opu/odata/sap/ZB198REQUEST_SRV/",
+        "uri": "/sap/opu/odata/sap/ZC4UVPI01_SRV/",
         "type": "OData",
         "settings": {
           "annotations": [],
@@ -71,7 +71,7 @@
         }
       },
       "": {
-        "dataSource": "mainService2",
+        "dataSource": "mainService",
         "preload": true,
         "settings": {}
       },
