@@ -106,13 +106,16 @@
         },
         "routing": {
             "config": {
-                "routerClass": "sap.m.routing.Router",
+                "routerClass": "sap.f.routing.Router",
                 "viewType": "XML",
                 "async": true,
                 "viewPath": "zmmvpi01.app.z20231228mmvpi01.view",
-                "controlAggregation": "pages",
-                "controlId": "app",
-                "clearControlAggregation": false
+                "controlAggregation": "beginColumnPages",
+                "controlId": "layout",
+                "clearControlAggregation": false,
+                "bypassed": {
+					"target": "notFound"
+				}				
             },
             "routes": [
                 {
@@ -121,7 +124,22 @@
                     "target": [
                         "TargetOverViewVendorInvoice"
                     ]
-                }
+                },
+                {
+				"pattern": "DetailInvoice/{objectId}",
+					"name": "routeDetailVendorInvoice",
+					"target": [
+						"TargetOverViewVendorInvoice",
+						"TargetDetailVendorInvoice"
+					]
+				},
+                {
+				"pattern": "NewInvoice",
+					"name": "routeCreateVendorInvoice",
+					"target": [
+						"TargetCreateVendorInvoice"					
+					]
+				}
             ],
             "targets": {
                 "TargetOverViewVendorInvoice": {
@@ -129,7 +147,26 @@
                     "transition": "slide",
                     "clearControlAggregation": false,
                     "viewId": "OverViewVendorInvoice",
-                    "viewName": "OverViewVendorInvoice"
+                    "viewName": "OverViewVendorInvoice",
+                    "viewLevel": 1
+                },
+                "TargetDetailVendorInvoice": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewId": "DetailVendorInvoice",
+                    "viewName": "DetailVendorInvoice",
+                    "controlAggregation": "midColumnPages",
+                    "viewLevel": 1
+                },
+                "TargetCreateVendorInvoice": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewId": "CreateVendorInvoice",
+                    "viewName": "CreateVendorInvoice",
+                    "controlAggregation": "midColumnPages",
+                    "viewLevel": 1
                 }
             }
         },

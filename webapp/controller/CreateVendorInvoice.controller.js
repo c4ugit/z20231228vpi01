@@ -1,16 +1,15 @@
 sap.ui.define([
     "./BaseController",
     "sap/ui/model/json/JSONModel",
-    "../model/formatter",
-    "sap/ui/Device",
+    "../model/formatter"
 ],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (BaseController, JSONModel, formatter,Device) {
+    function (BaseController, JSONModel, formatter) {
         "use strict";
 
-        return BaseController.extend("zmmvpi01.app.z20231228mmvpi01.controller.OverViewVendorInvoice", {
+        return BaseController.extend("zmmvpi01.app.z20231228mmvpi01.controller.CreateVendorInvoice", {
 
             formatter: formatter,
             /* =========================================================== */
@@ -26,10 +25,10 @@ sap.ui.define([
             /* =========================================================== */
 
 
-            CO_VIEW_MODEL: "vendorInvoiceOverViewModel",
-            CO_ODATA_XX_MODEL: "requestModel",       
-            CO_REQUEST_TABLE_ID: "overviewvendorinvoiceTableID",
-            CO_OVERVIEW_VENDOR_PAGE_ID: "overviewvendorinvoicePage",
+            CO_VIEW_MODEL: "createVendorInvoiceViewModel",
+            CO_ODATA_INVOICE_HEADER_MODEL: "invoiceModel",       
+            CO_ODATA_INVOICE_ITEM_MODEL: "invoiceItemModel",       
+            CO_REQUEST_TABLE_ID: "requestTableID",
 
 
 
@@ -56,9 +55,21 @@ sap.ui.define([
             /* =========================================================== */
             /* lifecycle methods                                           */
             /* =========================================================== */
-            onInit: function () {
+            onInit: function () {                
                 this._oComponent = this.getOwnerComponent();
-                this.getRouter().getRoute(this.getConstantBase().getConstants().ROUTE_OVERVIEW_VENDOR_INVOICE).attachPatternMatched(this._onObjectMatched, this);
+
+                let oViewModel;
+                oViewModel = new JSONModel({
+                    busy: false,
+                    delay: 0,
+                    minDate: this.getDateBase().getToday(),
+                    maxDate: this.getDateBase().getLastDayOfYear(),
+                    step: 1,
+                    stepprecision:0
+                });
+                this.setModel(oViewModel, this.CO_VIEW_MODEL);
+              
+                this.getRouter().getRoute(this.getConstantBase().getConstants().ROUTE_CREATE_VENDOR_INVOICE).attachPatternMatched(this._onObjectMatched, this);
     
             },
 
@@ -81,8 +92,8 @@ sap.ui.define([
             onDetailVendorInvoice: function (oEvent) {
                 this._showDetailVendorInvoice(oEvent.getParameter("listItem") || oEvent.getSource());
             },
-            onNewInvoiceAttachCreatePressed: function (oEvent) {
-               this.messageBoxInformation("Logika pro vybrané tlačítko nebyla ještě implementována");
+            onCloseDetailVendorInvoicePress: function (oEvent) {
+                this._closeDetailVendorInvoice(oEvent);
             },
 
 
@@ -105,12 +116,11 @@ sap.ui.define([
             /* begin: CORE internal methods                                */
             /* =========================================================== */
             _onObjectMatched: function (oEvent) {
-                this.getModel(this.getConstantBase().getConstants().APP_VIEW_MODEL).setProperty("/layout", "OneColumn");
-                this.getModel().metadataLoaded().then(function () {
-                    this._oComponent._PromiseDataLoadedInit.then(function () {
-                        // this._procesOnMatchedScenario();
-                    }.bind(this));
-                }.bind(this));
+                // this.getModel().metadataLoaded().then(function () {
+                    // this._oComponent._PromiseDataLoadedInit.then(function () {
+                    //     this._procesOnMatchedScenario();
+                    // }.bind(this));
+                // }.bind(this));
             },
 
 
@@ -134,14 +144,9 @@ sap.ui.define([
             /* =========================================================== */
             /* =========================================================== */
             /* begin: internal methods                                     */
-            /* =========================================================== */
-            _showDetailVendorInvoice: function (oItem) {
-                let bReplace = !Device.system.phone;
-                // set the layout property of FCL control to show two columns
-                this.getModel(this.getConstantBase().getConstants().APP_VIEW_MODEL).setProperty("/layout", "TwoColumnsMidExpanded");
-                this.getRouter().navTo(this.getConstantBase().getConstants().ROUTE_DETAIL_VENDOR_INVOICE, {
-                    objectId: oItem.getBindingContext().getProperty("ZinvoicrId")
-                }, bReplace);
+            /* =========================================================== */   
+            _closeDetailVendorInvoice: function () {
+                this.getRouter().navTo(this.getConstantBase().getConstants().ROUTE_OVERVIEW_VENDOR_INVOICE);
             },
 
 

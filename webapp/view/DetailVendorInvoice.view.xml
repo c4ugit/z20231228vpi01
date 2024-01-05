@@ -1,0 +1,78 @@
+<mvc:View
+    xmlns:semantic="sap.f.semantic"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:f2="sap.f"
+    xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
+    xmlns:smartTable="sap.ui.comp.smarttable"
+    xmlns:smartVariantManagement="sap.ui.comp.smartvariants"
+    xmlns:core="sap.ui.core"
+    xmlns:mc="sap.ui.comp.smartmicrochart"
+    xmlns:tnt="sap.tnt"
+    controllerName="zmmvpi01.app.z20231228mmvpi01.controller.DetailVendorInvoice"
+    displayBlock="true"
+    xmlns="sap.m"
+>
+    <semantic:SemanticPage
+        id="detailincidentPage"
+        busy="{detailVendorInvoiceViewModel>/busy}"
+        busyIndicatorDelay="0"
+        showFooter="true"
+    >
+        <semantic:titleHeading>
+            <Title
+                text="Číslo incidentu {incidentHeaderModel>/Idincident}"
+                level="H2"
+            />
+        </semantic:titleHeading>
+        <semantic:titleExpandedContent>
+            <Toolbar width="auto">
+            </Toolbar>
+        </semantic:titleExpandedContent>
+        <semantic:headerContent>
+       
+               
+        </semantic:headerContent>
+        <!--Semantic ShareMenu Buttons-->
+        <semantic:sendEmailAction>
+            <!-- <semantic:SendEmailAction id="shareEmail" press=".onSendEmailPress"/> -->
+        </semantic:sendEmailAction>
+
+        <semantic:closeAction>
+            <semantic:CloseAction
+                id="closeColumn"
+                press=".onCloseDetailVendorInvoicePress"
+            />
+        </semantic:closeAction>
+
+        <semantic:fullScreenAction>
+            <semantic:FullScreenAction
+                id="enterFullScreen"
+                visible="{= !${device>/system/phone} &amp;&amp; !${appView>/actionButtonsInfo/midColumn/fullScreen}}"
+                press=".toggleFullScreen"
+            />
+        </semantic:fullScreenAction>
+        <semantic:exitFullScreenAction>
+            <semantic:ExitFullScreenAction
+                id="exitFullScreen"
+                visible="{= !${device>/system/phone} &amp;&amp; ${appView>/actionButtonsInfo/midColumn/fullScreen}}"
+                press=".toggleFullScreen"
+            />
+        </semantic:exitFullScreenAction>
+        <semantic:content />
+        <semantic:messagesIndicator>
+            <semantic:MessagesIndicator
+                visible="{=${message>/}.length &gt; 0}"
+                press="onMessagePopoverPress"
+                tooltip="{i18n>messages}"
+            />
+        </semantic:messagesIndicator>
+        <semantic:positiveAction>
+            <semantic:PositiveAction
+                text="Uložit změny"
+                press=".onSaveIncidentChange"
+                enabled="{incidentUserAuth>/Editinc}"
+                visible="{detailVendorInvoiceViewModel>/bSaveIncidentVIS}"
+            />
+        </semantic:positiveAction>
+    </semantic:SemanticPage>
+</mvc:View>

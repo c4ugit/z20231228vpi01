@@ -1,8 +1,9 @@
 sap.ui.define(
   [
-    "./BaseController"
+    "./BaseController",
+    "sap/ui/model/json/JSONModel",
   ],
-  function (BaseController) {
+  function (BaseController,JSONModel) {
     "use strict";
 
     return BaseController.extend("zmmvpi01.app.z20231228mmvpi01.controller.App", {
@@ -19,6 +20,7 @@ sap.ui.define(
       /* =========================================================== */
 
 
+      APP_VIEW_MODEL: "appView",
 
 
 
@@ -47,6 +49,22 @@ sap.ui.define(
       /* =========================================================== */
       onInit: function () {
         this._oComponent = this.getOwnerComponent();
+        
+        let oViewModel = new JSONModel({
+          busy: true,
+          delay: 0,
+          layout: "OneColumn",
+          previousLayout: "",
+          actionButtonsInfo: {
+              midColumn: {
+                  fullScreen: false
+              }
+          }
+      });
+      this.setModel(oViewModel, this.getConstantBase().getConstants().APP_VIEW_MODEL);
+
+
+
          // apply content density mode to root view
          this.getView().addStyleClass(this.getOwnerComponent().getContentDensityClass());
          this.getOwnerComponent().getModel().metadataLoaded().then(function () {

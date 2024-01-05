@@ -2,6 +2,7 @@
     xmlns:semantic="sap.f.semantic"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns:f2="sap.f"
+    xmlns:commons="sap.suite.ui.commons"
     xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
     xmlns:smartTable="sap.ui.comp.smarttable"
     xmlns:smartVariantManagement="sap.ui.comp.smartvariants"
@@ -13,7 +14,7 @@
     xmlns="sap.m"
 >
     <semantic:SemanticPage
-        id="overviewincidentPage"
+        id="overviewinvoicePage"
         preserveHeaderStateOnScroll="true"
         toggleHeaderOnTitleClick="false"
         showFooter="true"
@@ -73,7 +74,7 @@
                         beforeExport="onBeforeExport"
                         useVariantManagement="true"
                         useTablePersonalisation="true"
-                        header="Incidenty"
+                        header="Seznam faktur"
                         showRowCount="true"
                         beforeRebindTable="onBind"
                         persistencyKey="SmartTableRefApp_Explored"
@@ -84,30 +85,40 @@
                     >
                         <!-- http://www.ut163.com/sapui5/docs/topics/bed8274140d04fc0b9bcb2db42d8bac2.html -->
 
+                            <smartTable:customToolbar>
+                                <OverflowToolbar design="Transparent">
+                                    <ToolbarSpacer/>
+                             
+                                    <OverflowToolbarButton   text="Nová příloha" type="Emphasized"     icon="sap-icon://attachment" press=".onNewInvoiceAttachCreatePressed"/>
+       
+                                </OverflowToolbar>
+                            </smartTable:customToolbar>
                         <Table
                             fixedLayout="false"
                             growing="true"
                             sticky="ColumnHeaders"
                             growingThreshold="20"
                         >
-                            <!-- <columns>
-                                <Column
-                                    width="150px"
+                       
+                 
+                             <columns>
+                               <Column
+                                    width="200px"
                                     hAlign="Begin"
                                 >
                                     <customData>
                                         <core:CustomData
                                             key="p13nData"
-                                            value='\{"columnKey": "Idincident", "maxLength": "30","columnIndex":"0",  "sortProperty": "Idincident",  "filterProperty": "Idincident", "leadingProperty": "Idincident"}'
+                                            value='\{"columnKey": "Status", "maxLength": "30","columnIndex":"10",  "sortProperty": "Status",  "filterProperty": "Status", "leadingProperty": "Status"}'
                                         />
                                     </customData>
                                     <Text
-                                        text="ID incidentu"
+                                        text="Status faktury "
                                         wrapping="false"
                                     />
                                 </Column>
 
-                                <Column
+                                <!--  <Column
                                     width="150px"
                                     hAlign="Begin"
                                 >
@@ -166,16 +177,25 @@
                                         text="Založil"
                                         wrapping="false"
                                     />
-                                </Column>
-                            </columns> -->
+                                </Column> -->
+                            </columns> 
 
-                            <!-- <items>
+                            <items>
                                 <ColumnListItem
                                     type="Active"
-                                    press="onDetailIncident"
+                                    press="onDetailVendorInvoice"
                                 >
-                                    <cells>
-                                        <Text
+                                <cells>
+            <commons:MicroProcessFlow>
+				<commons:content>
+					<commons:MicroProcessFlowItem state="None"/>
+					<commons:MicroProcessFlowItem state="Error"/>
+					<commons:MicroProcessFlowItem state="Warning"/>
+					<commons:MicroProcessFlowItem state="Information"/>
+					<commons:MicroProcessFlowItem state="Success"/>
+				</commons:content>
+			</commons:MicroProcessFlow>
+                                        <!-- <Text
                                             text="{Idincident}"
                                             wrapping="false"
                                         />
@@ -196,10 +216,10 @@
                                         <Text
                                             text="{Ernam}"
                                             wrapping="false"
-                                        />
+                                        /> -->
                                     </cells>
                                 </ColumnListItem>
-                            </items> -->
+                            </items>
                         </Table>
                     </smartTable:SmartTable>
                 </items>
