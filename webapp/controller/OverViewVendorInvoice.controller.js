@@ -82,7 +82,8 @@ sap.ui.define([
                 this._showDetailVendorInvoice(oEvent.getParameter("listItem") || oEvent.getSource());
             },
             onNewInvoiceAttachCreatePressed: function (oEvent) {
-               this.messageBoxInformation("Logika pro vybrané tlačítko nebyla ještě implementována");
+            //    this.messageBoxInformation("Logika pro vybrané tlačítko nebyla ještě implementována");
+               this._showCreateNewVendorInvoice();
             },
 
 
@@ -143,6 +144,11 @@ sap.ui.define([
                     objectId: oItem.getBindingContext().getProperty("ZinvoicrId")
                 }, bReplace);
             },
+            _showCreateNewVendorInvoice: function (oItem) {
+                let bReplace = !Device.system.phone;        
+                this.getRouter().navTo(this.getConstantBase().getConstants().ROUTE_CREATE_VENDOR_INVOICE, {}, bReplace);    
+            },
+           
 
 
 

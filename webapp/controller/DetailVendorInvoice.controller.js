@@ -26,8 +26,11 @@ sap.ui.define([
 
 
             CO_VIEW_MODEL: "detailVendorInvoiceViewModel",
-            CO_ODATA_INVOICE_HEADER_MODEL: "invoiceModel",       
-            CO_ODATA_INVOICE_ITEM_MODEL: "invoiceItemModel",       
+            CO_ODATA_INVOICE_HEADER_MODEL: "invoiceModel",
+            CO_ODATA_INVOICE_HEADER_ATTACH_MODEL: "invoiceAttachModel",
+            CO_ODATA_INVOICE_ITEM_MODEL: "invoiceItemModel", 
+            CO_ODATA_INVOICE_ITEM_ATTACH_MODEL: "invoiceItemAttachModel",
+
             CO_REQUEST_TABLE_ID: "requestTableID",
 
 
@@ -55,7 +58,7 @@ sap.ui.define([
             /* =========================================================== */
             /* lifecycle methods                                           */
             /* =========================================================== */
-            onInit: function () {                
+            onInit: function () {
                 this._oComponent = this.getOwnerComponent();
 
                 let oViewModel;
@@ -65,12 +68,16 @@ sap.ui.define([
                     minDate: this.getDateBase().getToday(),
                     maxDate: this.getDateBase().getLastDayOfYear(),
                     step: 1,
-                    stepprecision:0
+                    stepprecision: 0
                 });
                 this.setModel(oViewModel, this.CO_VIEW_MODEL);
-              
+                this.setModel(new JSONModel(), this.CO_ODATA_INVOICE_HEADER_MODEL);
+                this.setModel(new JSONModel(), this.CO_ODATA_INVOICE_HEADER_ATTACH_MODEL);
+                this.setModel(new JSONModel(), this.CO_ODATA_INVOICE_ITEM_MODEL);
+                this.setModel(new JSONModel(), this.CO_ODATA_INVOICE_ITEM_ATTACH_MODEL);
+
                 this.getRouter().getRoute(this.getConstantBase().getConstants().ROUTE_DETAIL_VENDOR_INVOICE).attachPatternMatched(this._onObjectMatched, this);
-    
+
             },
 
 
@@ -116,11 +123,21 @@ sap.ui.define([
             /* begin: CORE internal methods                                */
             /* =========================================================== */
             _onObjectMatched: function (oEvent) {
-                // this.getModel().metadataLoaded().then(function () {
-                    // this._oComponent._PromiseDataLoadedInit.then(function () {
-                    //     this._procesOnMatchedScenario();
-                    // }.bind(this));
-                // }.bind(this));
+                let sInvoiceId = oEvent.getParameter("arguments").objectId;
+                this.getModel().metadataLoaded().then(function () {
+                    this._oComponent._PromiseDataLoadedInit.then(function () {
+                        this._procesOnMatchedScenario(sInvoiceId);
+                    }.bind(this));
+                }.bind(this));
+            },
+            _procesOnMatchedScenario: async function (sInvoiceId) {
+
+                //10 Načtení dat z backendu.
+                await this._callInvoiceHeader(
+                    sInvoiceId
+                )
+
+                //20Next steps...
             },
 
 
@@ -144,7 +161,7 @@ sap.ui.define([
             /* =========================================================== */
             /* =========================================================== */
             /* begin: internal methods                                     */
-            /* =========================================================== */   
+            /* =========================================================== */
             _closeDetailVendorInvoice: function () {
                 this.getRouter().navTo(this.getConstantBase().getConstants().ROUTE_OVERVIEW_VENDOR_INVOICE);
             },
@@ -186,6 +203,22 @@ sap.ui.define([
             /* =========================================================== */
             /* begin: Call to backendu                                     */
             /* =========================================================== */
+            _callInvoiceHeader: async function (zinvoicrId) {
+                let sObjectPath = this.getOwnerComponent().getModel().createKey("ZC_Invoice", {
+                    ZinvoicrId: zinvoicrId,
+                });
+                let oDataGetGetInvoiceHeader = {};
+                try {
+                    oDataGetGetInvoiceHeader = await this.getCallToBackendBase().callGetInvoiceHeader(this, sObjectPath);
+                    this.getModel(this.CO_ODATA_INVOICE_HEADER_MODEL).setData(oDataGetGetInvoiceHeader);
+                    this.getModel(this.CO_ODATA_INVOICE_HEADER_ATTACH_MODEL).setData(oDataGetGetInvoiceHeader.to_invoiceAtt);
+                    this.getModel(this.CO_ODATA_INVOICE_ITEM_MODEL).setData(oDataGetGetInvoiceHeader.to_items);
+                    this.getModel(this.CO_ODATA_INVOICE_ITEM_ATTACH_MODEL).setData(oDataGetGetInvoiceHeader.to_invItemAtt);
+                    return;
+                } catch (error) {
+                    await this.messageBoxError(error);
+                }
+            }
 
         });
     });

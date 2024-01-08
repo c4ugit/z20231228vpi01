@@ -63,9 +63,7 @@ sap.ui.define([
                     busy: false,
                     delay: 0,
                     minDate: this.getDateBase().getToday(),
-                    maxDate: this.getDateBase().getLastDayOfYear(),
-                    step: 1,
-                    stepprecision:0
+                    maxDate: this.getDateBase().getLastDayOfYear()                
                 });
                 this.setModel(oViewModel, this.CO_VIEW_MODEL);
               
@@ -92,8 +90,8 @@ sap.ui.define([
             onDetailVendorInvoice: function (oEvent) {
                 this._showDetailVendorInvoice(oEvent.getParameter("listItem") || oEvent.getSource());
             },
-            onCloseDetailVendorInvoicePress: function (oEvent) {
-                this._closeDetailVendorInvoice(oEvent);
+            onCloseCreateVendorInvoicePress: function (oEvent) {
+                this._closeCreateVendorInvoice(oEvent);
             },
 
 
@@ -116,11 +114,14 @@ sap.ui.define([
             /* begin: CORE internal methods                                */
             /* =========================================================== */
             _onObjectMatched: function (oEvent) {
-                // this.getModel().metadataLoaded().then(function () {
-                    // this._oComponent._PromiseDataLoadedInit.then(function () {
-                    //     this._procesOnMatchedScenario();
-                    // }.bind(this));
-                // }.bind(this));
+                this.getModel().metadataLoaded().then(function () {
+                    this._oComponent._PromiseDataLoadedInit.then(function () {
+                        this._procesOnMatchedScenario();
+                    }.bind(this));
+                }.bind(this));
+            },
+            _procesOnMatchedScenario:function() {
+
             },
 
 
@@ -145,7 +146,7 @@ sap.ui.define([
             /* =========================================================== */
             /* begin: internal methods                                     */
             /* =========================================================== */   
-            _closeDetailVendorInvoice: function () {
+            _closeCreateVendorInvoice: function () {
                 this.getRouter().navTo(this.getConstantBase().getConstants().ROUTE_OVERVIEW_VENDOR_INVOICE);
             },
 
@@ -186,6 +187,24 @@ sap.ui.define([
             /* =========================================================== */
             /* begin: Call to backendu                                     */
             /* =========================================================== */
+            _callInvoiceHeader: async function (salesOrder)
+            {
+              let sObjectPath = this.getOwnerComponent().getModel().createKey("ZC_B193SOHeader", {
+                SalesOrder: salesOrder,
+              });
+              let oDataGetSalesOrderList = {};
+              try
+              {
+                oDataGetSalesOrderList = await this.getCallToBackendBase().callGetSalesOrder(this, sObjectPath);
+                this.getModel(this.CO_VIEW_HISTORY_SD_HEADER_MODEL).setData(oDataGetSalesOrderList);
+                this.getModel(this.CO_VIEW_HISTORY_SD_ITEM_MODEL).setData(oDataGetSalesOrderList.to_SOItem);
+                return;
+    
+              } catch (error)
+              {
+                await this.messageBoxError(error);
+              }
+            }
 
         });
     });

@@ -164,8 +164,7 @@
                     "transition": "slide",
                     "clearControlAggregation": false,
                     "viewId": "CreateVendorInvoice",
-                    "viewName": "CreateVendorInvoice",
-                    "controlAggregation": "midColumnPages",
+                    "viewName": "CreateVendorInvoice",                 
                     "viewLevel": 1
                 }
             }

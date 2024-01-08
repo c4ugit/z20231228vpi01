@@ -5,6 +5,61 @@ sap.ui.define([
     "use strict";
 
     return {
+        callGetInvoiceHeader: function (that, sObjectPath) {
+            return new Promise(function (resolve, reject) {
+                let oParam = {};
+
+                oParam = DataOperation.getListOfCallVar();
+
+                that._oComponent._PromiseGetInvoiceHeader = new Promise(function (fnResolve, fnReject) {
+                    that._oComponent._fnResolveGetInvoiceHeader = fnResolve;
+                    that._oComponent._fnRejectGetInvoiceHeader = fnReject;
+                }.bind(that));
+                that._oComponent._PromiseGetInvoiceHeader.then(function (oData) {
+                    resolve(Object.freeze(oData));
+                }.bind(that)).catch(function (oError) {
+                    reject(that.getMessagesBase().findFirstErrorMessage(that));
+                }.bind(that));
+
+                oParam.sNamePromise = "2";
+                oParam.sObjectPath = "/" + sObjectPath;
+                oParam.sViewmodel = that.CO_VIEW_MODEL;
+                oParam.groupId = "2";
+                oParam.localViewModel = false;
+                oParam.scope = that;
+                oParam.component = that._oComponent;
+                oParam.sExpandParameter = "to_invItemAtt,to_invoiceAtt,to_items";
+
+                DataOperation.dataOperation(oParam);
+            })
+        },
+        callGetInvoiceList: function (that, sObjectPath) {
+            return new Promise(function (resolve, reject) {
+                let oParam = {};
+
+                oParam = DataOperation.getListOfCallVar();
+
+                that._oComponent._PromiseGetInvoiceList = new Promise(function (fnResolve, fnReject) {
+                    that._oComponent._fnResolveGetInvoiceList = fnResolve;
+                    that._oComponent._fnRejectGetInvoiceList = fnReject;
+                }.bind(that));
+                that._oComponent._PromiseGetInvoiceList.then(function (oData) {
+                    resolve(Object.freeze(oData));
+                }.bind(that)).catch(function (oError) {
+                    reject(that.getMessagesBase().findFirstErrorMessage(that));
+                }.bind(that));
+
+                oParam.sNamePromise = "3";
+                oParam.sObjectPath = "/" + sObjectPath;
+                oParam.sViewmodel = that.CO_VIEW_MODEL;
+                oParam.groupId = "2";
+                oParam.localViewModel = false;
+                oParam.scope = that;
+                oParam.component = that._oComponent;             
+
+                DataOperation.dataOperation(oParam);
+            })
+        },
         callBudgetRequest: function (that) {
             return new Promise(function (resolve, reject) {
                 let oParamBud = {};

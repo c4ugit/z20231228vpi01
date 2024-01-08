@@ -65,10 +65,10 @@ sap.ui.define([
                         oComponent._fnResolveInfoUser(oDataServer);
                         break;
                     case "2":
-                        oComponent._fnResolveBudgetOverView(oDataServer);
+                        oComponent._fnResolveGetInvoiceHeader(oDataServer);
                         break;
                     case "3":
-                        oComponent._fnResolveRequestBudget(oDataServer);
+                        oComponent._fnResolveGetInvoiceList(oDataServer);
                         break;                 
                     case "4":
                         oComponent._fnResolveCustomerlist(oDataServer);
@@ -113,10 +113,10 @@ sap.ui.define([
                         oComponent._fnRejectInfoUser(oError);
                         break;
                     case "2":
-                        oComponent._fnRejectBudgetOverView(oError);
+                        oComponent._fnRejectGetInvoiceHeader(oError);
                         break;
                     case "3":
-                        oComponent._fnRejectRequestBudget(oError);
+                        oComponent._fnRejectGetInvoiceList(oError);
                         break;                 
                     case "4":
                         oComponent._fnRejectCustomerlist(oError);
