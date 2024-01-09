@@ -11,6 +11,8 @@
     controllerName="zmmvpi01.app.z20231228mmvpi01.controller.DetailVendorInvoice"
     displayBlock="true"
     xmlns="sap.m"
+    xmlns:upload="sap.m.upload"
+      xmlns:form="sap.ui.layout.form"
 >
     <semantic:SemanticPage
         id="detailincidentPage"
@@ -20,7 +22,7 @@
     >
         <semantic:titleHeading>
             <Title
-                text="Číslo incidentu {incidentHeaderModel>/Idincident}"
+                text="Číslo faktury TODO"
                 level="H2"
             />
         </semantic:titleHeading>
@@ -58,7 +60,96 @@
                 press=".toggleFullScreen"
             />
         </semantic:exitFullScreenAction>
-        <semantic:content />
+        <semantic:content>
+           <VBox height="100%">
+                <form:SimpleForm
+                    editable="true"
+                    layout="ColumnLayout"
+                    columnsL="1"
+                    emptySpanL="6"
+                    labelSpanL="3"
+                >
+                    <Label
+                        required="true"
+                        text="Datum"
+                    />
+                    <DatePicker
+                        minDate="{ path:'createRequestBudgetViewModel>/minDate'}"
+                        maxDate="{ path:'createRequestBudgetViewModel>/maxDate'}"
+                        value="{path:'newRequestModel>/ValidFrm', type: 'sap.ui.model.type.Date', formatOptions: { style: 'medium', strictParsing: true, UTC: true}}"
+                        valueFormat="yyyy-MM-dd"
+                        change=".onLiveChangeForDate($event,'/ValidFrm')"
+                        required="true"
+                    />
+
+                    <form:content />
+                </form:SimpleForm>
+                <upload:UploadSet
+                    id="UploadSet"
+                    instantUpload="true"
+                    showIcons="true"
+                    uploadEnabled="true"
+                    terminationEnabled="true"
+                    fileTypes="txt,doc,png"
+                    maxFileNameLength="30"
+                    maxFileSize="200"
+                    mediaTypes="text/plain,application/msword,image/jpeg"
+                    uploadUrl="../../../../upload"
+                    items="{path: 'invoiceAttachModel>/', templateShareable: false}"
+                >
+                    <upload:toolbar>
+                        <OverflowToolbar>
+                            <Button
+                                id="uploadSelectedButton"
+                                text="Upload selected"
+                                press="onUploadSelectedButton"
+                            />
+                            <Button
+                                id="downloadSelectedButton"
+                                text="Download selected"
+                                press="onDownloadSelectedButton"
+                            />
+                        </OverflowToolbar>
+                    </upload:toolbar>
+                    <upload:items>
+                        <upload:UploadSetItem
+                            fileName="{invoiceAttachModel>FileName}"
+                            mediaType="{invoiceAttachModel>MimeType}"
+                            url="{invoiceAttachModel>AttachURL}"
+                            thumbnailUrl="{invoiceAttachModel>ThumbnailUrl}"
+                            uploadState="{invoiceAttachModel>UploadState}"
+                        >
+                            <!-- attributes="{path: 'attributes', templateShareable: false}"
+                            markers="{path: 'markers', templateShareable: false}"
+                            statuses="{path: 'statuses', templateShareable: false}" -->
+                            <!-- <upload:attributes>
+                                <ObjectAttribute
+                                    title="{title}"
+                                    text="{text}"
+                                    active="{active}"
+                                />
+                            </upload:attributes>
+                            <upload:markers>
+                                <ObjectMarker
+                                    type="{type}"
+                                    visibility="{visibility}"
+                                />
+                            </upload:markers>
+                            <upload:statuses>
+                                <ObjectStatus
+                                    title="{title}"
+                                    text="{text}"
+                                    state="{state}"
+                                    icon="{icon}"
+                                    active="{active}"
+                                />
+                            </upload:statuses> -->
+                        </upload:UploadSetItem>
+                    </upload:items>
+                </upload:UploadSet>
+            </VBox>
+        </semantic:content>
+
         <semantic:messagesIndicator>
             <semantic:MessagesIndicator
                 visible="{=${message>/}.length &gt; 0}"
