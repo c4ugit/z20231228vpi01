@@ -139,7 +139,7 @@
         </semantic:messagesIndicator>
         <semantic:positiveAction>
             <semantic:PositiveAction
-                text="Uložit změny"
+                text="Uložit novou fakturu"
                 press=".onSaveIncidentChange"
                 enabled="{incidentUserAuth>/Editinc}"
                 visible="{detailVendorInvoiceViewModel>/bSaveIncidentVIS}"

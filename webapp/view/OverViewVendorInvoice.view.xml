@@ -29,7 +29,7 @@
         <semantic:headerContent>
             <smartVariantManagement:SmartVariantManagement
                 id="pageVariantIdInc"
-                 persistencyKey="PageVariantPKey"
+                persistencyKey="PageVariantPKey"
             />
             <smartFilterBar:SmartFilterBar
                 id="smartFilterBarInc"
@@ -39,7 +39,7 @@
                 persistencyKey="SmartFilterPKey"
             />
         </semantic:headerContent>
-            <semantic:titleExpandedHeading />
+        <semantic:titleExpandedHeading />
         <semantic:titleExpandedContent>
             <Toolbar width="auto">
                 <content>
@@ -65,7 +65,7 @@
             >
                 <items>
                     <smartTable:SmartTable
-                        id="smartTableInc"
+                        id="smartTableInvoiceID"
                         smartVariant="pageVariantIdInc"
                         entitySet="ZC_Invoice"
                         showFullScreenButton="true"
@@ -85,24 +85,29 @@
                     >
                         <!-- http://www.ut163.com/sapui5/docs/topics/bed8274140d04fc0b9bcb2db42d8bac2.html -->
 
-                            <smartTable:customToolbar>
-                                <OverflowToolbar design="Transparent">
-                                    <ToolbarSpacer/>
-                             
-                                    <OverflowToolbarButton   text="Nová příloha" type="Emphasized"     icon="sap-icon://attachment" press=".onNewInvoiceAttachCreatePressed"/>
-       
-                                </OverflowToolbar>
-                            </smartTable:customToolbar>
+                        <smartTable:customToolbar>
+                            <OverflowToolbar design="Transparent">
+                                <ToolbarSpacer />
+
+                                <OverflowToolbarButton
+                                    text="Nová příloha"
+                                    type="Emphasized"
+                                    icon="sap-icon://attachment"
+                                    press=".onNewInvoiceAttachCreatePressed"
+                                />
+                            </OverflowToolbar>
+                        </smartTable:customToolbar>
                         <Table
                             fixedLayout="false"
                             growing="true"
                             sticky="ColumnHeaders"
                             growingThreshold="20"
+                            rememberSelections="true"
+                            mode="SingleSelectMaster"
+                            itemPress=".onDetailVendorInvoice"
                         >
-                       
-                 
-                             <columns>
-                               <Column
+                            <columns>
+                                <Column
                                     width="200px"
                                     hAlign="Begin"
                                 >
@@ -178,23 +183,33 @@
                                         wrapping="false"
                                     />
                                 </Column> -->
-                            </columns> 
+                            </columns>
 
                             <items>
                                 <ColumnListItem
-                                    type="Active"
+                                    type="Navigation"
                                     press="onDetailVendorInvoice"
                                 >
-                                <cells>
-            <commons:MicroProcessFlow>
-				<commons:content>
-					<commons:MicroProcessFlowItem state="None"/>
-					<commons:MicroProcessFlowItem state="Error"/>
-					<commons:MicroProcessFlowItem state="Warning"/>
-					<commons:MicroProcessFlowItem state="Information"/>
-					<commons:MicroProcessFlowItem state="Success"/>
-				</commons:content>
-			</commons:MicroProcessFlow>
+                                    <cells>
+                                        <commons:MicroProcessFlow>
+                                            <commons:content>
+                                                <commons:MicroProcessFlowItem
+                                                    state="None"
+                                                />
+                                                <commons:MicroProcessFlowItem
+                                                    state="Error"
+                                                />
+                                                <commons:MicroProcessFlowItem
+                                                    state="Warning"
+                                                />
+                                                <commons:MicroProcessFlowItem
+                                                    state="Information"
+                                                />
+                                                <commons:MicroProcessFlowItem
+                                                    state="Success"
+                                                />
+                                            </commons:content>
+                                        </commons:MicroProcessFlow>
                                         <!-- <Text
                                             text="{Idincident}"
                                             wrapping="false"
@@ -232,6 +247,5 @@
                 tooltip="{i18n>messages}"
             />
         </semantic:messagesIndicator>
-    
     </semantic:SemanticPage>
 </mvc:View>

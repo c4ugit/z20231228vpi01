@@ -10,9 +10,10 @@ sap.ui.define([
     "../utils/SelectDialog",
     "../utils/Validator",
     "../utils/Filters",
-    "../utils/DateTime"
+    "../utils/DateTime",
+    "../utils/Attachment",
 ], function (Controller, History, Constants, Messages, ZMessageBox, ZMessageToast, CallToBackend, Dialog,
-     SelectDialog, Validator,Filters,DateTime) {
+     SelectDialog, Validator,Filters,DateTime,Attachment) {
     "use strict";
 
     return Controller.extend("zmmvpi01.app.z20231228mmvpi01.controller.BaseController", {
@@ -55,6 +56,9 @@ sap.ui.define([
         },
         getDateBase: function () {
             return DateTime;
+        },
+        getAttachmentBase: function () {
+            return Attachment;
         },
 
 

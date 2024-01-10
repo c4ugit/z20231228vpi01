@@ -664,6 +664,20 @@ sap.ui.define([
             } else {
                 return sDate;
             }
-        }
+        },
+        thumbnailUrl: function (mimeType, attachUrl) {
+			var sUrlAttach;
+			switch (mimeType) {
+			case "image/jpeg":
+				sUrlAttach = attachUrl;
+				break;
+			case "application/pdf":
+				sUrlAttach = "../attach/pdf.png";
+				// sUrlAttach = "/sap/bc/bsp/sap/zhermapp/attach/pdf.png";
+				break;
+			default:
+			}
+			return sUrlAttach;
+		},
     };
 });
