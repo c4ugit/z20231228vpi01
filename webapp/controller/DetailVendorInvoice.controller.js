@@ -63,8 +63,8 @@ sap.ui.define([
             /* =========================================================== */
             onInit: function () {
                 this._oComponent = this.getOwnerComponent();
-                this._oUploadSetOthersAttachment = this.getView().byId('UploadSetOthersAttachment');
-                this._oUploadSetAttachment = this.getView().byId('UploadSetAttachment');
+                this._oUploadSetOthersAttachment = this.getView().byId('uploadSetOthersAttachment');
+                this._oUploadSetAttachment = this.getView().byId('uploadSetAttachment');
                 this._oUploadSetOthersAttachment.getList().setMode(MobileLibrary.ListMode.MultiSelect);
                 this._oUploadSetAttachment.getList().setMode(MobileLibrary.ListMode.MultiSelect);
 
@@ -85,6 +85,10 @@ sap.ui.define([
                 this.setModel(new JSONModel(), this.CO_ODATA_INVOICE_ITEM_MODEL);
                 this.setModel(new JSONModel(), this.CO_ODATA_INVOICE_ITEM_ATTACH_MODEL);
                 this.setModel(new JSONModel(), this.CO_ODATA_INVOICE_ITEM_INCOMPLETE_ATTACH_MODEL);
+                this.getModel(this.CO_ODATA_INVOICE_ITEM_INCOMPLETE_ATTACH_MODEL).setData({ results: [] });
+                this.getModel(this.CO_ODATA_INVOICE_ITEM_ATTACH_MODEL).setData({ results: [] });
+                this.getModel(this.CO_ODATA_INVOICE_HEADER_INCOMPLETE_ATTACH_MODEL).setData({ results: [] });
+                this.getModel(this.CO_ODATA_INVOICE_HEADER_ATTACH_MODEL).setData({ results: [] });
 
                 this.getRouter().getRoute(this.getConstantBase().getConstants().ROUTE_DETAIL_VENDOR_INVOICE).attachPatternMatched(this._onObjectMatched, this);
 
@@ -122,20 +126,47 @@ sap.ui.define([
 
             },
             onAfterItemAdded: function (oEvent) {
-                // let oNewAttachmet = {};
-                // oNewAttachmet.Filename = oEvent.getParameter("item").getProperty("fileName");
-                // oNewAttachmet.Mimetype = oEvent.getParameter("item").getProperty("mediaType");
-                // oNewAttachmet.UploadState = oEvent.getParameter("item").getProperty("uploadState");
+                let oFile;
+                let oNewAttachmet = {};
+                let oParameter;
+                oParameter = oEvent.getParameter("item");
+                oFile = oEvent.getParameter("item").getFileObject();
+                let reader = new FileReader();
+                oParameter.setBindingContext(
+                    new sap.ui.model.Context(
+                        this.getModel(this.CO_ODATA_INVOICE_HEADER_INCOMPLETE_ATTACH_MODEL),"/results/0"), 
+                    this.CO_ODATA_INVOICE_HEADER_INCOMPLETE_ATTACH_MODEL)
 
-                // this.getModel(this.CO_ODATA_INVOICE_HEADER_ATTACH_MODEL).getData().results.push(oNewAttachmet);
-                // this.getModel(this.CO_ODATA_INVOICE_HEADER_ATTACH_MODEL).updateBindings(true);
+                   
+                reader.onload = function (e) {
+                    let raw = e.target.result;
+                    let binaryString = raw;
+                    let Content = btoa(binaryString);
+
+                    oNewAttachmet.Filename = oParameter.getProperty("fileName");
+                    oNewAttachmet.Mimetype = oParameter.getProperty("mediaType");
+                    oNewAttachmet.UploadState = oParameter.getProperty("uploadState");
+                    oNewAttachmet.Content = Content;
+  this.getModel(this.CO_ODATA_INVOICE_HEADER_INCOMPLETE_ATTACH_MODEL).getData().results.push(oNewAttachmet);
+              this.getModel(this.CO_ODATA_INVOICE_HEADER_INCOMPLETE_ATTACH_MODEL).updateBindings(true);
+
+                    // var oLocalData.content = "data:image/jpeg;base64," + base64;
+                }.bind(this);
+                reader.onerror = function (e) {
+                    sap.m.MessageToast.show("error");
+                };
+
+                reader.readAsBinaryString(oFile);
+
+
+
 
             },
             onBeforeItemEdited: function (oEvent) {
 
             },
             onBeforeItemRemove: function (oEvent) {
-
+                // this._deleteIncompleteHeaderAttachItem(oEvent.getParameter("item"));
             },
             onFileNameLengthExceeded: function (oEvent) {
 
@@ -154,6 +185,11 @@ sap.ui.define([
             },
             onBeforeUploadStarts: function (oEvent) {
 
+            },
+
+            onTestAttach: function (oEvent) {
+                let oUploadSet = this.byId("uploadSetAttachment");
+                oUploadSet.upload();
             },
 
             onUploadSelectedButton: function () {
@@ -234,6 +270,26 @@ sap.ui.define([
             /* =========================================================== */
             /* begin: internal methods                                     */
             /* =========================================================== */
+            _deleteIncompleteHeaderAttachItem: function (oItem) {
+                let aSelectedItems = [];
+                let aItem = [];
+                let oTable = {};
+                let oSelectedItem = {};
+                let oBindingContext = {};
+                let iIndex;
+                let i;
+
+
+                aItem = this.getModel(this.CO_ODATA_INVOICE_HEADER_INCOMPLETE_ATTACH_MODEL).getData().results;
+
+
+                oBindingContext = oItem.getBindingContext(this.CO_ODATA_INVOICE_HEADER_INCOMPLETE_ATTACH_MODEL);
+                iIndex = oBindingContext.getPath().split("/")[2];
+                aItem.splice(Number(iIndex), 1);
+
+                this.getModel(this.CO_ODATA_INVOICE_HEADER_INCOMPLETE_ATTACH_MODEL).updateBindings();
+
+            },
             _closeDetailVendorInvoice: function () {
                 this.getModel(this.getConstantBase().getConstants().APP_VIEW_MODEL).setProperty("/layout", "OneColumn");
                 this.getRouter().navTo(this.getConstantBase().getConstants().ROUTE_OVERVIEW_VENDOR_INVOICE);
@@ -367,11 +423,6 @@ sap.ui.define([
                     oHelpArray.results = [];
                     oHelpArray.results.push(oDataGetGetInvoiceHeader.to_invoiceAtt);
                     this.getModel(this.CO_ODATA_INVOICE_HEADER_ATTACH_MODEL).setData(oDataGetGetInvoiceHeader.to_invoiceAtt);
-                    // this.getModel(this.CO_ODATA_INVOICE_HEADER_ATTACH_MODEL).setData(this._helpdata());
-
-                    let data;
-
-
                     this.getModel(this.CO_ODATA_INVOICE_ITEM_MODEL).setData(oDataGetGetInvoiceHeader.to_items);
                     this.getModel(this.CO_ODATA_INVOICE_ITEM_ATTACH_MODEL).setData(oDataGetGetInvoiceHeader.to_invItemAtt);
                     return;

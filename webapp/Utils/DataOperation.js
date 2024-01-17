@@ -69,31 +69,31 @@ sap.ui.define([
                         break;
                     case "3":
                         oComponent._fnResolveGetInvoiceList(oDataServer);
-                        break;                 
+                        break;
                     case "4":
-                        oComponent._fnResolveCustomerlist(oDataServer);
-                        break;                 
+                        oComponent._fnResolveNewInvoiceSave(oDataServer);
+                        break;
                     case "5":
                         oComponent._fnResolveMaterialList(oDataServer);
-                        break;                 
+                        break;
                     case "6":
                         oComponent._fnResolveNewRequestSave(oDataServer);
-                        break;                 
+                        break;
                     case "7":
                         oComponent._fnResolveDeleteRequestSave(oDataServer);
-                        break;                 
+                        break;
                     case "8":
                         oComponent._fnResolveReasonRequestList(oDataServer);
-                        break;                 
+                        break;
                     case "9":
                         oComponent._fnResolveRequestBudgetOLD(oDataServer);
-                        break;                 
+                        break;
                     case "10":
                         oComponent._fnResolveRequestBudget01(oDataServer);
-                        break;                 
+                        break;
                     case "11":
                         oComponent._fnResolveBudgetOverViewPrev(oDataServer);
-                        break;                 
+                        break;
 
                     default:
                         break;
@@ -117,31 +117,33 @@ sap.ui.define([
                         break;
                     case "3":
                         oComponent._fnRejectGetInvoiceList(oError);
-                        break;                 
+                        break;
                     case "4":
-                        oComponent._fnRejectCustomerlist(oError);
-                        break;                 
+                        oComponent._fnRejectNewInvoiceSave(oError);
+                        break;
+
+                        
                     case "5":
                         oComponent._fnRejectMaterialList(oError);
-                        break;                 
+                        break;
                     case "6":
                         oComponent._fnRejectNewRequestSave(oError);
-                        break;                 
+                        break;
                     case "7":
                         oComponent._fnRejectDeleteRequestSave(oError);
-                        break;                 
+                        break;
                     case "8":
                         oComponent._fnRejectReasonRequestList(oError);
-                        break;                 
+                        break;
                     case "9":
                         oComponent._fnRejectRequestBudgetOLD(oError);
-                        break;                 
+                        break;
                     case "10":
                         oComponent._fnRejectRequestBudget01(oError);
-                        break;                 
+                        break;
                     case "11":
                         oComponent._fnRejectBudgetOverViewPrev(oError);
-                        break;                 
+                        break;
 
                     default:
                         break;

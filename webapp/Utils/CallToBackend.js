@@ -254,31 +254,21 @@ sap.ui.define([
             })
         },
 
-        callSaveNewRequest: function (requestPath, requestData, that) {
+        callSaveNewInvoice: function (invoicePath, invoiceData, that) {
             return new Promise(function (resolve, reject) {
                 let oData = {};
                 let oParam = {};
                 oParam = DataOperation.getListOfCallVar();
 
 
-
-                oData.Kunnr = requestData.Customer;
-                oData.Matnr = requestData.Material;
-                oData.Menge = String(requestData.Menge);
-                oData.Meins = requestData.Meins;
-                oData.ValidFrm = that.formatter.odataDate(requestData.ValidFrm);
-                oData.ValidTo = that.formatter.odataDate(requestData.ValidTo);
-                oData.Vkaus = requestData.Vkaus;
-                oData.Requestnote = requestData.Requestnote;
-
-                oParam.oOdata = oData
+                oData = invoiceData
 
 
-                that._oComponent._PromiseNewRequestSave = new Promise(function (fnResolve, fnReject) {
-                    that._oComponent._fnResolveNewRequestSave = fnResolve;
-                    that._oComponent._fnRejectNewRequestSave = fnReject;
+                that._oComponent._PromiseNewInvoiceSave = new Promise(function (fnResolve, fnReject) {
+                    that._oComponent._fnResolveNewInvoiceSave = fnResolve;
+                    that._oComponent._fnRejectNewInvoiceSave = fnReject;
                 }.bind(that));
-                that._oComponent._PromiseNewRequestSave.then(function (oData) {
+                that._oComponent._PromiseNewInvoiceSave.then(function (oData) {
                     resolve(Object.freeze(oData));
                 }.bind(that)).catch(function (oError) {
                     reject(that.getMessagesBase().findFirstErrorMessage(that));
@@ -286,9 +276,9 @@ sap.ui.define([
                 }.bind(that));
 
                 oParam.oOdata = oData;
-                oParam.sNamePromise = "6";
+                oParam.sNamePromise = "4";
                 oParam.sTypeCall = "C";
-                oParam.sObjectPath = requestPath;
+                oParam.sObjectPath = invoicePath;
                 oParam.sViewmodel = that.CO_VIEW_MODEL;
                 oParam.scope = that;
                 oParam.component = that._oComponent;

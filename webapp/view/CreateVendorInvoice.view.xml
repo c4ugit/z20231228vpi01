@@ -43,89 +43,113 @@
         </semantic:closeAction>
         <semantic:content>
             <VBox height="100%">
-                <form:SimpleForm
-                    editable="true"
-                    layout="ColumnLayout"
-                    columnsL="1"
-                    emptySpanL="6"
-                    labelSpanL="3"
-                >
-                    <Label
-                        required="true"
-                        text="Datum"
-                    />
-                    <DatePicker
-                        minDate="{ path:'createRequestBudgetViewModel>/minDate'}"
-                        maxDate="{ path:'createRequestBudgetViewModel>/maxDate'}"
-                        value="{path:'newRequestModel>/ValidFrm', type: 'sap.ui.model.type.Date', formatOptions: { style: 'medium', strictParsing: true, UTC: true}}"
-                        valueFormat="yyyy-MM-dd"
-                        change=".onLiveChangeForDate($event,'/ValidFrm')"
-                        required="true"
-                    />
-
-                    <form:content />
-                </form:SimpleForm>
                 <upload:UploadSet
-                    id="UploadSet"
+                    id="createUploadSetAttachment"
+                    beforeItemAdded=".onBeforeItemAdded"
+                    afterItemAdded=".onAfterItemAdded"
+                    beforeItemEdited=".onBeforeItemEdited"
+                    beforeItemRemoved=".onBeforeItemRemove"
+                    beforeUploadStarts=".onBeforeUploadStarts"
+                    uploadCompleted=".onUploadCompleted"
+                    beforeUploadTermination=".onBeforeUploadTermination"
+                    fileNameLengthExceeded=".onFileNameLengthExceeded"
+                    fileSizeExceeded=".onFileSizeExceeded"
+                    fileTypeMismatch=".onFileTypeMismatch"
                     instantUpload="true"
                     showIcons="true"
                     uploadEnabled="true"
                     terminationEnabled="true"
-                    fileTypes="txt,doc,png"
+                    fileTypes="pdf,png"
                     maxFileNameLength="30"
                     maxFileSize="200"
-                    mediaTypes="text/plain,application/msword,image/jpeg"
-                    uploadUrl="../../../../upload"
-                    items="{path: '/items', templateShareable: false}"
+                    mediaTypes="text/plain,application/msword,image/jpeg,image/png"
+                    items="{path: 'invoiceAttachModel>/results', templateShareable: false}"
+                    incompleteItems="{path: 'invoiceAttachInCompleteModel>/results', templateShareable: false}"
+                    uploadUrl="/"
                 >
                     <upload:toolbar>
                         <OverflowToolbar>
-                            <Button
-                                id="uploadSelectedButton"
-                                text="Upload selected"
-                                press="onUploadSelectedButton"
-                            />
-                            <Button
-                                id="downloadSelectedButton"
-                                text="Download selected"
-                                press="onDownloadSelectedButton"
-                            />
+                            <Title text="Faktura - příloha v PDF (lze nahrát jen 1 přílohu v pdf formátu)" />
+                            <ToolbarSpacer />
                         </OverflowToolbar>
                     </upload:toolbar>
+                    <upload:incompleteItems>
+                        <upload:UploadSetItem
+                            fileName="{invoiceAttachInCompleteModel>filename}"
+                            mediaType="{invoiceAttachInCompleteModel>mediaType}"
+                            url="{invoiceAttachInCompleteModel>AttachURL}"
+                            uploadState="{invoiceAttachInCompleteModel>UploadState}"
+                            removePressed=".onRemoveAttachmentPressed"
+                            openPressed=".onOpenAttachmentPressed"
+                            visibleRemove="true"
+                            visibleEdit="true"
+                        />
+                    </upload:incompleteItems>
                     <upload:items>
                         <upload:UploadSetItem
-                            fileName="{fileName}"
-                            mediaType="{mediaType}"
-                            url="{url}"
-                            thumbnailUrl="{thumbnailUrl}"
-                            uploadState="{uploadState}"
-                        >
-                            <!-- attributes="{path: 'attributes', templateShareable: false}"
-                            markers="{path: 'markers', templateShareable: false}"
-                            statuses="{path: 'statuses', templateShareable: false}" -->
-                            <!-- <upload:attributes>
-                                <ObjectAttribute
-                                    title="{title}"
-                                    text="{text}"
-                                    active="{active}"
-                                />
-                            </upload:attributes>
-                            <upload:markers>
-                                <ObjectMarker
-                                    type="{type}"
-                                    visibility="{visibility}"
-                                />
-                            </upload:markers>
-                            <upload:statuses>
-                                <ObjectStatus
-                                    title="{title}"
-                                    text="{text}"
-                                    state="{state}"
-                                    icon="{icon}"
-                                    active="{active}"
-                                />
-                            </upload:statuses> -->
-                        </upload:UploadSetItem>
+                            fileName="{invoiceAttachModel>Filename}"
+                            mediaType="{invoiceAttachModel>Mimetype}"
+                            url="{invoiceAttachModel>AttachURL}"
+                            uploadState="{invoiceAttachModel>UploadState}"
+                            removePressed=".onRemoveAttachmentPressed"
+                            openPressed=".onOpenAttachmentPressed"
+                            visibleRemove="true"
+                            visibleEdit="true"
+                        />
+                    </upload:items>
+                </upload:UploadSet>
+                <upload:UploadSet
+                    id="createUploadSetOthersAttachment"
+                    instantUpload="false"
+                    showIcons="true"
+                    uploadEnabled="true"
+                    terminationEnabled="true"
+                    fileTypes="txt,doc,png,pdf,xls,xlsx.docx"
+                    maxFileNameLength="30"
+                    maxFileSize="200"
+                    mediaTypes="text/plain,application/msword,image/jpeg"
+                    items="{path: 'invoiceItemAttachModel>/results', templateShareable: false}"
+                    incompleteItems="{path: 'invoiceItemAttachInCompleteModel>/results', templateShareable: false}"
+                    beforeItemAdded=".onBeforeItemAdded"
+                    afterItemAdded=".onAfterItemAdded"
+                    beforeItemEdited=".onBeforeItemEdited"
+                    beforeItemRemoved=".onBeforeItemRemove"
+                    beforeUploadStarts=".onBeforeUploadStarts"
+                    uploadCompleted=".onUploadCompleted"
+                    beforeUploadTermination=".onBeforeUploadTermination"
+                    fileNameLengthExceeded=".onFileNameLengthExceeded"
+                    fileSizeExceeded=".onFileSizeExceeded"
+                    fileTypeMismatch=".onFileTypeMismatch"
+                >
+                    <upload:toolbar>
+                        <OverflowToolbar>
+                            <Title text="Ostatní přílohy k faktuře" />
+                            <ToolbarSpacer />
+                        </OverflowToolbar>
+                    </upload:toolbar>
+                    <upload:incompleteItems>
+                        <upload:UploadSetItem
+                            fileName="{invoiceItemAttachInCompleteModel>filename}"
+                            mediaType="{invoiceItemAttachInCompleteModel>mediaType}"
+                            url="{invoiceItemAttachInCompleteModel>AttachURL}"
+                            uploadState="{invoiceItemAttachInCompleteModel>UploadState}"
+                            removePressed=".onRemoveAttachmentPressed"
+                            openPressed=".onOpenAttachmentPressed"
+                            visibleRemove="true"
+                            visibleEdit="true"
+                        />
+                    </upload:incompleteItems>
+                    <upload:items>
+                        <upload:UploadSetItem
+                            fileName="{invoiceItemAttachModel>Filename}"
+                            mediaType="{invoiceItemAttachModel>Mimetype}"
+                            url="{invoiceItemAttachModel>AttachURL}"
+                            uploadState="{invoiceItemAttachModel>UploadState}"
+                            removePressed=".onRemoveAttachmentPressed"
+                            openPressed=".onOpenAttachmentPressed"
+                            visibleRemove="true"
+                            visibleEdit="true"
+                        />
                     </upload:items>
                 </upload:UploadSet>
             </VBox>
@@ -140,7 +164,7 @@
         <semantic:positiveAction>
             <semantic:PositiveAction
                 text="Uložit novou fakturu"
-                press=".onSaveIncidentChange"
+                press=".onSaveNewInvoice"
                 enabled="{incidentUserAuth>/Editinc}"
                 visible="{detailVendorInvoiceViewModel>/bSaveIncidentVIS}"
             />

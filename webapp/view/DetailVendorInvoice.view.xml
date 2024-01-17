@@ -15,7 +15,7 @@
     xmlns:form="sap.ui.layout.form"
 >
     <semantic:SemanticPage
-        id="detailincidentPage"
+        id="detailVendorInvociePageID"
         busy="{detailVendorInvoiceViewModel>/busy}"
         busyIndicatorDelay="0"
         showFooter="true"
@@ -58,7 +58,7 @@
         </semantic:exitFullScreenAction>
         <semantic:content>
             <VBox height="100%">
-                <form:SimpleForm
+                <!-- <form:SimpleForm
                     editable="true"
                     layout="ColumnLayout"
                     columnsL="1"
@@ -79,7 +79,7 @@
                     />
 
                     <form:content />
-                </form:SimpleForm>
+                </form:SimpleForm> -->
                 <upload:UploadSet
                     beforeItemAdded=".onBeforeItemAdded"
                     afterItemAdded=".onAfterItemAdded"
@@ -91,21 +91,21 @@
                     fileNameLengthExceeded=".onFileNameLengthExceeded"
                     fileSizeExceeded=".onFileSizeExceeded"
                     fileTypeMismatch=".onFileTypeMismatch"
-                    id="UploadSetAttachment"
-                    instantUpload="false"
+                    id="uploadSetAttachment"
+                    instantUpload="true"
                     showIcons="true"
                     uploadEnabled="true"
                     terminationEnabled="true"
                     fileTypes="pdf,png"
                     maxFileNameLength="30"
                     maxFileSize="200"
-                    mediaTypes="text/plain,application/msword,image/jpeg,image/png"                   
+                    mediaTypes="text/plain,application/msword,image/jpeg,image/png,application/pdf"                   
                     items="{path: 'invoiceAttachModel>/results', templateShareable: false}"
-                    incompleteItems="{path: 'invoiceAttachInCompleteModel>/', templateShareable: false}"
+                    incompleteItems="{path: 'invoiceAttachInCompleteModel>/results', templateShareable: false}"
                 >
                     <upload:toolbar>
                         <OverflowToolbar>
-                            <Title text="Faktura - příloha v PDF" />
+                            <Title text="Faktura - příloha v PDF (lze nahrát jen 1 přílohu v pdf formátu)" />
                             <ToolbarSpacer />
                             <!-- <Button
                                 id="uploadSelectedButton"
@@ -156,7 +156,7 @@
                     fileNameLengthExceeded=".onFileNameLengthExceeded"
                     fileSizeExceeded=".onFileSizeExceeded"
                     fileTypeMismatch=".onFileTypeMismatch"
-                    id="UploadSetOthersAttachment"
+                    id="uploadSetOthersAttachment"
                     instantUpload="false"
                     showIcons="true"
                     uploadEnabled="true"
@@ -166,11 +166,11 @@
                     maxFileSize="200"
                     mediaTypes="text/plain,application/msword,image/jpeg"
                     items="{path: 'invoiceItemAttachModel>/results', templateShareable: false}"
-                    incompleteItems="{path: 'invoiceItemAttachInCompleteModel>/', templateShareable: false}"
+                    incompleteItems="{path: 'invoiceItemAttachInCompleteModel>/results', templateShareable: false}"
                 >
                     <upload:toolbar>
                         <OverflowToolbar>
-                            <Title text="Ostatní přílohy k faktuře - max. 5" />
+                            <Title text="Ostatní přílohy k faktuře" />
                             <ToolbarSpacer />
                             <!-- <Button
                                 text="Upload selected"
@@ -225,5 +225,12 @@
                 visible="{detailVendorInvoiceViewModel>/bSaveIncidentVIS}"
             />
         </semantic:positiveAction>
+     
+        <semantic:footerMainAction>
+        <semantic:FooterMainAction 
+          text="TestPřílohy"
+                press=".onTestAttach"
+        ></semantic:FooterMainAction>
+        </semantic:footerMainAction>
     </semantic:SemanticPage>
 </mvc:View>
