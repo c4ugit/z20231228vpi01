@@ -30,9 +30,12 @@ sap.ui.define([
             CO_ODATA_INVOICE_HEADER_MODEL: "invoiceModel",
             CO_ODATA_INVOICE_HEADER_ATTACH_MODEL: "invoiceAttachModel",
             CO_ODATA_INVOICE_HEADER_INCOMPLETE_ATTACH_MODEL: "invoiceAttachInCompleteModel",
+            CO_LOCAL_INVOICE_HEADER_INCOMPLETE_ATTACH_MODEL: "invoiceLocalAttachInCompleteModel",
             CO_ODATA_INVOICE_ITEM_MODEL: "invoiceItemModel",
             CO_ODATA_INVOICE_ITEM_ATTACH_MODEL: "invoiceItemAttachModel",
             CO_ODATA_INVOICE_ITEM_INCOMPLETE_ATTACH_MODEL: "invoiceItemAttachInCompleteModel",
+
+
 
             CO_REQUEST_TABLE_ID: "requestTableID",
 
@@ -82,6 +85,7 @@ sap.ui.define([
                 this.setModel(new JSONModel(), this.CO_ODATA_INVOICE_HEADER_MODEL);
                 this.setModel(new JSONModel(), this.CO_ODATA_INVOICE_HEADER_ATTACH_MODEL);
                 this.setModel(new JSONModel(), this.CO_ODATA_INVOICE_HEADER_INCOMPLETE_ATTACH_MODEL);
+                this.setModel(new JSONModel(), this.CO_LOCAL_INVOICE_HEADER_INCOMPLETE_ATTACH_MODEL);
                 this.setModel(new JSONModel(), this.CO_ODATA_INVOICE_ITEM_MODEL);
                 this.setModel(new JSONModel(), this.CO_ODATA_INVOICE_ITEM_ATTACH_MODEL);
                 this.setModel(new JSONModel(), this.CO_ODATA_INVOICE_ITEM_INCOMPLETE_ATTACH_MODEL);
@@ -110,6 +114,24 @@ sap.ui.define([
             /* =========================================================== */
             /* event handlers                                              */
             /* =========================================================== */
+
+            onSelectionChange: function (oEvent) {
+
+            },
+            onTypeMissmatch: function (oEvent) {
+
+            },
+            onUploadComplete: function (oEvent) {
+
+            },
+            onBeforeUploadStarts: function (oEvent) {
+
+            },
+            onUploadTerminated: function (oEvent) {
+
+            },
+
+
             onDetailVendorInvoice: function (oEvent) {
                 this._showDetailVendorInvoice(oEvent.getParameter("listItem") || oEvent.getSource());
             },
@@ -128,27 +150,77 @@ sap.ui.define([
             onAfterItemAdded: function (oEvent) {
                 let oFile;
                 let oNewAttachmet = {};
+                let oNewAttachmet2 = {};                
                 let oParameter;
                 oParameter = oEvent.getParameter("item");
+
+                let oSource = oEvent.getSource();
+                let i
+                if (this.getModel(this.CO_ODATA_INVOICE_HEADER_INCOMPLETE_ATTACH_MODEL).getData().results.length === 0 ) {
+
+                     i = this.getModel(this.CO_ODATA_INVOICE_HEADER_INCOMPLETE_ATTACH_MODEL).getData().results.length + 1;
+                } else {
+                    i = Math.max(...this.getModel(this.CO_ODATA_INVOICE_HEADER_INCOMPLETE_ATTACH_MODEL).getData().results.map(o => o.Counter)) + 1;
+                }
+
+                oNewAttachmet2.Filename = oParameter.getProperty("fileName");
+                oNewAttachmet2.Mimetype = oParameter.getProperty("mediaType");
+                oNewAttachmet2.UploadState = oParameter.getProperty("uploadState");
+                oNewAttachmet2.Counter =  i
+               
+                oParameter.setProperty("thumbnailUrl",i);
+       
+
                 oFile = oEvent.getParameter("item").getFileObject();
+
+
+
                 let reader = new FileReader();
                 oParameter.setBindingContext(
                     new sap.ui.model.Context(
-                        this.getModel(this.CO_ODATA_INVOICE_HEADER_INCOMPLETE_ATTACH_MODEL),"/results/0"), 
+                        this.getModel(this.CO_ODATA_INVOICE_HEADER_INCOMPLETE_ATTACH_MODEL), "/results/0"),
                     this.CO_ODATA_INVOICE_HEADER_INCOMPLETE_ATTACH_MODEL)
 
-                   
+
                 reader.onload = function (e) {
                     let raw = e.target.result;
                     let binaryString = raw;
                     let Content = btoa(binaryString);
+                   
+                    let dataset = JSON.parse(JSON.stringify(this.getModel(this.CO_ODATA_INVOICE_HEADER_INCOMPLETE_ATTACH_MODEL).getData()));
+               
+        this.getModel(this.CO_LOCAL_INVOICE_HEADER_INCOMPLETE_ATTACH_MODEL).setData(dataset);
+    
+                    for (let index = 0; index < this.getModel(this.CO_LOCAL_INVOICE_HEADER_INCOMPLETE_ATTACH_MODEL).getData().results.length; index++) {
+                        let iCounter = Number(this.getModel(this.CO_LOCAL_INVOICE_HEADER_INCOMPLETE_ATTACH_MODEL).getData().results[index].Counter);
+                        //Pokud najde,pak je to ok
+                        let bExist;                    
+                        bExist = oSource.getIncompleteItems().some(function(oIncomplereItem) {
+                            return Number(oIncomplereItem.getProperty("thumbnailUrl")) === iCounter
+                        } );
+                        if(bExist === true) {
+                            //našel
+                        } else {
+                         //je potřeba smaazt json
+                         this.getModel(this.CO_ODATA_INVOICE_HEADER_INCOMPLETE_ATTACH_MODEL).getData().results.splice(Number(index), 1);
+                        }
+    
+                    }  
+                  
+              
+
 
                     oNewAttachmet.Filename = oParameter.getProperty("fileName");
                     oNewAttachmet.Mimetype = oParameter.getProperty("mediaType");
                     oNewAttachmet.UploadState = oParameter.getProperty("uploadState");
+                    oNewAttachmet.Counter = i;
                     oNewAttachmet.Content = Content;
-  this.getModel(this.CO_ODATA_INVOICE_HEADER_INCOMPLETE_ATTACH_MODEL).getData().results.push(oNewAttachmet);
-              this.getModel(this.CO_ODATA_INVOICE_HEADER_INCOMPLETE_ATTACH_MODEL).updateBindings(true);
+                    this.getModel(this.CO_ODATA_INVOICE_HEADER_INCOMPLETE_ATTACH_MODEL).getData().results.push(oNewAttachmet);
+                    this.getModel(this.CO_ODATA_INVOICE_HEADER_INCOMPLETE_ATTACH_MODEL).updateBindings(true);
+
+
+
+
 
                     // var oLocalData.content = "data:image/jpeg;base64," + base64;
                 }.bind(this);
@@ -160,6 +232,8 @@ sap.ui.define([
 
 
 
+             
+             
 
             },
             onBeforeItemEdited: function (oEvent) {
@@ -190,6 +264,10 @@ sap.ui.define([
             onTestAttach: function (oEvent) {
                 let oUploadSet = this.byId("uploadSetAttachment");
                 oUploadSet.upload();
+            },
+            onSaveInvoiceChange: function (oEvent) {
+                //Musí proběhnout kontrola, zda byla smazána položka 
+                //pokud ano, je potřeba manuálně upravit json
             },
 
             onUploadSelectedButton: function () {
@@ -238,7 +316,16 @@ sap.ui.define([
             },
             _procesOnMatchedScenario: async function (sInvoiceId) {
                 //05
-                this._oUploadSetAttachment.removeAllIncompleteItems();
+
+                if (this._oUploadSetAttachment.getIncompleteItems().length > 0) {
+                    for (let index = 0; index < this._oUploadSetAttachment.getIncompleteItems().length; index++) {
+                        this._oUploadSetAttachment.removeIncompleteItem(this._oUploadSetAttachment.getIncompleteItems()[index])
+                    }
+
+                }
+                let oHelpArray = {};
+                oHelpArray.results = [];
+                this.getModel(this.CO_ODATA_INVOICE_HEADER_INCOMPLETE_ATTACH_MODEL).setData(oHelpArray);
 
                 //10 Načtení dat z backendu.
                 await this._callInvoiceHeader(

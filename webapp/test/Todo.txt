@@ -1,0 +1,6 @@
+16.1.2024
+-pokračovat:
+    after remove attachment from upload set component, it must be clear from json model => todo "zkomponent"
+    vyšší verze již máají udáslot "afterremove"
+
+25.1.2024

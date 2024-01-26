@@ -13,6 +13,7 @@
     xmlns="sap.m"
     xmlns:upload="sap.m.upload"
     xmlns:form="sap.ui.layout.form"
+    xmlns:custom="zmmvpi01.app.z20231228mmvpi01.control"
 >
     <semantic:SemanticPage
         id="detailVendorInvociePageID"
@@ -80,6 +81,7 @@
 
                     <form:content />
                 </form:SimpleForm> -->
+                <!-- <upload:UploadSet -->
                 <upload:UploadSet
                     beforeItemAdded=".onBeforeItemAdded"
                     afterItemAdded=".onAfterItemAdded"
@@ -96,16 +98,18 @@
                     showIcons="true"
                     uploadEnabled="true"
                     terminationEnabled="true"
-                    fileTypes="pdf,png"
+                    fileTypes="pdf"
                     maxFileNameLength="30"
                     maxFileSize="200"
-                    mediaTypes="text/plain,application/msword,image/jpeg,image/png,application/pdf"                   
+                    mediaTypes="text/plain,application/msword,image/jpeg,image/png,application/pdf"
                     items="{path: 'invoiceAttachModel>/results', templateShareable: false}"
                     incompleteItems="{path: 'invoiceAttachInCompleteModel>/results', templateShareable: false}"
                 >
                     <upload:toolbar>
                         <OverflowToolbar>
-                            <Title text="Faktura - příloha v PDF (lze nahrát jen 1 přílohu v pdf formátu)" />
+                            <Title
+                                text="Faktura - příloha v PDF (lze nahrát jen 1 přílohu v pdf formátu)"
+                            />
                             <ToolbarSpacer />
                             <!-- <Button
                                 id="uploadSelectedButton"
@@ -145,6 +149,7 @@
                         />
                     </upload:items>
                 </upload:UploadSet>
+                <!-- </upload:UploadSet> -->
                 <upload:UploadSet
                     beforeItemAdded=".onBeforeItemAdded"
                     afterItemAdded=".onAfterItemAdded"
@@ -157,7 +162,8 @@
                     fileSizeExceeded=".onFileSizeExceeded"
                     fileTypeMismatch=".onFileTypeMismatch"
                     id="uploadSetOthersAttachment"
-                    instantUpload="false"
+                 
+                    instantUpload="true"
                     showIcons="true"
                     uploadEnabled="true"
                     terminationEnabled="true"
@@ -199,7 +205,7 @@
                             fileName="{invoiceItemAttachModel>Filename}"
                             mediaType="{invoiceItemAttachModel>Mimetype}"
                             url="{invoiceItemAttachModel>AttachURL}"
-                             uploadState="{invoiceItemAttachModel>UploadState}"
+                            uploadState="{invoiceItemAttachModel>UploadState}"
                             removePressed=".onRemoveAttachmentPressed"
                             openPressed=".onOpenAttachmentPressed"
                             visibleRemove="true"
@@ -207,6 +213,54 @@
                         />
                     </upload:items>
                 </upload:UploadSet>
+                <!-- <UploadCollection
+                    id="UploadCollection"
+                    maximumFilenameLength="30"
+                    maximumFileSize="200"
+                    multiple="true"
+                    change="onChange"
+                    fileDeleted="onFileDeleted"
+                    filenameLengthExceed="onFilenameLengthExceed"
+                    fileRenamed="onFileRenamed"
+                    fileSizeExceed="onFileSizeExceed"
+                    fileType="pdf,png"
+                    selectionChange="onSelectionChange"
+                    typeMissmatch="onTypeMissmatch"
+                    uploadComplete="onUploadComplete"
+                    beforeUploadStarts="onBeforeUploadStarts"
+                    uploadTerminated="onUploadTerminated"
+                    items="{path: 'invoiceAttachModel>/results', templateShareable: false}"
+                    numberOfAttachmentsText="Uploaded (8)"
+                    showSeparators="{settings>/showSeparators}"
+                    uploadEnabled="true"
+                    instantUpload="false"
+                    uploadButtonInvisible="{=!${settings>/uploadButtonVisible}}"
+                    mode="MultiSelect"
+                >
+                    <toolbar>
+                        <OverflowToolbar id="myId">
+                            <Title id="attachmentTitle" text="Faktura - příloha v PDF (lze nahrát jen 1 přílohu v pdf formátu)
+" />
+                            <ToolbarSpacer />
+                            <UploadCollectionToolbarPlaceholder />
+                        </OverflowToolbar>
+                    </toolbar>
+                    <items>
+                        <UploadCollectionItem
+                            documentId="{documentId}"
+                            fileName="{invoiceAttachModel>Filename}"
+                            mimeType="{invoiceAttachModel>Mimetype}"
+                            thumbnailUrl="{thumbnailUrl}"
+                            url="{invoiceAttachModel>AttachURL}"
+                            enableEdit="true"
+                            enableDelete="true"
+                            visibleDelete="true"
+                            visibleEdit="true"                         
+                        >
+ 
+                        </UploadCollectionItem>
+                    </items>
+                </UploadCollection> -->
             </VBox>
         </semantic:content>
 
@@ -220,17 +274,17 @@
         <semantic:positiveAction>
             <semantic:PositiveAction
                 text="Uložit změny"
-                press=".onSaveIncidentChange"
+                press=".onSaveInvoiceChange"
                 enabled="{incidentUserAuth>/Editinc}"
                 visible="{detailVendorInvoiceViewModel>/bSaveIncidentVIS}"
             />
         </semantic:positiveAction>
-     
+
         <semantic:footerMainAction>
-        <semantic:FooterMainAction 
-          text="TestPřílohy"
+            <semantic:FooterMainAction
+                text="TestPřílohy"
                 press=".onTestAttach"
-        ></semantic:FooterMainAction>
+            />
         </semantic:footerMainAction>
     </semantic:SemanticPage>
 </mvc:View>
