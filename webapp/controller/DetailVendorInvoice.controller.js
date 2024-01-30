@@ -2,12 +2,17 @@ sap.ui.define([
     "./BaseController",
     "sap/ui/model/json/JSONModel",
     "../model/formatter",
-    "sap/m/library"
+    "sap/m/library",
+    "sap/ui/Device"
+
+
+
+
 ],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (BaseController, JSONModel, formatter, MobileLibrary) {
+    function (BaseController, JSONModel, formatter, MobileLibrary, Device) {
         "use strict";
 
         return BaseController.extend("zmmvpi01.app.z20231228mmvpi01.controller.DetailVendorInvoice", {
@@ -30,7 +35,6 @@ sap.ui.define([
             CO_ODATA_INVOICE_HEADER_MODEL: "invoiceModel",
             CO_ODATA_INVOICE_HEADER_ATTACH_MODEL: "invoiceAttachModel",
             CO_ODATA_INVOICE_HEADER_INCOMPLETE_ATTACH_MODEL: "invoiceAttachInCompleteModel",
-            CO_LOCAL_INVOICE_HEADER_INCOMPLETE_ATTACH_MODEL: "invoiceLocalAttachInCompleteModel",
             CO_ODATA_INVOICE_ITEM_MODEL: "invoiceItemModel",
             CO_ODATA_INVOICE_ITEM_ATTACH_MODEL: "invoiceItemAttachModel",
             CO_ODATA_INVOICE_ITEM_INCOMPLETE_ATTACH_MODEL: "invoiceItemAttachInCompleteModel",
@@ -68,8 +72,9 @@ sap.ui.define([
                 this._oComponent = this.getOwnerComponent();
                 this._oUploadSetOthersAttachment = this.getView().byId('uploadSetOthersAttachment');
                 this._oUploadSetAttachment = this.getView().byId('uploadSetAttachment');
-                this._oUploadSetOthersAttachment.getList().setMode(MobileLibrary.ListMode.MultiSelect);
-                this._oUploadSetAttachment.getList().setMode(MobileLibrary.ListMode.MultiSelect);
+                this._oUploadSetAttachmentVBOX = this.getView().byId('uploadSetAttachmentVBOX');
+                // this._oUploadSetOthersAttachment.getList().setMode(MobileLibrary.ListMode.MultiSelect);
+                // this._oUploadSetAttachment.getList().setMode(MobileLibrary.ListMode.MultiSelect);
 
 
                 let oViewModel;
@@ -85,7 +90,6 @@ sap.ui.define([
                 this.setModel(new JSONModel(), this.CO_ODATA_INVOICE_HEADER_MODEL);
                 this.setModel(new JSONModel(), this.CO_ODATA_INVOICE_HEADER_ATTACH_MODEL);
                 this.setModel(new JSONModel(), this.CO_ODATA_INVOICE_HEADER_INCOMPLETE_ATTACH_MODEL);
-                this.setModel(new JSONModel(), this.CO_LOCAL_INVOICE_HEADER_INCOMPLETE_ATTACH_MODEL);
                 this.setModel(new JSONModel(), this.CO_ODATA_INVOICE_ITEM_MODEL);
                 this.setModel(new JSONModel(), this.CO_ODATA_INVOICE_ITEM_ATTACH_MODEL);
                 this.setModel(new JSONModel(), this.CO_ODATA_INVOICE_ITEM_INCOMPLETE_ATTACH_MODEL);
@@ -93,6 +97,7 @@ sap.ui.define([
                 this.getModel(this.CO_ODATA_INVOICE_ITEM_ATTACH_MODEL).setData({ results: [] });
                 this.getModel(this.CO_ODATA_INVOICE_HEADER_INCOMPLETE_ATTACH_MODEL).setData({ results: [] });
                 this.getModel(this.CO_ODATA_INVOICE_HEADER_ATTACH_MODEL).setData({ results: [] });
+                this.getModel(this.CO_ODATA_INVOICE_ITEM_MODEL).setData({ results: [] });
 
                 this.getRouter().getRoute(this.getConstantBase().getConstants().ROUTE_DETAIL_VENDOR_INVOICE).attachPatternMatched(this._onObjectMatched, this);
 
@@ -114,100 +119,227 @@ sap.ui.define([
             /* =========================================================== */
             /* event handlers                                              */
             /* =========================================================== */
-
-            onSelectionChange: function (oEvent) {
-
-            },
-            onTypeMissmatch: function (oEvent) {
-
-            },
-            onUploadComplete: function (oEvent) {
-
-            },
-            onBeforeUploadStarts: function (oEvent) {
-
-            },
-            onUploadTerminated: function (oEvent) {
-
-            },
-
-
             onDetailVendorInvoice: function (oEvent) {
                 this._showDetailVendorInvoice(oEvent.getParameter("listItem") || oEvent.getSource());
             },
             onCloseDetailVendorInvoicePress: function (oEvent) {
                 this._closeDetailVendorInvoice(oEvent);
             },
-            onOpenAttachmentPressed: function (oEvent) {
+
+
+
+
+            onOpenAttachmentPressedIT: function (oEvent) {
 
             },
-            onRemoveAttachmentPressed: function (oEvent) {
+            onRemoveAttachmentPressedIT: function (oEvent) {
+                let oSource;
+                oSource = oEvent.getSource();
+                oEvent.preventDefault();
+                oSource.getParent().removeItem(oEvent.getParameter("item"));
+                let oItem = oEvent.getParameter("item").getBindingContext(this.CO_ODATA_INVOICE_ITEM_ATTACH_MODEL).getObject();
+
+                let i;
+                for (i = this.getModel(this.CO_ODATA_INVOICE_ITEM_ATTACH_MODEL).getData().results.length - 1; i >= 0; i--) {
+                    let oSelectedItem;
+                    oSelectedItem = this.getModel(this.CO_ODATA_INVOICE_ITEM_ATTACH_MODEL).getData().results[i];
+
+                    if (oSelectedItem.ZinvoicrId === oItem.ZinvoicrId && oSelectedItem.AttachId === oItem.AttachId) {
+                        this.getModel(this.CO_ODATA_INVOICE_ITEM_ATTACH_MODEL).getData().results.splice(Number(i), 1);
+                        this.getModel(this.CO_ODATA_INVOICE_ITEM_ATTACH_MODEL).updateBindings(true);
+
+                        this._prepareDeleteInvoiceAttachIT(oSelectedItem.ZinvoicrId, oSelectedItem.AttachId);
+                        break;
+                    }
+                }
+
+
+
+
+
+                oEvent.getParameters().item.destroy();
+            },
+            onBeforeItemAddedIT: function (oEvent) {
 
             },
-            onBeforeItemAdded: function (oEvent) {
-
-            },
-            onAfterItemAdded: function (oEvent) {
+            onAfterItemAddedIT: function (oEvent) {
                 let oFile;
                 let oNewAttachmet = {};
-                let oNewAttachmet2 = {};                
+                let oNewAttachmet2 = {};
                 let oParameter;
                 oParameter = oEvent.getParameter("item");
-
-                let oSource = oEvent.getSource();
+          
+                //10 Odvození pořadového čisla nově přidané přílohy
                 let i
-                if (this.getModel(this.CO_ODATA_INVOICE_HEADER_INCOMPLETE_ATTACH_MODEL).getData().results.length === 0 ) {
-
-                     i = this.getModel(this.CO_ODATA_INVOICE_HEADER_INCOMPLETE_ATTACH_MODEL).getData().results.length + 1;
+                if (this.getModel(this.CO_ODATA_INVOICE_ITEM_INCOMPLETE_ATTACH_MODEL).getData().results.length === 0) {
+                    i = this.getModel(this.CO_ODATA_INVOICE_ITEM_INCOMPLETE_ATTACH_MODEL).getData().results.length + 1;
                 } else {
-                    i = Math.max(...this.getModel(this.CO_ODATA_INVOICE_HEADER_INCOMPLETE_ATTACH_MODEL).getData().results.map(o => o.Counter)) + 1;
+                    i = Math.max(...this.getModel(this.CO_ODATA_INVOICE_ITEM_INCOMPLETE_ATTACH_MODEL).getData().results.map(o => o.Counter)) + 1;
                 }
 
                 oNewAttachmet2.Filename = oParameter.getProperty("fileName");
                 oNewAttachmet2.Mimetype = oParameter.getProperty("mediaType");
                 oNewAttachmet2.UploadState = oParameter.getProperty("uploadState");
-                oNewAttachmet2.Counter =  i
-               
-                oParameter.setProperty("thumbnailUrl",i);
-       
+                oNewAttachmet2.Counter = i
+
+                oParameter.setProperty("thumbnailUrl", i);
 
                 oFile = oEvent.getParameter("item").getFileObject();
 
-
-
-                let reader = new FileReader();
                 oParameter.setBindingContext(
                     new sap.ui.model.Context(
-                        this.getModel(this.CO_ODATA_INVOICE_HEADER_INCOMPLETE_ATTACH_MODEL), "/results/0"),
-                    this.CO_ODATA_INVOICE_HEADER_INCOMPLETE_ATTACH_MODEL)
+                        this.getModel(this.CO_ODATA_INVOICE_ITEM_INCOMPLETE_ATTACH_MODEL), "/results/0"),
+                    this.CO_ODATA_INVOICE_ITEM_INCOMPLETE_ATTACH_MODEL)
 
+                let reader = new FileReader();
 
                 reader.onload = function (e) {
                     let raw = e.target.result;
                     let binaryString = raw;
                     let Content = btoa(binaryString);
-                   
-                    let dataset = JSON.parse(JSON.stringify(this.getModel(this.CO_ODATA_INVOICE_HEADER_INCOMPLETE_ATTACH_MODEL).getData()));
-               
-        this.getModel(this.CO_LOCAL_INVOICE_HEADER_INCOMPLETE_ATTACH_MODEL).setData(dataset);
-    
-                    for (let index = 0; index < this.getModel(this.CO_LOCAL_INVOICE_HEADER_INCOMPLETE_ATTACH_MODEL).getData().results.length; index++) {
-                        let iCounter = Number(this.getModel(this.CO_LOCAL_INVOICE_HEADER_INCOMPLETE_ATTACH_MODEL).getData().results[index].Counter);
-                        //Pokud najde,pak je to ok
-                        let bExist;                    
-                        bExist = oSource.getIncompleteItems().some(function(oIncomplereItem) {
-                            return Number(oIncomplereItem.getProperty("thumbnailUrl")) === iCounter
-                        } );
-                        if(bExist === true) {
-                            //našel
-                        } else {
-                         //je potřeba smaazt json
-                         this.getModel(this.CO_ODATA_INVOICE_HEADER_INCOMPLETE_ATTACH_MODEL).getData().results.splice(Number(index), 1);
+
+
+                    oNewAttachmet.Filename = oParameter.getProperty("fileName");
+                    oNewAttachmet.Mimetype = oParameter.getProperty("mediaType");
+                    oNewAttachmet.UploadState = oParameter.getProperty("uploadState");
+                    oNewAttachmet.Counter = i;
+                    oNewAttachmet.Content = Content;
+                    this.getModel(this.CO_ODATA_INVOICE_ITEM_INCOMPLETE_ATTACH_MODEL).getData().results.push(oNewAttachmet);
+                    this.getModel(this.CO_ODATA_INVOICE_ITEM_INCOMPLETE_ATTACH_MODEL).updateBindings(true);
+                    // var oLocalData.content = "data:image/jpeg;base64," + base64;
+                }.bind(this);
+                reader.onerror = function (e) {
+                    this.messageToastShow("error");
+                };
+
+                reader.readAsBinaryString(oFile);
+
+            },
+            onBeforeItemEditedIT: function (oEvent) {
+
+            },
+            onBeforeItemRemoveIT: function (oEvent) {
+                oEvent.preventDefault();
+                oEvent.getSource().removeIncompleteItem(oEvent.getParameter("item"));
+                let oItem = oEvent.getParameter("item").getBindingContext(this.CO_ODATA_INVOICE_ITEM_INCOMPLETE_ATTACH_MODEL).getObject();
+
+                let i;
+                for (i = this.getModel(this.CO_ODATA_INVOICE_ITEM_INCOMPLETE_ATTACH_MODEL).getData().results.length - 1; i >= 0; i--) {
+                    let oSelectedItem;
+                    oSelectedItem = this.getModel(this.CO_ODATA_INVOICE_ITEM_INCOMPLETE_ATTACH_MODEL).getData().results[i];
+
+                    if (oSelectedItem.Counter === Number(oItem.Counter)) {
+                        this.getModel(this.CO_ODATA_INVOICE_ITEM_INCOMPLETE_ATTACH_MODEL).getData().results.splice(Number(i), 1);
+                        break;
+                    }
+                }
+                oEvent.getParameters().item.destroy();
+            },
+            onFileNameLengthExceededIT: function (oEvent) {
+
+            },
+            onFileSizeExceededIT: function (oEvent) {
+
+            },
+            onFileTypeMismatchIT: function (oEvent) {
+
+            },
+            onUploadCompletedIT: function (oEvent) {
+
+            },
+            onBeforeUploadTerminationIT: function (oEvent) {
+
+            },
+            onBeforeUploadStartsIT: function (oEvent) {
+
+            },
+
+
+
+
+            onOpenAttachmentPressed: function (oEvent) {
+
+            },
+            onRemoveAttachmentPressed: function (oEvent) {
+                oEvent.preventDefault();
+                oEvent.getSource().getParent().removeItem(oEvent.getParameter("item"));
+
+                let oItem = oEvent.getParameter("item").getBindingContext(this.CO_ODATA_INVOICE_HEADER_ATTACH_MODEL).getObject();
+
+                let i;
+                for (i = this.getModel(this.CO_ODATA_INVOICE_HEADER_ATTACH_MODEL).getData().results.length - 1; i >= 0; i--) {
+                    let oSelectedItem;
+                    oSelectedItem = this.getModel(this.CO_ODATA_INVOICE_HEADER_ATTACH_MODEL).getData().results[i];
+
+                    if (oSelectedItem.ZinvoicrId === oItem.ZinvoicrId) {
+                        this.getModel(this.CO_ODATA_INVOICE_HEADER_ATTACH_MODEL).getData().results.splice(Number(i), 1);
+                        this.getModel(this.CO_ODATA_INVOICE_HEADER_ATTACH_MODEL).updateBindings(true);
+                        this._prepareDeleteInvoiceAttach(oSelectedItem.ZinvoicrId);
+                        break;
+                    }
+                }
+                oEvent.getParameters().item.destroy();
+
+
+            },
+            onBeforeItemRemove: function (oEvent) {
+                oEvent.preventDefault();
+                oEvent.getSource().removeIncompleteItem(oEvent.getParameter("item"));
+                let oItem = oEvent.getParameter("item").getBindingContext(this.CO_ODATA_INVOICE_HEADER_INCOMPLETE_ATTACH_MODEL).getObject();
+
+                let i;
+                for (i = this.getModel(this.CO_ODATA_INVOICE_HEADER_INCOMPLETE_ATTACH_MODEL).getData().results.length - 1; i >= 0; i--) {
+                    let oSelectedItem;
+                    oSelectedItem = this.getModel(this.CO_ODATA_INVOICE_HEADER_INCOMPLETE_ATTACH_MODEL).getData().results[i];
+
+                    if (oSelectedItem.Counter === Number(oItem.Counter)) {
+                        this.getModel(this.CO_ODATA_INVOICE_HEADER_INCOMPLETE_ATTACH_MODEL).getData().results.splice(Number(i), 1);
+                        break;
+                    }
+                }
+                oEvent.getParameters().item.destroy();
+            },
+            onBeforeItemAdded: function (oEvent) {
+
+            },
+            onAfterItemAdded: async function (oEvent) {
+                let oSource = oEvent.getSource();
+                //10kontrola, kolik je nahraných příloh, může být maximálně 1
+                if (oSource.getItems().length > 0) {
+                    if (this._oUploadSetAttachment.getIncompleteItems().length > 0) {
+                        for (let index = 0; index < this._oUploadSetAttachment.getIncompleteItems().length; index++) {
+                            this._oUploadSetAttachment.removeIncompleteItem(this._oUploadSetAttachment.getIncompleteItems()[index])
                         }
-    
-                    }  
-                  
-              
+                    }
+                    let oHelpArray = {};
+                    oHelpArray.results = [];
+                    this.getModel(this.CO_ODATA_INVOICE_HEADER_INCOMPLETE_ATTACH_MODEL).setData(oHelpArray);
+                    await this.messageBoxWarning("Příloha již byla nahrána. Pro nahrání nové přlohy je nutné původní nejprve smazat.");
+                    return;
+                } else {
+
+                }
+
+                let oFile;
+                let oNewAttachmet = {};
+                let oParameter;
+                let i;
+                i = 1;
+                oParameter = oEvent.getParameter("item");
+
+                oFile = oEvent.getParameter("item").getFileObject();
+
+                oParameter.setBindingContext(
+                    new sap.ui.model.Context(
+                        this.getModel(this.CO_ODATA_INVOICE_HEADER_INCOMPLETE_ATTACH_MODEL), "/results/0"),
+                    this.CO_ODATA_INVOICE_HEADER_INCOMPLETE_ATTACH_MODEL)
+
+                let reader = new FileReader();
+
+                reader.onload = function (e) {
+                    let raw = e.target.result;
+                    let binaryString = raw;
+                    let Content = btoa(binaryString);
 
 
                     oNewAttachmet.Filename = oParameter.getProperty("fileName");
@@ -217,39 +349,27 @@ sap.ui.define([
                     oNewAttachmet.Content = Content;
                     this.getModel(this.CO_ODATA_INVOICE_HEADER_INCOMPLETE_ATTACH_MODEL).getData().results.push(oNewAttachmet);
                     this.getModel(this.CO_ODATA_INVOICE_HEADER_INCOMPLETE_ATTACH_MODEL).updateBindings(true);
-
-
-
-
-
                     // var oLocalData.content = "data:image/jpeg;base64," + base64;
                 }.bind(this);
+
                 reader.onerror = function (e) {
-                    sap.m.MessageToast.show("error");
+                    this.messageToastShow("error");
                 };
-
                 reader.readAsBinaryString(oFile);
-
-
-
-             
-             
-
             },
             onBeforeItemEdited: function (oEvent) {
 
             },
-            onBeforeItemRemove: function (oEvent) {
-                // this._deleteIncompleteHeaderAttachItem(oEvent.getParameter("item"));
-            },
+
             onFileNameLengthExceeded: function (oEvent) {
 
             },
             onFileSizeExceeded: function (oEvent) {
 
             },
-            onFileTypeMismatch: function (oEvent) {
-
+            onFileTypeMismatch:  function (oEvent) {
+                oEvent.preventDefault();
+                 this.messageBoxError("Špatný formát přílohy");
             },
             onUploadCompleted: function (oEvent) {
 
@@ -261,24 +381,29 @@ sap.ui.define([
 
             },
 
-            onTestAttach: function (oEvent) {
-                let oUploadSet = this.byId("uploadSetAttachment");
-                oUploadSet.upload();
-            },
-            onSaveInvoiceChange: function (oEvent) {
-                //Musí proběhnout kontrola, zda byla smazána položka 
-                //pokud ano, je potřeba manuálně upravit json
+
+
+
+
+
+
+            // onTestAttach: function (oEvent) {
+            //     let oUploadSet = this.byId("uploadSetAttachment");
+            //     oUploadSet.upload();
+            // },
+            onSaveInvoiceChange: function () {
+                this._saveInvoiceChange();
             },
 
-            onUploadSelectedButton: function () {
-                let oUploadSet = this.byId("UploadSetAttachment");
+            // onUploadSelectedButton: function () {
+            //     let oUploadSet = this.byId("UploadSetAttachment");
 
-                oUploadSet.getItems().forEach(function (oItem) {
-                    if (oItem.getListItem().getSelected()) {
-                        oUploadSet.uploadItem(oItem);
-                    }
-                });
-            },
+            //     oUploadSet.getItems().forEach(function (oItem) {
+            //         if (oItem.getListItem().getSelected()) {
+            //             oUploadSet.uploadItem(oItem);
+            //         }
+            //     });
+            // },
 
 
 
@@ -315,32 +440,43 @@ sap.ui.define([
                 }.bind(this));
             },
             _procesOnMatchedScenario: async function (sInvoiceId) {
-                //05
-
+                //10
                 if (this._oUploadSetAttachment.getIncompleteItems().length > 0) {
-                    for (let index = 0; index < this._oUploadSetAttachment.getIncompleteItems().length; index++) {
+                    for (let index = this._oUploadSetAttachment.getIncompleteItems().length - 1; index >= 0; index--) {
                         this._oUploadSetAttachment.removeIncompleteItem(this._oUploadSetAttachment.getIncompleteItems()[index])
                     }
-
                 }
-                let oHelpArray = {};
-                oHelpArray.results = [];
-                this.getModel(this.CO_ODATA_INVOICE_HEADER_INCOMPLETE_ATTACH_MODEL).setData(oHelpArray);
+                if (this._oUploadSetOthersAttachment.getIncompleteItems().length > 0) {
+                    for (let index = this._oUploadSetOthersAttachment.getIncompleteItems().length - 1; index >= 0; index--) {
+                        this._oUploadSetOthersAttachment.removeIncompleteItem(this._oUploadSetOthersAttachment.getIncompleteItems()[index])
+                    }
+                }
 
-                //10 Načtení dat z backendu.
+
+                let oHelpArray1 = {};
+                oHelpArray1.results = [];
+                let oHelpArray2 = {};
+                oHelpArray2.results = [];
+                let oHelpArray3 = {};
+                oHelpArray3.results = [];
+                let oHelpArray4 = {};
+                oHelpArray4.results = [];
+                let oHelpArray5 = {};
+                oHelpArray5.results = [];
+
+                this.getModel(this.CO_ODATA_INVOICE_HEADER_MODEL).setData({});
+                this.getModel(this.CO_ODATA_INVOICE_HEADER_ATTACH_MODEL).setData(oHelpArray1);
+                this.getModel(this.CO_ODATA_INVOICE_HEADER_INCOMPLETE_ATTACH_MODEL).setData(oHelpArray2);
+                this.getModel(this.CO_ODATA_INVOICE_ITEM_MODEL).setData(oHelpArray3);
+                this.getModel(this.CO_ODATA_INVOICE_ITEM_ATTACH_MODEL).setData(oHelpArray4);
+                this.getModel(this.CO_ODATA_INVOICE_ITEM_INCOMPLETE_ATTACH_MODEL).setData(oHelpArray5);
+
+                //20 Načtení dat z backendu.
                 await this._callInvoiceHeader(
                     sInvoiceId
                 )
-
-                //20Next steps...
+                //30Next steps...
             },
-
-
-
-
-
-
-
 
             /* =========================================================== */
             /* =========================================================== */
@@ -357,110 +493,54 @@ sap.ui.define([
             /* =========================================================== */
             /* begin: internal methods                                     */
             /* =========================================================== */
-            _deleteIncompleteHeaderAttachItem: function (oItem) {
-                let aSelectedItems = [];
-                let aItem = [];
-                let oTable = {};
-                let oSelectedItem = {};
-                let oBindingContext = {};
-                let iIndex;
-                let i;
+            _saveInvoiceChange: function () {
+                this._prepraveSaveInvoiceChange();
+            },
+            _prepraveSaveInvoiceChange: function () {
+                let sPath;
+                let oInvoiceDataObject = {};
+                oInvoiceDataObject.ZinvoicrId = this.getModel(this.CO_ODATA_INVOICE_HEADER_MODEL).getProperty("/ZinvoicrId");
 
+                oInvoiceDataObject.to_invoiceAtt = this.getDataOperationBase().loopDataTableInvoiceAtt(                  
+                    this.getModel(this.CO_ODATA_INVOICE_HEADER_INCOMPLETE_ATTACH_MODEL).getData().results,
+                    oInvoiceDataObject.ZinvoicrId
+                    );
+                oInvoiceDataObject.to_items = this.getDataOperationBase().loopDataTabletoItems(
+                    this.getModel(this.CO_ODATA_INVOICE_ITEM_MODEL).getData().results);
+                oInvoiceDataObject.to_invItemAtt = this.getDataOperationBase().loopDataTableInvItemAtt(
+                    this.getModel(this.CO_ODATA_INVOICE_ITEM_ATTACH_MODEL).getData().results,
+                    this.getModel(this.CO_ODATA_INVOICE_ITEM_INCOMPLETE_ATTACH_MODEL).getData().results,
+                    oInvoiceDataObject.ZinvoicrId);
 
-                aItem = this.getModel(this.CO_ODATA_INVOICE_HEADER_INCOMPLETE_ATTACH_MODEL).getData().results;
+                sPath = "/ZC_Invoice";
+                this._callSaveInvoiceChange(sPath, oInvoiceDataObject);
+            },
+            _prepareDeleteInvoiceAttachIT: function (ZinvoicrId, AttachId) {
+                let sPath;
 
+                sPath = this.getModel().createKey("ZC_InvItems", {
+                    ZinvoicrId: ZinvoicrId,
+                    AttachId: AttachId
+                });
 
-                oBindingContext = oItem.getBindingContext(this.CO_ODATA_INVOICE_HEADER_INCOMPLETE_ATTACH_MODEL);
-                iIndex = oBindingContext.getPath().split("/")[2];
-                aItem.splice(Number(iIndex), 1);
-
-                this.getModel(this.CO_ODATA_INVOICE_HEADER_INCOMPLETE_ATTACH_MODEL).updateBindings();
+                this._callDeleteInvoiceAttachIT("/" + sPath);
 
             },
+            _prepareDeleteInvoiceAttach: function (ZinvoicrId) {
+                let sPath;
+
+                sPath = this.getModel().createKey("ZC_InvoiceAtt", {
+                    ZinvoicrId: ZinvoicrId
+                });
+
+                this._callDeleteInvoiceAttach("/" + sPath);
+
+            },
+
             _closeDetailVendorInvoice: function () {
                 this.getModel(this.getConstantBase().getConstants().APP_VIEW_MODEL).setProperty("/layout", "OneColumn");
                 this.getRouter().navTo(this.getConstantBase().getConstants().ROUTE_OVERVIEW_VENDOR_INVOICE);
             },
-            _helpdata: function () {
-                return {
-                    "items": [
-                        {
-                            "fileName": "Business Plan Agenda.doc",
-                            "mediaType": "application/msword",
-                            "url": "demokit/sample/UploadCollection/LinkedDocuments/Business Plan Agenda.doc",
-                            "uploadState": "Complete",
-                            "attributes": [
-                                {
-                                    "title": "Uploaded By",
-                                    "text": "Jane Burns",
-                                    "active": true
-                                },
-                                {
-                                    "title": "Uploaded On",
-                                    "text": "2014-07-28",
-                                    "active": false
-                                },
-                                {
-                                    "title": "File Size",
-                                    "text": "25",
-                                    "active": false
-                                },
-                                {
-                                    "title": "Lorem ipsum dolor sit amet",
-                                    "text": "consectetur adipisici elit",
-                                    "active": false
-                                }
-                            ],
-                            "markers": [
-                                {
-                                    "type": "Draft"
-                                },
-                                {
-                                    "type": "Favorite"
-                                },
-                                {
-                                    "type": "Flagged"
-                                },
-                                {
-                                    "type": "Locked"
-                                },
-                                {
-                                    "type": "Unsaved"
-                                }
-                            ],
-                            "statuses": [
-                                {
-                                    "title": "Basic",
-                                    "text": "Error",
-                                    "state": "Error"
-                                },
-                                {
-                                    "title": "Advanced",
-                                    "text": "Success",
-                                    "state": "Success",
-                                    "icon": "sap-icon://alert"
-                                },
-                                {
-                                    "title": "Ultimate",
-                                    "text": "Warning",
-                                    "state": "Warning",
-                                    "active": true
-                                }
-                            ],
-                            "selected": false
-                        },
-                        {
-                            "fileName": "Picture of a woman.png",
-                            "mimeType": "image/png",
-                            "thumbnailUrl": "test-resources/sap/m/images/Woman_04.png",
-                            "url": "test-resources/sap/m/images/Woman_04.png",
-                            "uploadState": "Complete"
-                        }
-                    ]
-                }
-            },
-
-
 
             /* =========================================================== */
             /* =========================================================== */
@@ -504,15 +584,63 @@ sap.ui.define([
                 let oDataGetGetInvoiceHeader = {};
                 try {
                     oDataGetGetInvoiceHeader = await this.getCallToBackendBase().callGetInvoiceHeader(this, sObjectPath);
-                    this.getModel(this.CO_ODATA_INVOICE_HEADER_MODEL).setData(oDataGetGetInvoiceHeader);
-
                     let oHelpArray = {};
                     oHelpArray.results = [];
                     oHelpArray.results.push(oDataGetGetInvoiceHeader.to_invoiceAtt);
                     this.getModel(this.CO_ODATA_INVOICE_HEADER_ATTACH_MODEL).setData(oDataGetGetInvoiceHeader.to_invoiceAtt);
                     this.getModel(this.CO_ODATA_INVOICE_ITEM_MODEL).setData(oDataGetGetInvoiceHeader.to_items);
                     this.getModel(this.CO_ODATA_INVOICE_ITEM_ATTACH_MODEL).setData(oDataGetGetInvoiceHeader.to_invItemAtt);
+
+        
+                    this.getModel(this.CO_ODATA_INVOICE_HEADER_MODEL).setProperty("/Deleteflag", oDataGetGetInvoiceHeader.Deleteflag);
+                    this.getModel(this.CO_ODATA_INVOICE_HEADER_MODEL).setProperty("/Description", oDataGetGetInvoiceHeader.Description);
+                    this.getModel(this.CO_ODATA_INVOICE_HEADER_MODEL).setProperty("/Erdat", oDataGetGetInvoiceHeader.Erdat);
+                    this.getModel(this.CO_ODATA_INVOICE_HEADER_MODEL).setProperty("/Ernam", oDataGetGetInvoiceHeader.Ernam);
+                    this.getModel(this.CO_ODATA_INVOICE_HEADER_MODEL).setProperty("/Erzet", oDataGetGetInvoiceHeader.Erzet);
+                    this.getModel(this.CO_ODATA_INVOICE_HEADER_MODEL).setProperty("/ShortDescr", oDataGetGetInvoiceHeader.ShortDescr);
+                    this.getModel(this.CO_ODATA_INVOICE_HEADER_MODEL).setProperty("/Status", oDataGetGetInvoiceHeader.Status);
+                    this.getModel(this.CO_ODATA_INVOICE_HEADER_MODEL).setProperty("/ZinvoicrId", oDataGetGetInvoiceHeader.ZinvoicrId);
+                    this.getModel(this.CO_ODATA_INVOICE_HEADER_MODEL).setProperty("/Belnr", oDataGetGetInvoiceHeader.Belnr);
+
+
+
                     return;
+                } catch (error) {
+                    await this.messageBoxError(error);
+                }
+            },
+            _callSaveInvoiceChange: async function (sPath, oData) {
+                let bReplace = !Device.system.phone;
+                let oDataConfirmSaveInvoice = {};
+                try {
+                    oDataConfirmSaveInvoice = await this.getCallToBackendBase().callSaveNewInvoice(sPath, oData, this);
+                    await this.messageToastShow("Uložení proběhlo v pořádku", 300);
+                    this.getRouter().navTo(
+                        this.getConstantBase().getConstants().ROUTE_OVERVIEW_VENDOR_INVOICE,
+                        {
+                        },
+                        bReplace
+                    );
+
+                } catch (error) {
+                    await this.messageBoxError(error);
+
+                }
+            },
+            _callDeleteInvoiceAttachIT: async function (sPath) {
+                // let oDataConfirmDeleteInvoiceIT = {};
+                try {
+                    await this.getCallToBackendBase().callDeleteInvoiceAttachmentIT(sPath, this);
+                    await this.messageToastShow("Příloha byla smazána ze systému.", 800);
+                } catch (error) {
+                    await this.messageBoxError(error);
+                }
+            },
+            _callDeleteInvoiceAttach: async function (sPath) {
+
+                try {
+                    await this.getCallToBackendBase().callDeleteInvoiceAttachment(sPath, this);
+                    await this.messageToastShow("Příloha byla smazána ze systému.", 800);
                 } catch (error) {
                     await this.messageBoxError(error);
                 }

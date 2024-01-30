@@ -23,7 +23,7 @@
     >
         <semantic:titleHeading>
             <Title
-                text="Číslo faktury TODO"
+                text="Číslo faktury {invoiceModel>/ZinvoicrId}"
                 level="H2"
             />
         </semantic:titleHeading>
@@ -59,29 +59,35 @@
         </semantic:exitFullScreenAction>
         <semantic:content>
             <VBox height="100%">
-                <!-- <form:SimpleForm
+                <form:SimpleForm
                     editable="true"
                     layout="ColumnLayout"
                     columnsL="1"
                     emptySpanL="6"
                     labelSpanL="3"
                 >
+
                     <Label
-                        required="true"
-                        text="Datum"
+                        required="false"
+                        text="Status faktury"
                     />
-                    <DatePicker
-                        minDate="{ path:'createRequestBudgetViewModel>/minDate'}"
-                        maxDate="{ path:'createRequestBudgetViewModel>/maxDate'}"
-                        value="{path:'newRequestModel>/ValidFrm', type: 'sap.ui.model.type.Date', formatOptions: { style: 'medium', strictParsing: true, UTC: true}}"
-                        valueFormat="yyyy-MM-dd"
-                        change=".onLiveChangeForDate($event,'/ValidFrm')"
-                        required="true"
+                    <Text text="{ path:'invoiceModel>/Status'}" />
+                    <Label
+                        required="false"
+                        text="Založil"
+                    />
+                    <Text text="{ path:'invoiceModel>/Ernam'}" />
+                    <Label
+                        required="false"
+                        text="Datum založení"
+                    />
+                    <Text
+                        text="{ path:'invoiceModel>/Erdat', type: 'sap.ui.model.type.Date', formatOptions: { style: 'medium', strictParsing: true, UTC: true}}"
                     />
 
                     <form:content />
-                </form:SimpleForm> -->
-                <!-- <upload:UploadSet -->
+                </form:SimpleForm>
+
                 <upload:UploadSet
                     beforeItemAdded=".onBeforeItemAdded"
                     afterItemAdded=".onAfterItemAdded"
@@ -94,7 +100,7 @@
                     fileSizeExceeded=".onFileSizeExceeded"
                     fileTypeMismatch=".onFileTypeMismatch"
                     id="uploadSetAttachment"
-                    instantUpload="true"
+                    instantUpload="false"
                     showIcons="true"
                     uploadEnabled="true"
                     terminationEnabled="true"
@@ -111,16 +117,7 @@
                                 text="Faktura - příloha v PDF (lze nahrát jen 1 přílohu v pdf formátu)"
                             />
                             <ToolbarSpacer />
-                            <!-- <Button
-                                id="uploadSelectedButton"
-                                text="Upload selected"
-                                press="onUploadSelectedButton"
-                            />
-                            <Button
-                                id="downloadSelectedButton"
-                                text="Download selected"
-                                press="onDownloadSelectedButton"
-                            /> -->
+ 
                         </OverflowToolbar>
                     </upload:toolbar>
 
@@ -134,6 +131,8 @@
                             openPressed=".onOpenAttachmentPressed"
                             visibleRemove="true"
                             visibleEdit="true"
+                            enabledRemove="true"
+                            enabledEdit="false"
                         />
                     </upload:incompleteItems>
                     <upload:items>
@@ -146,23 +145,37 @@
                             openPressed=".onOpenAttachmentPressed"
                             visibleRemove="true"
                             visibleEdit="true"
+                            enabledRemove="true"
+                            enabledEdit="false"
                         />
                     </upload:items>
                 </upload:UploadSet>
+
+                <TextArea class="sapUiTinyMarginTop"
+                rows="3"
+            
+                maxLength="249"
+                placeholder="Poznámka k příloze v maximální délece 249znaků"
+                value="{invoiceModel>/Description}"
+                editable="true"
+                width="100%"
+                valueLiveUpdate="false"
+                
+                />
+
                 <!-- </upload:UploadSet> -->
-                <upload:UploadSet
-                    beforeItemAdded=".onBeforeItemAdded"
-                    afterItemAdded=".onAfterItemAdded"
-                    beforeItemEdited=".onBeforeItemEdited"
-                    beforeItemRemoved=".onBeforeItemRemove"
-                    beforeUploadStarts=".onBeforeUploadStarts"
-                    uploadCompleted=".onUploadCompleted"
-                    beforeUploadTermination=".onBeforeUploadTermination"
-                    fileNameLengthExceeded=".onFileNameLengthExceeded"
-                    fileSizeExceeded=".onFileSizeExceeded"
-                    fileTypeMismatch=".onFileTypeMismatch"
+                <upload:UploadSet  class="sapUiTinyMarginTop"
+                    beforeItemAdded=".onBeforeItemAddedIT"
+                    afterItemAdded=".onAfterItemAddedIT"
+                    beforeItemEdited=".onBeforeItemEditedIT"
+                    beforeItemRemoved=".onBeforeItemRemoveIT"
+                    beforeUploadStarts=".onBeforeUploadStartsIT"
+                    uploadCompleted=".onUploadCompletedIT"
+                    beforeUploadTermination=".onBeforeUploadTerminationIT"
+                    fileNameLengthExceeded=".onFileNameLengthExceededIT"
+                    fileSizeExceeded=".onFileSizeExceededIT"
+                    fileTypeMismatch=".onFileTypeMismatchIT"
                     id="uploadSetOthersAttachment"
-                 
                     instantUpload="true"
                     showIcons="true"
                     uploadEnabled="true"
@@ -194,10 +207,12 @@
                             mediaType="{invoiceItemAttachInCompleteModel>mediaType}"
                             url="{invoiceItemAttachInCompleteModel>AttachURL}"
                             uploadState="{invoiceItemAttachInCompleteModel>UploadState}"
-                            removePressed=".onRemoveAttachmentPressed"
-                            openPressed=".onOpenAttachmentPressed"
+                            removePressed=".onRemoveAttachmentPressedIT"
+                            openPressed=".onOpenAttachmentPressedIT"
                             visibleRemove="true"
                             visibleEdit="true"
+                            enabledRemove="true"
+                            enabledEdit="false"
                         />
                     </upload:incompleteItems>
                     <upload:items>
@@ -206,13 +221,16 @@
                             mediaType="{invoiceItemAttachModel>Mimetype}"
                             url="{invoiceItemAttachModel>AttachURL}"
                             uploadState="{invoiceItemAttachModel>UploadState}"
-                            removePressed=".onRemoveAttachmentPressed"
-                            openPressed=".onOpenAttachmentPressed"
+                            removePressed=".onRemoveAttachmentPressedIT"
+                            openPressed=".onOpenAttachmentPressedIT"
                             visibleRemove="true"
                             visibleEdit="true"
+                            enabledRemove="true"
+                            enabledEdit="false"
                         />
                     </upload:items>
                 </upload:UploadSet>
+
                 <!-- <UploadCollection
                     id="UploadCollection"
                     maximumFilenameLength="30"
@@ -281,10 +299,10 @@
         </semantic:positiveAction>
 
         <semantic:footerMainAction>
-            <semantic:FooterMainAction
+            <!-- <semantic:FooterMainAction
                 text="TestPřílohy"
                 press=".onTestAttach"
-            />
+            /> -->
         </semantic:footerMainAction>
     </semantic:SemanticPage>
 </mvc:View>

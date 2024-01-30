@@ -3,4 +3,5 @@
     after remove attachment from upload set component, it must be clear from json model => todo "zkomponent"
     vyšší verze již máají udáslot "afterremove"
 
-25.1.2024
+29.1.2024
+ utils => make a UploadSetHelp.js with functionality.

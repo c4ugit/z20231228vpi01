@@ -43,6 +43,7 @@
         </semantic:closeAction>
         <semantic:content>
             <VBox height="100%">
+            
                 <upload:UploadSet
                     id="createUploadSetAttachment"
                     beforeItemAdded=".onBeforeItemAdded"
@@ -98,7 +99,18 @@
                         />
                     </upload:items>
                 </upload:UploadSet>
-                <upload:UploadSet
+                    <TextArea class="sapUiTinyMarginTop"
+                rows="3"
+            
+                maxLength="249"
+                placeholder="Poznámka k příloze v maximální délece 249znaků"
+                value="{invoiceModel>/Description}"
+                editable="true"
+                width="100%"
+                valueLiveUpdate="false"
+                
+                />
+                <upload:UploadSet  class="sapUiTinyMarginTop"
                     id="createUploadSetOthersAttachment"
                     instantUpload="false"
                     showIcons="true"

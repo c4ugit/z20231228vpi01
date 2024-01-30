@@ -287,28 +287,52 @@ sap.ui.define([
 
             })
         },
-        callDeleteRequest: function (requestPath, that) {
-            return new Promise(function (resolve, reject) {
-                let oData = {};
+        callDeleteInvoiceAttachmentIT: function (sPath, that) {
+            return new Promise(function (resolve, reject) {             
                 let oParam = {};
                 oParam = DataOperation.getListOfCallVar();               
 
 
-                that._oComponent._PromiseDeleteRequest = new Promise(function (fnResolve, fnReject) {
-                    that._oComponent._fnResolveDeleteRequestSave = fnResolve;
-                    that._oComponent._fnRejectDeleteRequestSave = fnReject;
+                that._oComponent._PromiseDeleteInvoiceAttachmentIT = new Promise(function (fnResolve, fnReject) {
+                    that._oComponent._fnResolveDeleteInvoiceAttachmentIT = fnResolve;
+                    that._oComponent._fnRejectDeleteInvoiceAttachmentIT = fnReject;
                 }.bind(that));
-                that._oComponent._PromiseDeleteRequest.then(function (oData) {
+                that._oComponent._PromiseDeleteInvoiceAttachmentIT.then(function (oData) {
                     resolve(Object.freeze(oData));
                 }.bind(that)).catch(function (oError) {
                     reject(that.getMessagesBase().findFirstErrorMessage(that));
-
                 }.bind(that));
-
              
-                oParam.sNamePromise = "7";
+                oParam.sNamePromise = "5";
                 oParam.sTypeCall = "D";
-                oParam.sObjectPath = requestPath;
+                oParam.sObjectPath = sPath;
+                oParam.sViewmodel = that.CO_VIEW_MODEL;
+                oParam.scope = that;
+                oParam.component = that._oComponent;
+                DataOperation.dataOperation(oParam);
+
+
+            })
+        },
+        callDeleteInvoiceAttachment: function (sPath, that) {
+            return new Promise(function (resolve, reject) {             
+                let oParam = {};
+                oParam = DataOperation.getListOfCallVar();               
+
+
+                that._oComponent._PromiseDeleteInvoiceAttachment = new Promise(function (fnResolve, fnReject) {
+                    that._oComponent._fnResolveDeleteInvoiceAttachment = fnResolve;
+                    that._oComponent._fnRejectDeleteInvoiceAttachment = fnReject;
+                }.bind(that));
+                that._oComponent._PromiseDeleteInvoiceAttachment.then(function (oData) {
+                    resolve(Object.freeze(oData));
+                }.bind(that)).catch(function (oError) {
+                    reject(that.getMessagesBase().findFirstErrorMessage(that));
+                }.bind(that));
+             
+                oParam.sNamePromise = "6";
+                oParam.sTypeCall = "D";
+                oParam.sObjectPath = sPath;
                 oParam.sViewmodel = that.CO_VIEW_MODEL;
                 oParam.scope = that;
                 oParam.component = that._oComponent;

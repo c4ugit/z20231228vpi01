@@ -74,10 +74,10 @@ sap.ui.define([
                         oComponent._fnResolveNewInvoiceSave(oDataServer);
                         break;
                     case "5":
-                        oComponent._fnResolveMaterialList(oDataServer);
+                        oComponent._fnResolveDeleteInvoiceAttachmentIT(oDataServer);
                         break;
                     case "6":
-                        oComponent._fnResolveNewRequestSave(oDataServer);
+                        oComponent._fnResolveDeleteInvoiceAttachment(oDataServer);
                         break;
                     case "7":
                         oComponent._fnResolveDeleteRequestSave(oDataServer);
@@ -120,14 +120,12 @@ sap.ui.define([
                         break;
                     case "4":
                         oComponent._fnRejectNewInvoiceSave(oError);
-                        break;
-
-                        
+                        break;                        
                     case "5":
-                        oComponent._fnRejectMaterialList(oError);
+                        oComponent._fnRejectDeleteInvoiceAttachmentIT(oError);
                         break;
                     case "6":
-                        oComponent._fnRejectNewRequestSave(oError);
+                        oComponent._fnRejectDeleteInvoiceAttachment(oError);
                         break;
                     case "7":
                         oComponent._fnRejectDeleteRequestSave(oError);
@@ -249,7 +247,7 @@ sap.ui.define([
 
             return aDataTableCorrect;
         },
-        loopDataTableDeliveryListItem: function (aDataTable, oData) {
+        loopDataTable: function (aDataTable, oData) {
             let aDataTableCorrect = [];
             let sLength = aDataTable.length;
             let i, j;
@@ -285,7 +283,73 @@ sap.ui.define([
             return aDataTableCorrect;
         },
 
-        loopDataTableEmpties: function (aDataTable, oData) {
+        loopDataTableInvoiceAtt: function (aDataTable,ZinvoicrId) {
+            let aDataTableCorrect = [];
+            let sLength = aDataTable.length;
+            let i, j;
+
+            for (i = 0; i < sLength; i++) {
+                let oDataTableItem = aDataTable[i];
+                let oDataTableItemCorect = {};
+                oDataTableItemCorect = oDataTableItem;
+                oDataTableItemCorect.ZinvoicrId = ZinvoicrId;
+               
+                delete oDataTableItemCorect.__metadata;
+                delete oDataTableItemCorect.Counter;
+
+                aDataTableCorrect.push(oDataTableItemCorect);
+
+            }
+            return aDataTableCorrect;
+        },
+        loopDataTableInvItemAtt: function (aDataTable,aDataTableJoin,ZinvoicrId) {
+
+            let lastAttachId;
+            if(aDataTable.length === 0) {
+                lastAttachId = 0;
+            } else {
+                lastAttachId = Math.max(...aDataTable.map(o => Number(o.AttachId)));
+            }
+            
+            let aDataTableCorrect = [];
+            let sLength = aDataTable.length;
+            let i, j;
+
+            for (i = 0; i < sLength; i++) {
+                let oDataTableItem = aDataTable[i];
+                let oDataTableItemCorect = {};
+                oDataTableItemCorect = oDataTableItem;         
+                delete oDataTableItemCorect.__metadata;
+                aDataTableCorrect.push(oDataTableItemCorect);
+
+            }
+
+            //Check if new items exist
+            if (aDataTableJoin.length > 0) {
+                for (let index = 0; index < aDataTableJoin.length; index++) {
+
+                    lastAttachId = lastAttachId + 1;
+
+                    let oDataTableItemJoin = aDataTableJoin[index];
+                    let oDataTableItemCorectJoin = {};
+
+           
+                    oDataTableItemCorectJoin.ZinvoicrId = ZinvoicrId;
+                    oDataTableItemCorectJoin.AttachId = String(lastAttachId);
+                    oDataTableItemCorectJoin.Filename = oDataTableItemJoin.Filename;
+                    oDataTableItemCorectJoin.Mimetype = oDataTableItemJoin.Mimetype;
+                    oDataTableItemCorectJoin.UploadState = oDataTableItemJoin.UploadState;
+                    oDataTableItemCorectJoin.Content = oDataTableItemJoin.Content;
+                    oDataTableItemCorectJoin.Backenddeployed = false;
+                    aDataTableCorrect.push(oDataTableItemCorectJoin);
+                }
+
+            }
+
+
+            return aDataTableCorrect;
+        },
+        loopDataTabletoItems: function (aDataTable) {
             let aDataTableCorrect = [];
             let sLength = aDataTable.length;
             let i, j;
@@ -295,14 +359,14 @@ sap.ui.define([
                 let oDataTableItemCorect = {};
                 oDataTableItemCorect = oDataTableItem;
 
-                oDataTableItemCorect.Menge = String(oDataTableItemCorect.Menge);
+              
                 delete oDataTableItemCorect.__metadata;
 
                 aDataTableCorrect.push(oDataTableItemCorect);
 
             }
             return aDataTableCorrect;
-        }
+        },
 
 
     };

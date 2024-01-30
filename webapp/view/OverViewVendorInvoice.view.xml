@@ -191,22 +191,29 @@
                                     press="onDetailVendorInvoice"
                                 >
                                     <cells>
-                                        <commons:MicroProcessFlow>
+                                        <commons:MicroProcessFlow >
                                             <commons:content>
                                                 <commons:MicroProcessFlowItem
-                                                    state="None"
-                                                />
-                                                <commons:MicroProcessFlowItem
-                                                    state="Error"
-                                                />
-                                                <commons:MicroProcessFlowItem
-                                                    state="Warning"
-                                                />
-                                                <commons:MicroProcessFlowItem
-                                                    state="Information"
+                                                title="Faktura byla nahrána dodavatelem"
+                                                    state="Success"
+                                                    icon="sap-icon://account"
                                                 />
                                                 <commons:MicroProcessFlowItem
                                                     state="Success"
+                                                    icon="sap-icon://account"
+                                                />
+                                                <commons:MicroProcessFlowItem
+                                                    state="Warning"
+                                                    icon="sap-icon://account"
+                                                  
+                                                />
+                                                <commons:MicroProcessFlowItem
+                                                    state="None"
+                                                     icon="sap-icon://account"
+                                                />
+                                                <commons:MicroProcessFlowItem
+                                                    state="None"
+                                                     icon="sap-icon://cancel"
                                                 />
                                             </commons:content>
                                         </commons:MicroProcessFlow>
