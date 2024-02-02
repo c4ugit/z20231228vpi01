@@ -291,15 +291,12 @@ sap.ui.define([
             onAfterItemAdded: async function (oEvent) {
                 let oSource = oEvent.getSource();
                 //10kontrola, kolik je nahraných příloh, může být maximálně 1
-                if (oSource.getItems().length > 0) {
+                if (oSource.getIncompleteItems().length > 1) {
                     if (this._oUploadSetAttachment.getIncompleteItems().length > 0) {
-                        for (let index = 0; index < this._oUploadSetAttachment.getIncompleteItems().length; index++) {
-                            this._oUploadSetAttachment.removeIncompleteItem(this._oUploadSetAttachment.getIncompleteItems()[index])
+                        for (let index = 0; index < this._oUploadSetAttachment.getIncompleteItems().length - 1; index++) {
+                            this._oUploadSetAttachment.removeIncompleteItem(this._oUploadSetAttachment.getIncompleteItems()[index])                        
                         }
-                    }
-                    let oHelpArray = {};
-                    oHelpArray.results = [];
-                    this.getModel(this.CO_ODATA_INVOICE_HEADER_INCOMPLETE_ATTACH_MODEL).setData(oHelpArray);
+                    }                  
                     await this.messageBoxWarning("Příloha již byla nahrána. Pro nahrání nové přlohy je nutné původní nejprve smazat.");
                     return;
                 } else {
@@ -398,6 +395,23 @@ sap.ui.define([
                 }.bind(this));
             },
             _procesOnMatchedScenario: function () {
+                if (this._oUploadSetAttachment.getIncompleteItems().length > 0) {
+                    for (let index = this._oUploadSetAttachment.getIncompleteItems().length - 1; index >= 0; index--) {
+                        this._oUploadSetAttachment.removeIncompleteItem(this._oUploadSetAttachment.getIncompleteItems()[index])
+                    }
+                }
+                if (this._oUploadSetOthersAttachment.getIncompleteItems().length > 0) {
+                    for (let index = this._oUploadSetOthersAttachment.getIncompleteItems().length - 1; index >= 0; index--) {
+                        this._oUploadSetOthersAttachment.removeIncompleteItem(this._oUploadSetOthersAttachment.getIncompleteItems()[index])
+                    }
+                }
+
+                this.getModel(this.CO_ODATA_INVOICE_ITEM_INCOMPLETE_ATTACH_MODEL).setData({ results: [] });
+                this.getModel(this.CO_ODATA_INVOICE_ITEM_ATTACH_MODEL).setData({ results: [] });
+                this.getModel(this.CO_ODATA_INVOICE_HEADER_INCOMPLETE_ATTACH_MODEL).setData({ results: [] });
+                this.getModel(this.CO_ODATA_INVOICE_HEADER_ATTACH_MODEL).setData({ results: [] });
+                this.getModel(this.CO_ODATA_INVOICE_ITEM_MODEL).setData({ results: [] });
+
 
             },
 

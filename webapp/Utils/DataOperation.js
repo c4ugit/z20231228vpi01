@@ -320,6 +320,7 @@ sap.ui.define([
                 let oDataTableItemCorect = {};
                 oDataTableItemCorect = oDataTableItem;         
                 delete oDataTableItemCorect.__metadata;
+                delete oDataTableItemCorect.Counter;
                 aDataTableCorrect.push(oDataTableItemCorect);
 
             }
