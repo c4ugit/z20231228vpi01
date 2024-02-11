@@ -144,11 +144,11 @@ sap.ui.define([
                     let oSelectedItem;
                     oSelectedItem = this.getModel(this.CO_ODATA_INVOICE_ITEM_ATTACH_MODEL).getData().results[i];
 
-                    if (oSelectedItem.ZinvoicrId === oItem.ZinvoicrId && oSelectedItem.AttachId === oItem.AttachId) {
+                    if (oSelectedItem.Zinvoicr_Id === oItem.Zinvoicr_Id && oSelectedItem.Attach_Id === oItem.Attach_Id) {
                         this.getModel(this.CO_ODATA_INVOICE_ITEM_ATTACH_MODEL).getData().results.splice(Number(i), 1);
                         this.getModel(this.CO_ODATA_INVOICE_ITEM_ATTACH_MODEL).updateBindings(true);
 
-                        this._prepareDeleteInvoiceAttachIT(oSelectedItem.ZinvoicrId, oSelectedItem.AttachId);
+                        this._prepareDeleteInvoiceAttachIT(oSelectedItem.Zinvoicr_Id, oSelectedItem.Attach_Id);
                         break;
                     }
                 }
@@ -271,10 +271,10 @@ sap.ui.define([
                     let oSelectedItem;
                     oSelectedItem = this.getModel(this.CO_ODATA_INVOICE_HEADER_ATTACH_MODEL).getData().results[i];
 
-                    if (oSelectedItem.ZinvoicrId === oItem.ZinvoicrId) {
+                    if (oSelectedItem.Zinvoicr_Id === oItem.Zinvoicr_Id) {
                         this.getModel(this.CO_ODATA_INVOICE_HEADER_ATTACH_MODEL).getData().results.splice(Number(i), 1);
                         this.getModel(this.CO_ODATA_INVOICE_HEADER_ATTACH_MODEL).updateBindings(true);
-                        this._prepareDeleteInvoiceAttach(oSelectedItem.ZinvoicrId);
+                        this._prepareDeleteInvoiceAttach(oSelectedItem.Zinvoicr_Id);
                         break;
                     }
                 }
@@ -501,38 +501,39 @@ sap.ui.define([
             _prepraveSaveInvoiceChange: function () {
                 let sPath;
                 let oInvoiceDataObject = {};
-                oInvoiceDataObject.ZinvoicrId = this.getModel(this.CO_ODATA_INVOICE_HEADER_MODEL).getProperty("/ZinvoicrId");
+                oInvoiceDataObject.Zinvoicr_Id = this.getModel(this.CO_ODATA_INVOICE_HEADER_MODEL).getProperty("/Zinvoicr_Id");
+                oInvoiceDataObject.Description = this.getModel(this.CO_ODATA_INVOICE_HEADER_MODEL).getProperty("/Description");
 
                 oInvoiceDataObject.to_invoiceAtt = this.getDataOperationBase().loopDataTableInvoiceAtt(                  
                     this.getModel(this.CO_ODATA_INVOICE_HEADER_INCOMPLETE_ATTACH_MODEL).getData().results,
-                    oInvoiceDataObject.ZinvoicrId
+                    oInvoiceDataObject.Zinvoicr_Id
                     );
                 oInvoiceDataObject.to_items = this.getDataOperationBase().loopDataTabletoItems(
                     this.getModel(this.CO_ODATA_INVOICE_ITEM_MODEL).getData().results);
                 oInvoiceDataObject.to_invItemAtt = this.getDataOperationBase().loopDataTableInvItemAtt(
                     this.getModel(this.CO_ODATA_INVOICE_ITEM_ATTACH_MODEL).getData().results,
                     this.getModel(this.CO_ODATA_INVOICE_ITEM_INCOMPLETE_ATTACH_MODEL).getData().results,
-                    oInvoiceDataObject.ZinvoicrId);
+                    oInvoiceDataObject.Zinvoicr_Id);
 
                 sPath = "/ZC_Invoice";
                 this._callSaveInvoiceChange(sPath, oInvoiceDataObject);
             },
-            _prepareDeleteInvoiceAttachIT: function (ZinvoicrId, AttachId) {
+            _prepareDeleteInvoiceAttachIT: function (Zinvoicr_Id, Attach_Id) {
                 let sPath;
 
                 sPath = this.getModel().createKey("ZC_InvItems", {
-                    ZinvoicrId: ZinvoicrId,
-                    AttachId: AttachId
+                    Zinvoicr_Id: Zinvoicr_Id,
+                    Attach_Id: Attach_Id
                 });
 
                 this._callDeleteInvoiceAttachIT("/" + sPath);
 
             },
-            _prepareDeleteInvoiceAttach: function (ZinvoicrId) {
+            _prepareDeleteInvoiceAttach: function (Zinvoicr_Id) {
                 let sPath;
 
                 sPath = this.getModel().createKey("ZC_InvoiceAtt", {
-                    ZinvoicrId: ZinvoicrId
+                    Zinvoicr_Id: Zinvoicr_Id
                 });
 
                 this._callDeleteInvoiceAttach("/" + sPath);
@@ -608,7 +609,7 @@ sap.ui.define([
             /* =========================================================== */
             _callInvoiceHeader: async function (zinvoicrId) {
                 let sObjectPath = this.getOwnerComponent().getModel().createKey("ZC_Invoice", {
-                    ZinvoicrId: zinvoicrId,
+                    Zinvoicr_Id: zinvoicrId,
                 });
                 let oDataGetGetInvoiceHeader = {};
                 try {
@@ -628,7 +629,7 @@ sap.ui.define([
                     this.getModel(this.CO_ODATA_INVOICE_HEADER_MODEL).setProperty("/Erzet", oDataGetGetInvoiceHeader.Erzet);
                     this.getModel(this.CO_ODATA_INVOICE_HEADER_MODEL).setProperty("/ShortDescr", oDataGetGetInvoiceHeader.ShortDescr);
                     this.getModel(this.CO_ODATA_INVOICE_HEADER_MODEL).setProperty("/Status", oDataGetGetInvoiceHeader.Status);
-                    this.getModel(this.CO_ODATA_INVOICE_HEADER_MODEL).setProperty("/ZinvoicrId", oDataGetGetInvoiceHeader.ZinvoicrId);
+                    this.getModel(this.CO_ODATA_INVOICE_HEADER_MODEL).setProperty("/Zinvoicr_Id", oDataGetGetInvoiceHeader.Zinvoicr_Id);
                     this.getModel(this.CO_ODATA_INVOICE_HEADER_MODEL).setProperty("/Belnr", oDataGetGetInvoiceHeader.Belnr);
 
                  

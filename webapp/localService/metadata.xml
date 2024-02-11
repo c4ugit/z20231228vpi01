@@ -8,9 +8,9 @@
             <Annotation Term="Core.SchemaVersion" String="1.0.0" xmlns="http://docs.oasis-open.org/odata/ns/edm"/>
             <EntityType Name="ZC_InvoiceType" sap:label="Z Faktura odata" sap:content-version="1">
                 <Key>
-                    <PropertyRef Name="ZinvoicrId"/>
+                    <PropertyRef Name="Zinvoicr_Id"/>
                 </Key>
-                <Property Name="ZinvoicrId" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="NonNegative" sap:label="ID pomocné faktury" sap:quickinfo="ID z Faktury pro portál VPI"/>
+                <Property Name="Zinvoicr_Id" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="NonNegative" sap:label="ID pomocné faktury" sap:quickinfo="ID z Faktury pro portál VPI"/>
                 <Property Name="ShortDescr" Type="Edm.String" MaxLength="30" sap:label="Krátký popis" sap:quickinfo="Krátký popis - info"/>
                 <Property Name="Ernam" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Založil" sap:quickinfo="Jméno referenta, který objekt založil"/>
                 <Property Name="Erdat" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Datum založení" sap:quickinfo="Datum založení záznamu"/>
@@ -35,11 +35,11 @@
             </EntityType>
             <EntityType Name="Z_I_C4UVPI_InvoiceItemsAtt10Type" sap:label="Z Faktura přílohy 10" sap:content-version="1">
                 <Key>
-                    <PropertyRef Name="ZinvoicrId"/>
-                    <PropertyRef Name="AttachId"/>
+                    <PropertyRef Name="Zinvoicr_Id"/>
+                    <PropertyRef Name="Attach_Id"/>
                 </Key>
-                <Property Name="ZinvoicrId" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="NonNegative" sap:label="ID z Faktury VPI" sap:quickinfo="ID z Faktury pro portál VPI"/>
-                <Property Name="AttachId" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="NonNegative" sap:label="ID příloh k faktuře"/>
+                <Property Name="Zinvoicr_Id" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="NonNegative" sap:label="ID z Faktury VPI" sap:quickinfo="ID z Faktury pro portál VPI"/>
+                <Property Name="Attach_Id" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="NonNegative" sap:label="ID příloh k faktuře"/>
             </EntityType>
             <Association Name="assoc_0C7C1CBD2F3F1D77D46AA5FA218AD1A7" sap:content-version="1">
                 <End Type="ZC4UVPI01_SRV.ZC_InvoiceType" Multiplicity="1" Role="FromRole_assoc_0C7C1CBD2F3F1D77D46AA5FA218AD1A7"/>

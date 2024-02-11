@@ -3,11 +3,12 @@ sap.ui.define([
     "sap/ui/model/json/JSONModel",
     "../model/formatter",
     "sap/ui/Device",
+    "sap/ui/model/Sorter"
 ],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (BaseController, JSONModel, formatter, Device) {
+    function (BaseController, JSONModel, formatter, Device,Sorter) {
         "use strict";
 
         return BaseController.extend("zmmvpi01.app.z20231228mmvpi01.controller.OverViewVendorInvoice", {
@@ -90,7 +91,7 @@ sap.ui.define([
                 this._showCreateNewVendorInvoice();
             },
             onBind: function (oEvent) {
-
+                this._bindSmartTable(oEvent);
             },
             onSFBInitialized: function () {
                 this._sFBInitialized();
@@ -141,6 +142,10 @@ sap.ui.define([
                     }.bind(this));
                 }
             },
+            _bindSmartTable: function (oEvent) {
+        
+                oEvent.getParameter("bindingParams").sorter.push(new Sorter("Zinvoicr_Id", true));
+            },
 
 
 
@@ -170,7 +175,7 @@ sap.ui.define([
                 // set the layout property of FCL control to show two columns
                 this.getModel(this.getConstantBase().getConstants().APP_VIEW_MODEL).setProperty("/layout", "TwoColumnsMidExpanded");
                 this.getRouter().navTo(this.getConstantBase().getConstants().ROUTE_DETAIL_VENDOR_INVOICE, {
-                    objectId: oItem.getBindingContext().getProperty("ZinvoicrId")
+                    objectId: oItem.getBindingContext().getProperty("Zinvoicr_Id")
                 }, bReplace);
             },
             _showCreateNewVendorInvoice: function (oItem) {

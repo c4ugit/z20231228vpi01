@@ -21,6 +21,7 @@ sap.ui.define([
                     reject(that.getMessagesBase().findFirstErrorMessage(that));
                 }.bind(that));
 
+               
                 oParam.sNamePromise = "2";
                 oParam.sObjectPath = "/" + sObjectPath;
                 oParam.sViewmodel = that.CO_VIEW_MODEL;
@@ -49,6 +50,7 @@ sap.ui.define([
                     reject(that.getMessagesBase().findFirstErrorMessage(that));
                 }.bind(that));
 
+             
                 oParam.sNamePromise = "3";
                 oParam.sObjectPath = "/" + sObjectPath;
                 oParam.sViewmodel = that.CO_VIEW_MODEL;

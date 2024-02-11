@@ -283,7 +283,7 @@ sap.ui.define([
             return aDataTableCorrect;
         },
 
-        loopDataTableInvoiceAtt: function (aDataTable,ZinvoicrId) {
+        loopDataTableInvoiceAtt: function (aDataTable,Zinvoicr_Id) {
             let aDataTableCorrect = [];
             let sLength = aDataTable.length;
             let i, j;
@@ -292,7 +292,7 @@ sap.ui.define([
                 let oDataTableItem = aDataTable[i];
                 let oDataTableItemCorect = {};
                 oDataTableItemCorect = oDataTableItem;
-                oDataTableItemCorect.ZinvoicrId = ZinvoicrId;
+                oDataTableItemCorect.Zinvoicr_Id = Zinvoicr_Id;
                
                 delete oDataTableItemCorect.__metadata;
                 delete oDataTableItemCorect.Counter;
@@ -302,13 +302,13 @@ sap.ui.define([
             }
             return aDataTableCorrect;
         },
-        loopDataTableInvItemAtt: function (aDataTable,aDataTableJoin,ZinvoicrId) {
+        loopDataTableInvItemAtt: function (aDataTable,aDataTableJoin,Zinvoicr_Id) {
 
-            let lastAttachId;
+            let lastAttach_Id;
             if(aDataTable.length === 0) {
-                lastAttachId = 0;
+                lastAttach_Id = 0;
             } else {
-                lastAttachId = Math.max(...aDataTable.map(o => Number(o.AttachId)));
+                lastAttach_Id = Math.max(...aDataTable.map(o => Number(o.Attach_Id)));
             }
             
             let aDataTableCorrect = [];
@@ -329,14 +329,14 @@ sap.ui.define([
             if (aDataTableJoin.length > 0) {
                 for (let index = 0; index < aDataTableJoin.length; index++) {
 
-                    lastAttachId = lastAttachId + 1;
+                    lastAttach_Id = lastAttach_Id + 1;
 
                     let oDataTableItemJoin = aDataTableJoin[index];
                     let oDataTableItemCorectJoin = {};
 
            
-                    oDataTableItemCorectJoin.ZinvoicrId = ZinvoicrId;
-                    oDataTableItemCorectJoin.AttachId = String(lastAttachId);
+                    oDataTableItemCorectJoin.Zinvoicr_Id = Zinvoicr_Id;
+                    oDataTableItemCorectJoin.Attach_Id = String(lastAttach_Id);
                     oDataTableItemCorectJoin.Filename = oDataTableItemJoin.Filename;
                     oDataTableItemCorectJoin.Mimetype = oDataTableItemJoin.Mimetype;
                     oDataTableItemCorectJoin.UploadState = oDataTableItemJoin.UploadState;

@@ -18,7 +18,7 @@
                 <Annotation Term="UI.LineItem">
                     <Collection>
                         <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="ZinvoicrId"/>
+                            <PropertyValue Property="Value" Path="Zinvoicr_Id"/>
                         </Record>
                         <Record Type="UI.DataField">
                             <PropertyValue Property="Value" Path="Ernam"/>

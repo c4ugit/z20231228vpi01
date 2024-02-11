@@ -23,7 +23,7 @@
     >
         <semantic:titleHeading>
             <Title
-                text="Číslo faktury {invoiceModel>/ZinvoicrId}"
+                text="Číslo faktury {invoiceModel>/Zinvoicr_Id}"
                 level="H2"
             />
         </semantic:titleHeading>

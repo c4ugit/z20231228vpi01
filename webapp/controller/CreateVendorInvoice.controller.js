@@ -130,11 +130,11 @@ sap.ui.define([
                     let oSelectedItem;
                     oSelectedItem = this.getModel(this.CO_ODATA_INVOICE_ITEM_ATTACH_MODEL).getData().results[i];
 
-                    if (oSelectedItem.ZinvoicrId === oItem.ZinvoicrId && oSelectedItem.AttachId === oItem.AttachId) {
+                    if (oSelectedItem.Zinvoicr_Id === oItem.Zinvoicr_Id && oSelectedItem.Attach_Id === oItem.Attach_Id) {
                         this.getModel(this.CO_ODATA_INVOICE_ITEM_ATTACH_MODEL).getData().results.splice(Number(i), 1);
                         this.getModel(this.CO_ODATA_INVOICE_ITEM_ATTACH_MODEL).updateBindings(true);
 
-                        this._prepareDeleteInvoiceAttachIT(oSelectedItem.ZinvoicrId, oSelectedItem.AttachId);
+                        this._prepareDeleteInvoiceAttachIT(oSelectedItem.Zinvoicr_Id, oSelectedItem.Attach_Id);
                         break;
                     }
                 }
@@ -265,7 +265,7 @@ sap.ui.define([
                     let oSelectedItem;
                     oSelectedItem = this.getModel(this.CO_ODATA_INVOICE_HEADER_ATTACH_MODEL).getData().results[i];
 
-                    if (oSelectedItem.ZinvoicrId === oItem.ZinvoicrId) {
+                    if (oSelectedItem.Zinvoicr_Id === oItem.Zinvoicr_Id) {
                         this.getModel(this.CO_ODATA_INVOICE_HEADER_ATTACH_MODEL).getData().results.splice(Number(i), 1);
                         break;
                     }
@@ -479,7 +479,7 @@ sap.ui.define([
                 oInvoiceDataObject = {};
 
 
-                oInvoiceDataObject.ZinvoicrId = "9000000000";
+                oInvoiceDataObject.Zinvoicr_Id = "9000000000";
                 oInvoiceDataObject.Description = this.getModel(this.CO_ODATA_INVOICE_HEADER_MODEL).getProperty("/Description");
                 oInvoiceDataObject.ShortDescr = this.getModel(this.CO_ODATA_INVOICE_HEADER_MODEL).getProperty("/ShortDescr");
                 oInvoiceDataObject.to_invoiceAtt = this.getDataOperationBase()
@@ -487,7 +487,7 @@ sap.ui.define([
                         this.getModel(this.CO_ODATA_INVOICE_HEADER_INCOMPLETE_ATTACH_MODEL)
                             .getData()
                             .results,
-                            oInvoiceDataObject.ZinvoicrId
+                            oInvoiceDataObject.Zinvoicr_Id
                     );
                 oInvoiceDataObject.to_items = [];
                 oInvoiceDataObject.to_invItemAtt = this.getDataOperationBase()
@@ -495,7 +495,7 @@ sap.ui.define([
                         this.getModel(this.CO_ODATA_INVOICE_ITEM_INCOMPLETE_ATTACH_MODEL)
                             .getData()
                             .results, [],
-                            oInvoiceDataObject.ZinvoicrId);
+                            oInvoiceDataObject.Zinvoicr_Id);
 
 
                 sPath = "/ZC_Invoice";
