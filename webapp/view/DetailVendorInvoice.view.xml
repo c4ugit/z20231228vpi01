@@ -1,4 +1,4 @@
-<mvc:View
+<mvc:View xmlns:networkgraph="sap.suite.ui.commons.networkgraph"
     xmlns:semantic="sap.f.semantic"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns:f2="sap.f"
@@ -71,7 +71,10 @@
                         required="false"
                         text="Status faktury"
                     />
-                    <Text text="{ path:'invoiceModel>/Status'}" />
+                    <ObjectStatus 
+                    text="{ path:'invoiceModel>/Status', formatter : '.formatter.statusInvoiceText'}" 
+                    state="{ path:'invoiceModel>/Status', formatter : '.formatter.statusInvoiceState'}" 
+                    icon="{ path:'invoiceModel>/Status', formatter : '.formatter.statusInvoiceIcon'}" />
                     <Label
                         required="false"
                         text="Založil"
@@ -102,7 +105,7 @@
                     id="uploadSetAttachment"
                     instantUpload="false"
                     showIcons="true"
-                    uploadEnabled="true"
+                    uploadEnabled="{ path:'invoiceModel>/Status', formatter : '.formatter.statusInvoiceUploadEnabled'}"
                     terminationEnabled="true"
                     fileTypes="pdf"
                     maxFileNameLength="30"
@@ -178,7 +181,7 @@
                     id="uploadSetOthersAttachment"
                     instantUpload="true"
                     showIcons="true"
-                    uploadEnabled="true"
+                    uploadEnabled="{ path:'invoiceModel>/Status', formatter : '.formatter.statusInvoiceUploadEnabled'}"
                     terminationEnabled="true"
                     fileTypes="txt,doc,png,pdf,xls,xlsx.docx"
                     maxFileNameLength="30"

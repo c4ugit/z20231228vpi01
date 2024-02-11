@@ -118,7 +118,7 @@
                                         />
                                     </customData>
                                     <Text
-                                        text="Status faktury "
+                                        text="Status faktury"
                                         wrapping="false"
                                     />
                                 </Column>
@@ -195,50 +195,29 @@
                                             <commons:content>
                                                 <commons:MicroProcessFlowItem
                                                 title="Faktura byla nahrána dodavatelem"
-                                                    state="Success"
+                                                    state="{path : 'Status', formatter : '.formatter.statusInvoiceState1'}"
+                                                    icon="sap-icon://account"
+                                                />
+                                                    <!-- state="Success" -->
+                                                <commons:MicroProcessFlowItem
+                                                      state="{path : 'Status', formatter : '.formatter.statusInvoiceState2'}"
                                                     icon="sap-icon://account"
                                                 />
                                                 <commons:MicroProcessFlowItem
-                                                    state="Success"
-                                                    icon="sap-icon://account"
-                                                />
-                                                <commons:MicroProcessFlowItem
-                                                    state="Warning"
+                                                      state="{path : 'Status', formatter : '.formatter.statusInvoiceState3'}"
                                                     icon="sap-icon://account"
                                                   
                                                 />
                                                 <commons:MicroProcessFlowItem
-                                                    state="None"
+                                                       state="{path : 'Status', formatter : '.formatter.statusInvoiceState4'}"
                                                      icon="sap-icon://account"
                                                 />
                                                 <commons:MicroProcessFlowItem
-                                                    state="None"
+                                                     state="{path : 'Status', formatter : '.formatter.statusInvoiceState5'}"
                                                      icon="sap-icon://cancel"
                                                 />
                                             </commons:content>
-                                        </commons:MicroProcessFlow>
-                                        <!-- <Text
-                                            text="{Idincident}"
-                                            wrapping="false"
-                                        />
-                                        <ObjectStatus
-                                            text="{Incstatdes}"
-                                            inverted="true"
-                                            icon="{Icon}"
-                                            state="{Statusicon}"
-                                        />
-                                        <Text
-                                            text="{Workcenter}"
-                                            wrapping="false"
-                                        />
-                                        <Text
-                                            text="{WorkCenterText}"
-                                            wrapping="false"
-                                        />
-                                        <Text
-                                            text="{Ernam}"
-                                            wrapping="false"
-                                        /> -->
+                                        </commons:MicroProcessFlow>    
                                     </cells>
                                 </ColumnListItem>
                             </items>

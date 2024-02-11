@@ -279,20 +279,250 @@ sap.ui.define([
             }
             return requestStatus;
         },
-        itemTypeStatusState: function (itemTypeStatus) {
+        statusInvoiceState1: function (invoiceState) {
             let Status;
-            switch (itemTypeStatus) {
-                case "X":
+            switch (invoiceState) {             
+                case "1":
                     Status = "Warning";
                     break;
-                case "F":
-                    Status = "Information";
-                    break;  
+                case "2":
+                    Status = "Success";
+                    break;
+                case "3":
+                    Status = "Success";
+                    break;
+                case "4":
+                    Status = "Success";
+                    break;
+                case "5":
+                    Status = "Success";
+                    break;
+                case "6":
+                    Status = "Success";
+                    break;
                 default:
                     Status = "None";
                     break;
             }
             return Status;
+        },
+        statusInvoiceState2: function (invoiceState) {
+            let Status;
+            switch (invoiceState) {             
+                case "1":
+                    Status = "None";
+                    break;
+                case "2":
+                    Status = "Warning";
+                    break;
+                case "3":
+                    Status = "Success";
+                    break;
+                case "4":
+                    Status = "Success";
+                    break;
+                case "5":
+                    Status = "Success";
+                    break;
+                case "6":
+                    Status = "Success";
+                    break;
+                default:
+                    Status = "None";
+                    break;
+            }
+            return Status;
+        },
+        statusInvoiceState3: function (invoiceState) {
+            let Status;
+            switch (invoiceState) {             
+                case "1":
+                    Status = "None";
+                    break;
+                case "2":
+                    Status = "None";
+                    break;
+                case "3":
+                    Status = "Warning";
+                    break;
+                case "4":
+                    Status = "Success";
+                    break;
+                case "5":
+                    Status = "Success";
+                    break;
+                case "6":
+                    Status = "Success";
+                    break;
+                default:
+                    Status = "None";
+                    break;
+            }
+            return Status;
+        },
+        statusInvoiceState4: function (invoiceState) {
+            let Status;
+            switch (invoiceState) {             
+                case "1":
+                    Status = "None";
+                    break;
+                case "2":
+                    Status = "None";
+                    break;
+                case "3":
+                    Status = "None";
+                    break;
+                case "4":
+                    Status = "Warning";
+                    break;
+                case "5":
+                    Status = "Success";
+                    break;
+                case "6":
+                    Status = "Success";
+                    break;
+                default:
+                    Status = "None";
+                    break;
+            }
+            return Status;
+        },
+        statusInvoiceState5: function (invoiceState) {
+            let Status;
+            switch (invoiceState) {             
+                case "1":
+                    Status = "None";
+                    break;
+                case "2":
+                    Status = "None";
+                    break;
+                case "3":
+                    Status = "None";
+                    break;
+                case "4":
+                    Status = "None";
+                    break;
+                case "5":
+                    Status = "Warning";
+                    break;
+                case "6":
+                    Status = "Success";
+                    break;
+                default:
+                    Status = "None";
+                    break;
+            }
+            return Status;
+        },
+        statusInvoiceState5: function (invoiceState) {
+            let Status;
+            switch (invoiceState) {             
+                case "1":
+                    Status = "None";
+                    break;
+                case "2":
+                    Status = "None";
+                    break;
+                case "3":
+                    Status = "None";
+                    break;
+                case "4":
+                    Status = "None";
+                    break;
+                case "5":
+                    Status = "Warning";
+                    break;
+                case "6":
+                    Status = "Success";
+                    break;
+                default:
+                    Status = "None";
+                    break;
+            }
+            return Status;
+        },
+        statusInvoiceState: function (invoiceState) {
+            let Status;
+            switch (invoiceState) {           
+
+                case "6":
+                    Status = "Success";
+                    break;
+                default:
+                    Status = "Warning";
+                    break;
+            }
+            return Status;
+        },
+        statusInvoiceIcon: function (invoiceState) {
+            let Icon;
+            switch (invoiceState) {           
+
+                case "1":
+                    Icon="sap-icon://account"
+                    break;
+                case "2":
+                    Icon="sap-icon://account"
+                    break;
+                case "3":
+                    Icon="sap-icon://account"
+                    break;
+                case "4":
+                    Icon="sap-icon://account"
+                    break;
+                case "5":
+                    Icon="sap-icon://account"
+                    break;
+                case "6":
+                    Icon="sap-icon://account"
+                    break;
+                default:
+                    Icon = "";
+                    break;
+            }
+            return Icon;
+        },
+        statusInvoiceText: function (invoiceState) {
+            let Text;
+            switch (invoiceState) {           
+
+                case "1":
+                    Text="Todo1"
+                    break;
+                case "2":
+                    Text="Todo2"
+                    break;
+                case "3":
+                    Text="Todo3"
+                    break;
+                case "4":
+                    Text="Todo4"
+                    break;
+                case "5":
+                    Text="Todo5"
+                    break;
+                case "6":
+                    Text="Todo6"
+                    break;
+                default:
+                    Text = "";
+                    break;
+            }
+            return Text;
+        },
+        statusInvoiceUploadEnabled: function (invoiceState) {
+            let uploadEnabled;
+            switch (invoiceState) {           
+
+                case "1":
+                    uploadEnabled=true;
+                    break;
+               
+                default:
+                    uploadEnabled = false;
+                    break;
+            }
+            return uploadEnabled;
         },
         itemTypeStatusIcon: function (itemTypeStatusIcon) {
             let statusIcon;
@@ -311,24 +541,7 @@ sap.ui.define([
             }
             return statusIcon;
         },
-        paymentType: function (paymentType) {
-            let paymentTypeReText;
-            switch (paymentType) {
-                case "H":
-                    paymentTypeReText = "HT";
-                    break;
-                case "":
-                    paymentTypeReText = "FA";
-                    break;   
-                case "X":
-                    paymentTypeReText = "SA";
-                    break;
-                default:
-                    paymentTypeReText = "FA";
-                    break;
-            }
-            return paymentTypeReText;
-        },
+   
         columnListItemType: function (status,paymentType,paymentException,blocked,paymentCash) {
             let navigationType;
 
@@ -353,182 +566,10 @@ sap.ui.define([
       
             return navigationType;
         },
-        blockCustomerText: function (stype) {
-            let sCustomerBlockText;
-            switch (stype) {
-                case false:
-                    sCustomerBlockText = "";
-                    break;
-                case true:
-                    sCustomerBlockText = "Blokováno";
-                    break;
-                default:
-                    break;
-            }
-            return sCustomerBlockText;
-        },
-        typeStatus: function (sStatus) {
-         
-            switch (sStatus) {
-                case "O":
-                    return "Success"; 
-
-                case "V":
-                    return "None";             
-                    case "N":
-                        return "Error";                   
-
-                default:
-                    return "None";
-
-            }
-        },
-        blockedStatusState: function (blocked) {
-         
-            switch (blocked) {
-                case true:
-                    return "Error"; 
-
-                case false:
-                    return "None";          
-        
-            }
-        },
+       
       
-        blockedIcon: function (blocked) {
-         
-            switch (blocked) {
-                case true:
-                    return "sap-icon://alert"; 
-
-                case false:
-                    return "None";          
-        
-            }
-        },
-        deliveryStatusDisplay: function (status) {
-   
-            switch (status) {
-                case "264":
-                    return "Success"; 
-
-                case "265":
-                    return "Error";               
-
-                case "":
-                    return "None"; 
-                case "220":
-                    return "Warning"; 
-                case "225":
-                    return "Warning";   
-                case "227":
-                    return "Warning";                  
-                case "230":
-                    return "Warning";                  
-                case "235":
-                    return "Warning";                  
-                case "237":
-                    return "Warning";                  
-                case "240":
-                    return "Warning";                  
-                case "245":
-                    return "Warning";                  
-                case "250":
-                    return "Warning";                  
-                case "255":
-                    return "Warning";                  
-                case "257":
-                    return "Warning";                  
-                case "258":
-                    return "Warning";                  
-                case "259":
-                    return "Warning";                  
-                case "":
-                    return "None";
-
-                default:
-                    return "None";
-
-            }
-        },
-        sdStatusName: function (sStatus) {
-            // *1  Nová
-            // *2  Zrušena
-            // *3  Vystaven DL
-            // *4  Výdej ze skladu
-            // *5  Ukončení návštěvy
-            // *6  Vyfakturováno
-            switch (sStatus) {
-                case "1":
-                    return "Nová"; //Nová
-                case "2":
-                    return "Zrušena"; //Zrušená    
-                case "3":
-                    return "Vystaven DL"; // Vystaven DL
-                case "4":
-                    return "Výdej ze skladu"; //Výdej ze skladu
-                case "5":
-                    return "Ukončení návštěvy";     //Ukončení návštěvy             
-                case "6":
-                    return "Vyfakturováno";// 6  Vyfakturováno                  
-                default:
-                    return "";
-
-            }
-        },
-        sdStatusIcon: function (sStatus) {
-            // *1  Nová
-            // *2  Zrušena
-            // *3  Vystaven DL
-            // *4  Výdej ze skladu
-            // *5  Ukončení návštěvy
-            // *6  Vyfakturováno
-            switch (sStatus) {
-                case "1":
-                    return "sap-icon://add-favorite"; //Nová
-                case "2":
-                    return "sap-icon://cancel"; //Zrušená    
-                case "3":
-                    return "sap-icon://activity-items"; // Vystaven DL
-                case "4":
-                    return "sap-icon://addresses"; //Výdej ze skladu
-                case "5":
-                    return "sap-icon://hr-approval";     //Ukončení návštěvy             
-                case "6":
-                    return "sap-icon://decision";// 6  Vyfakturováno                  
-                default:
-                    return "";
-
-            }
-        },
-        sdStatusState: function (sStatus) {
-            // *1  Nová
-            // *2  Zrušena
-            // *3  Vystaven DL
-            // *4  Výdej ze skladu
-            // *5  Ukončení návštěvy
-            // *6  Vyfakturováno
-            switch (sStatus) {
-                case "1":
-                    return "Information"; //Nová
-
-                case "2":
-                    return "Error"; //Zrušená                 
-
-                case "3":
-                    return "Warning"; // Vystaven DL
-                case "4":
-                    return "Warning"; //Výdej ze skladu
-                case "5":
-                    return "Warning";     //Ukončení návštěvy             
-                case "6":
-                    return "Success";// 6  Vyfakturováno
-
-                default:
-                    return "None";
-
-            }
-        },
+      
+     
         rowHighlightSalesDocumentRjcnReason: function (sStatus) {
             switch (sStatus) {
                 case "":

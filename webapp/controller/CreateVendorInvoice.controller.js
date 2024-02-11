@@ -194,7 +194,13 @@ sap.ui.define([
                     oNewAttachmet.Content = Content;
                     this.getModel(this.CO_ODATA_INVOICE_ITEM_INCOMPLETE_ATTACH_MODEL).getData().results.push(oNewAttachmet);
                     this.getModel(this.CO_ODATA_INVOICE_ITEM_INCOMPLETE_ATTACH_MODEL).updateBindings(true);
-                    // var oLocalData.content = "data:image/jpeg;base64," + base64;
+                    for (let index = 0; index < this._oUploadSetOthersAttachment.getIncompleteItems().length; index++) {
+                        //10_1
+                        this._oUploadSetOthersAttachment.getIncompleteItems()[index].setVisibleEdit(false);                    
+                        
+                    }
+
+                  
                 }.bind(this);
                 reader.onerror = function (e) {
                     this.messageToastShow("error");
@@ -332,6 +338,11 @@ sap.ui.define([
                     oNewAttachmet.Content = Content;
                     this.getModel(this.CO_ODATA_INVOICE_HEADER_INCOMPLETE_ATTACH_MODEL).getData().results.push(oNewAttachmet);
                     this.getModel(this.CO_ODATA_INVOICE_HEADER_INCOMPLETE_ATTACH_MODEL).updateBindings(true);
+                    for (let index = 0; index < this._oUploadSetAttachment.getIncompleteItems().length; index++) {
+                        //10_1
+                        this._oUploadSetAttachment.getIncompleteItems()[index].setVisibleEdit(false);                    
+                        
+                    }
                     // var oLocalData.content = "data:image/jpeg;base64," + base64;
                 }.bind(this);
 

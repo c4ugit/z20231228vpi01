@@ -476,7 +476,9 @@ sap.ui.define([
                     sInvoiceId
                 )
                 //30Next steps...
+                this._nextStepsAfterDataCalled();
             },
+
 
             /* =========================================================== */
             /* =========================================================== */
@@ -541,6 +543,33 @@ sap.ui.define([
                 this.getModel(this.getConstantBase().getConstants().APP_VIEW_MODEL).setProperty("/layout", "OneColumn");
                 this.getRouter().navTo(this.getConstantBase().getConstants().ROUTE_OVERVIEW_VENDOR_INVOICE);
             },
+            _nextStepsAfterDataCalled: function () {
+                //10 nastavit visible false na EDIT
+                for (let index = 0; index < this._oUploadSetAttachment.getItems().length; index++) {
+                    //10_1
+                    this._oUploadSetAttachment.getItems()[index].setVisibleEdit(false);
+                    //10_2 pokud je status jiný než 1, pak i visible remove
+                    if(this.getModel(this.CO_ODATA_INVOICE_HEADER_MODEL).getProperty("/Status") === "1") {
+                       this._oUploadSetAttachment.getItems()[index].setVisibleRemove(true);            
+
+                    } else {
+                        this._oUploadSetAttachment.getItems()[index].setVisibleRemove(false);    
+                    }
+                }
+                for (let index = 0; index < this._oUploadSetOthersAttachment.getItems().length; index++) {
+                    //10_1
+                    this._oUploadSetOthersAttachment.getItems()[index].setVisibleEdit(false);
+                    //10_2 pokud je status jiný než 1, pak i visible remove
+                    if(this.getModel(this.CO_ODATA_INVOICE_HEADER_MODEL).getProperty("/Status") === "1") {
+                       this._oUploadSetOthersAttachment.getItems()[index].setVisibleRemove(true);            
+
+                    } else {
+                        this._oUploadSetOthersAttachment.getItems()[index].setVisibleRemove(false);    
+                    }
+                }
+               
+           
+            },
 
             /* =========================================================== */
             /* =========================================================== */
@@ -602,7 +631,7 @@ sap.ui.define([
                     this.getModel(this.CO_ODATA_INVOICE_HEADER_MODEL).setProperty("/ZinvoicrId", oDataGetGetInvoiceHeader.ZinvoicrId);
                     this.getModel(this.CO_ODATA_INVOICE_HEADER_MODEL).setProperty("/Belnr", oDataGetGetInvoiceHeader.Belnr);
 
-
+                 
 
                     return;
                 } catch (error) {
