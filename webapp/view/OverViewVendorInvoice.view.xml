@@ -114,7 +114,7 @@
                                     <customData>
                                         <core:CustomData
                                             key="p13nData"
-                                            value='\{"columnKey": "Status", "maxLength": "30","columnIndex":"10",  "sortProperty": "Status",  "filterProperty": "Status", "leadingProperty": "Status"}'
+                                            value='\{"columnKey": "Status", "maxLength": "30","columnIndex":"20",  "sortProperty": "Status",  "filterProperty": "Status", "leadingProperty": "Status"}'
                                         />
                                     </customData>
                                     <Text
