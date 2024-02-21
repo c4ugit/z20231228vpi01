@@ -230,13 +230,13 @@ sap.ui.define([
                 oEvent.getParameters().item.destroy();
             },
             onFileNameLengthExceededIT: function (oEvent) {
-
+                this.getAttachmentBase().setPropertyAttach(this.getConstantBase().getConstants.FILE_NAME_LENGTH_EXCEEDED_IT,true);
             },
             onFileSizeExceededIT: function (oEvent) {
-
+                this.getAttachmentBase().setPropertyAttach(this.getConstantBase().getConstants.FILE_NAME_SIZE_EXCEEDED_IT,true);
             },
             onFileTypeMismatchIT: function (oEvent) {
-
+                this.getAttachmentBase().setPropertyAttach(this.getConstantBase().getConstants.FILE_TYPE_MISMATCH_EXCEEDED_IT,true);
             },
             onUploadCompletedIT: function (oEvent) {
 
@@ -355,14 +355,14 @@ sap.ui.define([
 
             },
 
-            onFileNameLengthExceeded: function (oEvent) {
-
+           onFileNameLengthExceeded: function (oEvent) {
+                this.getAttachmentBase().setPropertyAttach(this.getConstantBase().getConstants.FILE_NAME_LENGTH_EXCEEDED,true);
             },
             onFileSizeExceeded: function (oEvent) {
-
+                this.getAttachmentBase().setPropertyAttach(this.getConstantBase().getConstants.FILE_NAME_SIZE_EXCEEDED,true);
             },
             onFileTypeMismatch: function (oEvent) {
-
+                this.getAttachmentBase().setPropertyAttach(this.getConstantBase().getConstants.FILE_TYPE_MISMATCH_EXCEEDED,true);
             },
             onUploadCompleted: function (oEvent) {
 

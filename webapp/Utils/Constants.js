@@ -10,6 +10,8 @@ sap.ui.define([], function () {
                 GLOBAL_MODEL_FC: "globalModelFieldsControl", //Možnosti nastavení aplikace            
                 GLOBAL_MODEL_USER_INFO: "globalModelUserInfo",
                 GLOBAL_MODEL_VENDOR_INFO: "globalModelVendorInfo",
+                GLOBAL_MODEL_VENDOR_INFO: "globalModelVendorInfo",
+                GLOBAL_MODEL_FC_ATTACH: "globalModelFCAttach",
 
                 GLOBAL_MODEL_MATERIAL_LIST: "globalModelMaterialList", 
                 GLOBAL_MODEL_CUSTOMER_LIST: "globalModelCustomerList", 
@@ -31,6 +33,19 @@ sap.ui.define([], function () {
                 ROUTE_DETAIL_VENDOR_INVOICE: "routeDetailVendorInvoice",
                 ROUTE_OVERVIEW_VENDOR_INVOICE: "routeOverviewVendorInvoice",
                 ROUTE_CREATE_VENDOR_INVOICE: "routeCreateVendorInvoice",
+
+
+                FILE_NAME_LENGTH_EXCEEDED :"/FileNameLengthExceeded",
+                FILE_NAME_LENGTH_EXCEEDED_IT :"/FileNameLengthExceededIT",
+                
+                FILE_NAME_SIZE_EXCEEDED :"/FileSizeExceeded",
+                FILE_NAME_SIZE_EXCEEDED_IT :"/FileSizeExceededIT",
+
+                FILE_TYPE_MISMATCH_EXCEEDED :"/FileTypeMismatch",
+                FILE_TYPE_MISMATCH_EXCEEDED_IT :"/FileTypeMismatchIT",
+
+
+
 
 
 
