@@ -13,8 +13,9 @@ sap.ui.define([
     "../utils/DateTime",
     "../utils/Attachment",
     "../utils/DataOperation",
+    "../utils/FileReader",
 ], function (Controller, History, Constants, Messages, ZMessageBox, ZMessageToast, CallToBackend, Dialog,
-     SelectDialog, Validator,Filters,DateTime,Attachment,DataOperation) {
+     SelectDialog, Validator,Filters,DateTime,Attachment,DataOperation,FileReader) {
     "use strict";
 
     return Controller.extend("zmmvpi01.app.z20231228mmvpi01.controller.BaseController", {
@@ -63,6 +64,9 @@ sap.ui.define([
         },
         getDataOperationBase: function () {
             return DataOperation;
+        },
+        getFileReaderBase: function () {
+            return FileReader;
         },
 
 

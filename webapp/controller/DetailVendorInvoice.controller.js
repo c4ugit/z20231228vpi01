@@ -162,20 +162,36 @@ sap.ui.define([
             onBeforeItemAddedIT: function (oEvent) {
 
             },
-            onAfterItemAddedIT: function (oEvent) {
+            onAfterItemAddedIT: async function (oEvent) {
+                let bCheckPropertiesAttachFC;
                 let oFile;
                 let oNewAttachmet = {};
                 let oNewAttachmet2 = {};
                 let oParameter;
                 oParameter = oEvent.getParameter("item");
-          
-                //10 Odvození pořadového čisla nově přidané přílohy
+
+
+                //5Kontrola, zda je možné nahrávat přílohy.
+                if (oEvent.getSource().getProperty("uploadEnabled") === false) {
+                    this._oUploadSetOthersAttachment.removeIncompleteItem(oParameter);
+                    return;
+                }
+                //10kontrala, zda je příloha ok:
+                bCheckPropertiesAttachFC = await this.getAttachmentBase().checkPropertiesAttachFC(this);
+                if (bCheckPropertiesAttachFC === false) {
+                    this._oUploadSetOthersAttachment.removeIncompleteItem(oParameter);
+                    this.getAttachmentBase().initFCFields(this);
+                    return;
+                };
+
+                //15 Odvození pořadového čisla nově přidané přílohy
                 let i
                 if (this.getModel(this.CO_ODATA_INVOICE_ITEM_INCOMPLETE_ATTACH_MODEL).getData().results.length === 0) {
                     i = this.getModel(this.CO_ODATA_INVOICE_ITEM_INCOMPLETE_ATTACH_MODEL).getData().results.length + 1;
                 } else {
                     i = Math.max(...this.getModel(this.CO_ODATA_INVOICE_ITEM_INCOMPLETE_ATTACH_MODEL).getData().results.map(o => o.Counter)) + 1;
                 }
+
 
                 oNewAttachmet2.Filename = oParameter.getProperty("fileName");
                 oNewAttachmet2.Mimetype = oParameter.getProperty("mediaType");
@@ -184,7 +200,7 @@ sap.ui.define([
 
                 oParameter.setProperty("thumbnailUrl", i);
 
-                oFile = oEvent.getParameter("item").getFileObject();
+                oFile = oParameter.getFileObject();
 
                 oParameter.setBindingContext(
                     new sap.ui.model.Context(
@@ -236,13 +252,13 @@ sap.ui.define([
                 oEvent.getParameters().item.destroy();
             },
             onFileNameLengthExceededIT: function (oEvent) {
-
+                this.getAttachmentBase().setPropertyAttachFC(this.getConstantBase().getConstants().FILE_NAME_LENGTH_EXCEEDED_IT, false, this);
             },
             onFileSizeExceededIT: function (oEvent) {
-
+                this.getAttachmentBase().setPropertyAttachFC(this.getConstantBase().getConstants().FILE_NAME_SIZE_EXCEEDED_IT, false, this);
             },
             onFileTypeMismatchIT: function (oEvent) {
-
+                this.getAttachmentBase().setPropertyAttachFC(this.getConstantBase().getConstants().FILE_TYPE_MISMATCH_EXCEEDED_IT, false, this);
             },
             onUploadCompletedIT: function (oEvent) {
 
@@ -303,7 +319,15 @@ sap.ui.define([
 
             },
             onAfterItemAdded: async function (oEvent) {
+                let bCheckPropertiesAttachFC;
                 let oSource = oEvent.getSource();
+                let oParameter = oEvent.getParameter("item");
+
+                //5Kontrola, zda je možné nahrávat přílohy.
+                if (oEvent.getSource().getProperty("uploadEnabled") === false) {
+                    this._oUploadSetAttachment.removeIncompleteItem(oParameter);
+                    return;
+                }
                 //10kontrola, kolik je nahraných příloh, může být maximálně 1
                 if (oSource.getItems().length > 0) {
                     if (this._oUploadSetAttachment.getIncompleteItems().length > 0) {
@@ -320,14 +344,22 @@ sap.ui.define([
 
                 }
 
+                //15kontrala, zda je příloha ok:
+                bCheckPropertiesAttachFC = await this.getAttachmentBase().checkPropertiesAttachFC(this);
+                if (bCheckPropertiesAttachFC === false) {
+                    this._oUploadSetAttachment.removeIncompleteItem(oParameter);
+                    this.getAttachmentBase().initFCFields(this);
+                    return;
+                };
+
                 let oFile;
                 let oNewAttachmet = {};
-                let oParameter;
+
                 let i;
                 i = 1;
-                oParameter = oEvent.getParameter("item");
 
-                oFile = oEvent.getParameter("item").getFileObject();
+
+                oFile = oParameter.getFileObject();
 
                 oParameter.setBindingContext(
                     new sap.ui.model.Context(
@@ -360,16 +392,14 @@ sap.ui.define([
             onBeforeItemEdited: function (oEvent) {
 
             },
-
             onFileNameLengthExceeded: function (oEvent) {
-
+                this.getAttachmentBase().setPropertyAttachFC(this.getConstantBase().getConstants().FILE_NAME_LENGTH_EXCEEDED, false, this);
             },
             onFileSizeExceeded: function (oEvent) {
-
+                this.getAttachmentBase().setPropertyAttachFC(this.getConstantBase().getConstants().FILE_NAME_SIZE_EXCEEDED, false, this);
             },
-            onFileTypeMismatch:  function (oEvent) {
-                oEvent.preventDefault();
-                 this.messageBoxError("Špatný formát přílohy");
+            onFileTypeMismatch: function (oEvent) {
+                this.getAttachmentBase().setPropertyAttachFC(this.getConstantBase().getConstants().FILE_TYPE_MISMATCH_EXCEEDED, false, this);
             },
             onUploadCompleted: function (oEvent) {
 
@@ -451,6 +481,7 @@ sap.ui.define([
                         this._oUploadSetOthersAttachment.removeIncompleteItem(this._oUploadSetOthersAttachment.getIncompleteItems()[index])
                     }
                 }
+                this.getAttachmentBase().initFCFields(this);
 
 
                 let oHelpArray1 = {};
@@ -504,10 +535,10 @@ sap.ui.define([
                 oInvoiceDataObject.Zinvoicr_Id = this.getModel(this.CO_ODATA_INVOICE_HEADER_MODEL).getProperty("/Zinvoicr_Id");
                 oInvoiceDataObject.Description = this.getModel(this.CO_ODATA_INVOICE_HEADER_MODEL).getProperty("/Description");
 
-                oInvoiceDataObject.to_invoiceAtt = this.getDataOperationBase().loopDataTableInvoiceAtt(                  
+                oInvoiceDataObject.to_invoiceAtt = this.getDataOperationBase().loopDataTableInvoiceAtt(
                     this.getModel(this.CO_ODATA_INVOICE_HEADER_INCOMPLETE_ATTACH_MODEL).getData().results,
                     oInvoiceDataObject.Zinvoicr_Id
-                    );
+                );
                 oInvoiceDataObject.to_items = this.getDataOperationBase().loopDataTabletoItems(
                     this.getModel(this.CO_ODATA_INVOICE_ITEM_MODEL).getData().results);
                 oInvoiceDataObject.to_invItemAtt = this.getDataOperationBase().loopDataTableInvItemAtt(
@@ -550,26 +581,26 @@ sap.ui.define([
                     //10_1
                     this._oUploadSetAttachment.getItems()[index].setVisibleEdit(false);
                     //10_2 pokud je status jiný než 1, pak i visible remove
-                    if(this.getModel(this.CO_ODATA_INVOICE_HEADER_MODEL).getProperty("/Status") === "1") {
-                       this._oUploadSetAttachment.getItems()[index].setVisibleRemove(true);            
+                    if (this.getModel(this.CO_ODATA_INVOICE_HEADER_MODEL).getProperty("/Status") === "1") {
+                        this._oUploadSetAttachment.getItems()[index].setVisibleRemove(true);
 
                     } else {
-                        this._oUploadSetAttachment.getItems()[index].setVisibleRemove(false);    
+                        this._oUploadSetAttachment.getItems()[index].setVisibleRemove(false);
                     }
                 }
                 for (let index = 0; index < this._oUploadSetOthersAttachment.getItems().length; index++) {
                     //10_1
                     this._oUploadSetOthersAttachment.getItems()[index].setVisibleEdit(false);
                     //10_2 pokud je status jiný než 1, pak i visible remove
-                    if(this.getModel(this.CO_ODATA_INVOICE_HEADER_MODEL).getProperty("/Status") === "1") {
-                       this._oUploadSetOthersAttachment.getItems()[index].setVisibleRemove(true);            
+                    if (this.getModel(this.CO_ODATA_INVOICE_HEADER_MODEL).getProperty("/Status") === "1") {
+                        this._oUploadSetOthersAttachment.getItems()[index].setVisibleRemove(true);
 
                     } else {
-                        this._oUploadSetOthersAttachment.getItems()[index].setVisibleRemove(false);    
+                        this._oUploadSetOthersAttachment.getItems()[index].setVisibleRemove(false);
                     }
                 }
-               
-           
+
+
             },
 
             /* =========================================================== */
@@ -621,7 +652,7 @@ sap.ui.define([
                     this.getModel(this.CO_ODATA_INVOICE_ITEM_MODEL).setData(oDataGetGetInvoiceHeader.to_items);
                     this.getModel(this.CO_ODATA_INVOICE_ITEM_ATTACH_MODEL).setData(oDataGetGetInvoiceHeader.to_invItemAtt);
 
-        
+
                     this.getModel(this.CO_ODATA_INVOICE_HEADER_MODEL).setProperty("/Deleteflag", oDataGetGetInvoiceHeader.Deleteflag);
                     this.getModel(this.CO_ODATA_INVOICE_HEADER_MODEL).setProperty("/Description", oDataGetGetInvoiceHeader.Description);
                     this.getModel(this.CO_ODATA_INVOICE_HEADER_MODEL).setProperty("/Erdat", oDataGetGetInvoiceHeader.Erdat);
@@ -632,7 +663,7 @@ sap.ui.define([
                     this.getModel(this.CO_ODATA_INVOICE_HEADER_MODEL).setProperty("/Zinvoicr_Id", oDataGetGetInvoiceHeader.Zinvoicr_Id);
                     this.getModel(this.CO_ODATA_INVOICE_HEADER_MODEL).setProperty("/Belnr", oDataGetGetInvoiceHeader.Belnr);
 
-                 
+
 
                     return;
                 } catch (error) {

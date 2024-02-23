@@ -6,20 +6,87 @@
     <edmx:DataServices m:DataServiceVersion="2.0">
         <Schema Namespace="ZC4UVPI01_SRV" xml:lang="cs" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
             <Annotation Term="Core.SchemaVersion" String="1.0.0" xmlns="http://docs.oasis-open.org/odata/ns/edm"/>
+            <EntityType Name="ZC_InvItemAttType" sap:label="Pomocné přílohy faktury" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Zinvoicr_Id"/>
+                    <PropertyRef Name="Attach_Id"/>
+                </Key>
+                <Property Name="Zinvoicr_Id" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="NonNegative" sap:label="ID z Faktury VPI" sap:quickinfo="ID z Faktury pro portál VPI"/>
+                <Property Name="Attach_Id" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="NonNegative" sap:label="ID příloh k faktuře"/>
+                <Property Name="AttachIdHelp" Type="Edm.String" MaxLength="40" sap:display-format="UpperCase"/>
+                <Property Name="AttachURL" Type="Edm.String" MaxLength="300" sap:display-format="UpperCase"/>
+                <Property Name="DocumentId" Type="Edm.String" MaxLength="50" sap:display-format="UpperCase"/>
+                <Property Name="Filename" Type="Edm.String" MaxLength="30" sap:display-format="UpperCase" sap:label="Název přílohy"/>
+                <Property Name="Mimetype" Type="Edm.String" MaxLength="100" sap:display-format="UpperCase" sap:label="MimeType" sap:quickinfo="mime type"/>
+                <Property Name="Fileextension" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Typ přílohy"/>
+                <Property Name="ThumbnailUrl" Type="Edm.String" MaxLength="300" sap:display-format="UpperCase"/>
+                <Property Name="UploadState" Type="Edm.String" MaxLength="30" sap:display-format="UpperCase"/>
+                <Property Name="Content" Type="Edm.String" sap:label="ISR String"/>
+                <Property Name="Backenddeployed" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="" sap:quickinfo="Pole k zakřížkování"/>
+            </EntityType>
+            <EntityType Name="ZC_InvItemAttStreamType" m:HasStream="true" sap:label="Pomocné přílohy stream" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Zinvoicr_Id"/>
+                    <PropertyRef Name="Attach_Id"/>
+                </Key>
+                <Property Name="Zinvoicr_Id" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="NonNegative" sap:label="ID z Faktury VPI" sap:quickinfo="ID z Faktury pro portál VPI"/>
+                <Property Name="Attach_Id" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="NonNegative" sap:label="ID příloh k faktuře"/>
+                <Property Name="AttachURL" Type="Edm.String" MaxLength="300" sap:display-format="UpperCase"/>
+            </EntityType>
+            <EntityType Name="ZC_InvItemsType" sap:label="Pomocné přílohy faktury odata" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Zinvoicr_Id"/>
+                    <PropertyRef Name="Attach_Id"/>
+                </Key>
+                <Property Name="Zinvoicr_Id" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="NonNegative" sap:label="ID z Faktury VPI" sap:quickinfo="ID z Faktury pro portál VPI"/>
+                <Property Name="Attach_Id" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="NonNegative" sap:label="ID příloh k faktuře"/>
+            </EntityType>
             <EntityType Name="ZC_InvoiceType" sap:label="Z Faktura odata" sap:content-version="1">
                 <Key>
                     <PropertyRef Name="Zinvoicr_Id"/>
                 </Key>
                 <Property Name="Zinvoicr_Id" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="NonNegative" sap:label="ID pomocné faktury" sap:quickinfo="ID z Faktury pro portál VPI"/>
-                <Property Name="ShortDescr" Type="Edm.String" MaxLength="30" sap:label="Krátký popis" sap:quickinfo="Krátký popis - info"/>
+                <Property Name="Short_descr" Type="Edm.String" MaxLength="30" sap:label="Krátký popis" sap:quickinfo="Krátký popis - info"/>
                 <Property Name="Ernam" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Založil" sap:quickinfo="Jméno referenta, který objekt založil"/>
                 <Property Name="Erdat" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Datum založení" sap:quickinfo="Datum založení záznamu"/>
                 <Property Name="Erzet" Type="Edm.Time" Precision="0" sap:label="Čas založení" sap:quickinfo="Čas pořízení"/>
                 <Property Name="Belnr" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Předběžně pořízený doklad" sap:quickinfo="Číslo dokladu dokl.faktury"/>
                 <Property Name="Status" Type="Edm.String" MaxLength="1" sap:display-format="UpperCase" sap:label="Status pomocné faktury" sap:quickinfo="Status z faktury"/>
-                <Property Name="Deleteflag" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Příznak výmazu" sap:quickinfo="Znak výmazu"/>
                 <Property Name="Description" Type="Edm.String" MaxLength="254" sap:label="Poznámka"/>
-                <NavigationProperty Name="to_itemsAttach" Relationship="ZC4UVPI01_SRV.assoc_0C7C1CBD2F3F1D77D46AA5FA218AD1A7" FromRole="FromRole_assoc_0C7C1CBD2F3F1D77D46AA5FA218AD1A7" ToRole="ToRole_assoc_0C7C1CBD2F3F1D77D46AA5FA218AD1A7"/>
+                <Property Name="Bldat" Type="Edm.String" MaxLength="99" sap:display-format="UpperCase" sap:label="OCR - Datum dokladu"/>
+                <Property Name="Zfbdt" Type="Edm.String" MaxLength="99" sap:display-format="UpperCase" sap:label="OCR - Datum dokladu"/>
+                <Property Name="Xblnr" Type="Edm.String" MaxLength="99" sap:display-format="UpperCase" sap:label="OCR - Č.ref.dokladu"/>
+                <Property Name="Rmwwr" Type="Edm.String" MaxLength="99" sap:display-format="UpperCase" sap:label="OCR - Částka v měně dokladu"/>
+                <Property Name="Wmwst" Type="Edm.String" MaxLength="99" sap:display-format="UpperCase" sap:label="OCR - Částka daně v měně dokladu"/>
+                <Property Name="Waers" Type="Edm.String" MaxLength="99" sap:display-format="UpperCase" sap:label="OCR - Měna"/>
+                <Property Name="Kursf" Type="Edm.String" MaxLength="99" sap:display-format="UpperCase" sap:label="OCR - Kurz přepočtu"/>
+                <Property Name="Sgtxt" Type="Edm.String" MaxLength="99" sap:display-format="UpperCase" sap:label="OCR - Text"/>
+                <NavigationProperty Name="to_invItemAtt" Relationship="ZC4UVPI01_SRV.assoc_087C507E7B606FCBEAF70EC9C324F538" FromRole="FromRole_assoc_087C507E7B606FCBEAF70EC9C324F538" ToRole="ToRole_assoc_087C507E7B606FCBEAF70EC9C324F538"/>
+                <NavigationProperty Name="to_invoiceAtt" Relationship="ZC4UVPI01_SRV.assoc_D60D1164B9888E06C9CAFBC3E3592DA5" FromRole="FromRole_assoc_D60D1164B9888E06C9CAFBC3E3592DA5" ToRole="ToRole_assoc_D60D1164B9888E06C9CAFBC3E3592DA5"/>
+                <NavigationProperty Name="to_items" Relationship="ZC4UVPI01_SRV.assoc_096E8EA249F6F4F57A61E4EA891C7ACD" FromRole="FromRole_assoc_096E8EA249F6F4F57A61E4EA891C7ACD" ToRole="ToRole_assoc_096E8EA249F6F4F57A61E4EA891C7ACD"/>
+            </EntityType>
+            <EntityType Name="ZC_InvoiceAttType" sap:label="Přílohy faktury" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Zinvoicr_Id"/>
+                </Key>
+                <Property Name="Zinvoicr_Id" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="NonNegative" sap:label="ID z Faktury VPI" sap:quickinfo="ID z Faktury pro portál VPI"/>
+                <Property Name="AttachIdHelp" Type="Edm.String" MaxLength="40" sap:display-format="UpperCase"/>
+                <Property Name="AttachURL" Type="Edm.String" MaxLength="300" sap:display-format="UpperCase"/>
+                <Property Name="DocumentId" Type="Edm.String" MaxLength="50" sap:display-format="UpperCase"/>
+                <Property Name="Filename" Type="Edm.String" MaxLength="30" sap:display-format="UpperCase" sap:label="Název přílohy"/>
+                <Property Name="Mimetype" Type="Edm.String" MaxLength="100" sap:display-format="UpperCase" sap:label="MimeType" sap:quickinfo="mime type"/>
+                <Property Name="Fileextension" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Typ přílohy"/>
+                <Property Name="ThumbnailUrl" Type="Edm.String" MaxLength="300" sap:display-format="UpperCase"/>
+                <Property Name="UploadState" Type="Edm.String" MaxLength="30" sap:display-format="UpperCase"/>
+                <Property Name="Content" Type="Edm.String" sap:label="ISR String"/>
+                <Property Name="Backenddeployed" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="" sap:quickinfo="Pole k zakřížkování"/>
+            </EntityType>
+            <EntityType Name="ZC_InvoiceAttStreamType" m:HasStream="true" sap:label="Příloha faktury stream" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Zinvoicr_Id"/>
+                </Key>
+                <Property Name="Zinvoicr_Id" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="NonNegative" sap:label="ID z Faktury VPI" sap:quickinfo="ID z Faktury pro portál VPI"/>
+                <Property Name="AttachURL" Type="Edm.String" MaxLength="300" sap:display-format="UpperCase"/>
             </EntityType>
             <EntityType Name="ZC_UserInfo02Type" sap:label="Info o uživateli odata" sap:content-version="1">
                 <Key>
@@ -33,25 +100,37 @@
                 <Property Name="FullName" Type="Edm.String" MaxLength="80" sap:label="Úplné jméno" sap:quickinfo="Úplné jméno osoby"/>
                 <Property Name="Email" Type="Edm.String" MaxLength="40" sap:display-format="UpperCase"/>
             </EntityType>
-            <EntityType Name="Z_I_C4UVPI_InvoiceItemsAtt10Type" sap:label="Z Faktura přílohy 10" sap:content-version="1">
-                <Key>
-                    <PropertyRef Name="Zinvoicr_Id"/>
-                    <PropertyRef Name="Attach_Id"/>
-                </Key>
-                <Property Name="Zinvoicr_Id" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="NonNegative" sap:label="ID z Faktury VPI" sap:quickinfo="ID z Faktury pro portál VPI"/>
-                <Property Name="Attach_Id" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="NonNegative" sap:label="ID příloh k faktuře"/>
-            </EntityType>
-            <Association Name="assoc_0C7C1CBD2F3F1D77D46AA5FA218AD1A7" sap:content-version="1">
-                <End Type="ZC4UVPI01_SRV.ZC_InvoiceType" Multiplicity="1" Role="FromRole_assoc_0C7C1CBD2F3F1D77D46AA5FA218AD1A7"/>
-                <End Type="ZC4UVPI01_SRV.Z_I_C4UVPI_InvoiceItemsAtt10Type" Multiplicity="*" Role="ToRole_assoc_0C7C1CBD2F3F1D77D46AA5FA218AD1A7"/>
+            <Association Name="assoc_D60D1164B9888E06C9CAFBC3E3592DA5" sap:content-version="1">
+                <End Type="ZC4UVPI01_SRV.ZC_InvoiceType" Multiplicity="1" Role="FromRole_assoc_D60D1164B9888E06C9CAFBC3E3592DA5"/>
+                <End Type="ZC4UVPI01_SRV.ZC_InvoiceAttType" Multiplicity="*" Role="ToRole_assoc_D60D1164B9888E06C9CAFBC3E3592DA5"/>
+            </Association>
+            <Association Name="assoc_096E8EA249F6F4F57A61E4EA891C7ACD" sap:content-version="1">
+                <End Type="ZC4UVPI01_SRV.ZC_InvoiceType" Multiplicity="1" Role="FromRole_assoc_096E8EA249F6F4F57A61E4EA891C7ACD"/>
+                <End Type="ZC4UVPI01_SRV.ZC_InvItemsType" Multiplicity="*" Role="ToRole_assoc_096E8EA249F6F4F57A61E4EA891C7ACD"/>
+            </Association>
+            <Association Name="assoc_087C507E7B606FCBEAF70EC9C324F538" sap:content-version="1">
+                <End Type="ZC4UVPI01_SRV.ZC_InvoiceType" Multiplicity="1" Role="FromRole_assoc_087C507E7B606FCBEAF70EC9C324F538"/>
+                <End Type="ZC4UVPI01_SRV.ZC_InvItemAttType" Multiplicity="*" Role="ToRole_assoc_087C507E7B606FCBEAF70EC9C324F538"/>
             </Association>
             <EntityContainer Name="ZC4UVPI01_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="ZC_InvItemAtt" EntityType="ZC4UVPI01_SRV.ZC_InvItemAttType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="ZC_InvItemAttStream" EntityType="ZC4UVPI01_SRV.ZC_InvItemAttStreamType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="ZC_InvItems" EntityType="ZC4UVPI01_SRV.ZC_InvItemsType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
                 <EntitySet Name="ZC_Invoice" EntityType="ZC4UVPI01_SRV.ZC_InvoiceType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="ZC_InvoiceAtt" EntityType="ZC4UVPI01_SRV.ZC_InvoiceAttType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="ZC_InvoiceAttStream" EntityType="ZC4UVPI01_SRV.ZC_InvoiceAttStreamType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
                 <EntitySet Name="ZC_UserInfo02" EntityType="ZC4UVPI01_SRV.ZC_UserInfo02Type" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
-                <EntitySet Name="Z_I_C4UVPI_InvoiceItemsAtt10" EntityType="ZC4UVPI01_SRV.Z_I_C4UVPI_InvoiceItemsAtt10Type" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
-                <AssociationSet Name="assoc_0C7C1CBD2F3F1D77D46AA5FA218AD1A7" Association="ZC4UVPI01_SRV.assoc_0C7C1CBD2F3F1D77D46AA5FA218AD1A7" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
-                    <End EntitySet="ZC_Invoice" Role="FromRole_assoc_0C7C1CBD2F3F1D77D46AA5FA218AD1A7"/>
-                    <End EntitySet="Z_I_C4UVPI_InvoiceItemsAtt10" Role="ToRole_assoc_0C7C1CBD2F3F1D77D46AA5FA218AD1A7"/>
+                <AssociationSet Name="assoc_096E8EA249F6F4F57A61E4EA891C7ACD" Association="ZC4UVPI01_SRV.assoc_096E8EA249F6F4F57A61E4EA891C7ACD" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZC_Invoice" Role="FromRole_assoc_096E8EA249F6F4F57A61E4EA891C7ACD"/>
+                    <End EntitySet="ZC_InvItems" Role="ToRole_assoc_096E8EA249F6F4F57A61E4EA891C7ACD"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_D60D1164B9888E06C9CAFBC3E3592DA5" Association="ZC4UVPI01_SRV.assoc_D60D1164B9888E06C9CAFBC3E3592DA5" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZC_Invoice" Role="FromRole_assoc_D60D1164B9888E06C9CAFBC3E3592DA5"/>
+                    <End EntitySet="ZC_InvoiceAtt" Role="ToRole_assoc_D60D1164B9888E06C9CAFBC3E3592DA5"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_087C507E7B606FCBEAF70EC9C324F538" Association="ZC4UVPI01_SRV.assoc_087C507E7B606FCBEAF70EC9C324F538" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZC_Invoice" Role="FromRole_assoc_087C507E7B606FCBEAF70EC9C324F538"/>
+                    <End EntitySet="ZC_InvItemAtt" Role="ToRole_assoc_087C507E7B606FCBEAF70EC9C324F538"/>
                 </AssociationSet>
             </EntityContainer>
             <atom:link rel="self" href="https://czsap-d.linetgroup.com/sap/opu/odata/sap/ZC4UVPI01_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>

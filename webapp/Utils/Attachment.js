@@ -31,32 +31,32 @@ sap.ui.define([
         {
             if (this.getPropertyAttachFC(that.getConstantBase().getConstants().FILE_NAME_LENGTH_EXCEEDED,that) === false)
             {
-                await that.messageBoError("Překročen název souboru.");
+                await that.messageBoError("Překročena délka názvu přílohy (max70).");
                 return false;
             };
             if (this.getPropertyAttachFC(that.getConstantBase().getConstants().FILE_NAME_SIZE_EXCEEDED,that) === false)
             {
-                await that.messageBoxError("Překročena velikost souboru.");
+                await that.messageBoxError("Překročena velikost přílohy.");
                 return false;
             };
             if (this.getPropertyAttachFC(that.getConstantBase().getConstants().FILE_TYPE_MISMATCH_EXCEEDED,that) === false)
             {
-                await that.messageBoxError("Špatný typ souboru.");
+                await that.messageBoxError("Špatný typ přílohy.");
                 return false;
             };
             if (this.getPropertyAttachFC(that.getConstantBase().getConstants().FILE_NAME_LENGTH_EXCEEDED_IT,that) === false)
             {
-                await that.messageBoxError("Překročen název souboru.");
+                await that.messageBoxError("Překročena délka názvu přílohy (max70).");
                 return false;
             };
             if (this.getPropertyAttachFC(that.getConstantBase().getConstants().FILE_NAME_SIZE_EXCEEDED_IT,that) === false)
             {
-                await that.messageBoxError("Překročena velikost souboru.");
+                await that.messageBoxError("Překročena velikost přílohy.");
                 return false;
             };
             if (this.getPropertyAttachFC(that.getConstantBase().getConstants().FILE_TYPE_MISMATCH_EXCEEDED_IT,that) === false)
             {
-                await that.messageBoxError("Špatný typ souboru.");
+                await that.messageBoxError("Špatný typ přílohy.");
                 return false;
             };
             return true;

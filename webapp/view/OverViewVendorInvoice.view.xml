@@ -82,6 +82,7 @@
                         tableType="ResponsiveTable"
                         demandPopin="true"
                         paste="onPaste"
+                        requestAtLeastFields="Zinvoicr_Id"
                     >
                         <!-- http://www.ut163.com/sapui5/docs/topics/bed8274140d04fc0b9bcb2db42d8bac2.html -->
 
@@ -107,6 +108,26 @@
                             itemPress=".onDetailVendorInvoice"
                         >
                             <columns>
+
+
+                                <Column
+                                    width="200px"
+                                    hAlign="Begin"
+                                >
+                                    <customData>
+                                        <core:CustomData
+                                            key="p13nData"
+                                            value='\{"columnKey": "Ernam", "maxLength": "30","columnIndex":"1",  "sortProperty": "Ernam",  "filterProperty": "Ernam","leadingProperty": "Ernam" }'
+                                        />
+                                    </customData>
+                                    <Text
+                                        text="Založil"
+                                        wrapping="false"
+                                        
+                                    />
+                                </Column>                           
+
+
                                 <Column
                                     width="200px"
                                     hAlign="Begin"
@@ -123,66 +144,6 @@
                                     />
                                 </Column>
 
-                                <!--  <Column
-                                    width="150px"
-                                    hAlign="Begin"
-                                >
-                                    <customData>
-                                        <core:CustomData
-                                            key="p13nData"
-                                            value='\{"columnKey": "Incstat", "maxLength": "30","columnIndex":"1",  "sortProperty": "Incstat",  "filterProperty": "Incstat", "leadingProperty": "Incstat", "additionalProperty": "Icon,Statusicon,Incstatdes"}'
-                                        />
-                                    </customData>
-                                    <Text
-                                        text="Status Incidentu"
-                                        wrapping="false"
-                                    />
-                                </Column>
-                                <Column
-                                    width="150px"
-                                    hAlign="Begin"
-                                >
-                                    <customData>
-                                        <core:CustomData
-                                            key="p13nData"
-                                            value='\{"columnKey": "Workcenter", "maxLength": "30","columnIndex":"2",  "sortProperty": "Workcenter",  "filterProperty": "Workcenter", "leadingProperty": "Workcenter"}'
-                                        />
-                                    </customData>
-                                    <Text
-                                        text="ID pracoviště"
-                                        wrapping="false"
-                                    />
-                                </Column>
-                                <Column
-                                    width="150px"
-                                    hAlign="Begin"
-                                >
-                                    <customData>
-                                        <core:CustomData
-                                            key="p13nData"
-                                            value='\{"columnKey": "WorkCenterText", "maxLength": "30","columnIndex":"3",  "sortProperty": "WorkCenterText",  "filterProperty": "WorkCenterText", "leadingProperty": "WorkCenterText"}'
-                                        />
-                                    </customData>
-                                    <Text
-                                        text="Název pracoviště"
-                                        wrapping="false"
-                                    />
-                                </Column>
-                                <Column
-                                    width="150px"
-                                    hAlign="Begin"
-                                >
-                                    <customData>
-                                        <core:CustomData
-                                            key="p13nData"
-                                            value='\{"columnKey": "Ernam", "maxLength": "30","columnIndex":"4",  "sortProperty": "Ernam",  "filterProperty": "Ernam", "leadingProperty": "Ernam"}'
-                                        />
-                                    </customData>
-                                    <Text
-                                        text="Založil"
-                                        wrapping="false"
-                                    />
-                                </Column> -->
                             </columns>
 
                             <items>
@@ -191,33 +152,36 @@
                                     press="onDetailVendorInvoice"
                                 >
                                     <cells>
-                                        <commons:MicroProcessFlow >
+                                     <Text text="{Ernam}"></Text>
+                                        <commons:MicroProcessFlow>
                                             <commons:content>
+
                                                 <commons:MicroProcessFlowItem
-                                                title="Faktura byla nahrána dodavatelem"
+                                                    title="Faktura byla nahrána dodavatelem"
                                                     state="{path : 'Status', formatter : '.formatter.statusInvoiceState1'}"
                                                     icon="sap-icon://account"
                                                 />
-                                                    <!-- state="Success" -->
+                                                <!-- state="Success" -->
                                                 <commons:MicroProcessFlowItem
-                                                      state="{path : 'Status', formatter : '.formatter.statusInvoiceState2'}"
+                                                    state="{path : 'Status', formatter : '.formatter.statusInvoiceState2'}"
                                                     icon="sap-icon://account"
                                                 />
                                                 <commons:MicroProcessFlowItem
-                                                      state="{path : 'Status', formatter : '.formatter.statusInvoiceState3'}"
+                                                    state="{path : 'Status', formatter : '.formatter.statusInvoiceState3'}"
                                                     icon="sap-icon://account"
-                                                  
                                                 />
                                                 <commons:MicroProcessFlowItem
-                                                       state="{path : 'Status', formatter : '.formatter.statusInvoiceState4'}"
-                                                     icon="sap-icon://account"
+                                                    state="{path : 'Status', formatter : '.formatter.statusInvoiceState4'}"
+                                                    icon="sap-icon://account"
                                                 />
                                                 <commons:MicroProcessFlowItem
-                                                     state="{path : 'Status', formatter : '.formatter.statusInvoiceState5'}"
-                                                     icon="sap-icon://cancel"
+                                                    state="{path : 'Status', formatter : '.formatter.statusInvoiceState5'}"
+                                                    icon="sap-icon://cancel"
                                                 />
                                             </commons:content>
-                                        </commons:MicroProcessFlow>    
+                                        </commons:MicroProcessFlow>
+                                       
+                                        
                                     </cells>
                                 </ColumnListItem>
                             </items>
