@@ -72,7 +72,7 @@
                         text="Status faktury"
                     />
                     <ObjectStatus 
-                    text="{ path:'invoiceModel>/Status', formatter : '.formatter.statusInvoiceText'}" 
+                    text="{ path:'invoiceModel>/StatusName'}" 
                     state="{ path:'invoiceModel>/Status', formatter : '.formatter.statusInvoiceState'}" 
                     icon="{ path:'invoiceModel>/Status', formatter : '.formatter.statusInvoiceIcon'}" />
                     <Label
