@@ -160,7 +160,7 @@
                 maxLength="249"
                 placeholder="Poznámka k příloze v maximální délece 249znaků"
                 value="{invoiceModel>/Description}"
-                editable="true"
+                editable="{ path:'invoiceModel>/Status', formatter : '.formatter.statusInvoiceUploadEnabled'}"
                 width="100%"
                 valueLiveUpdate="false"
                 

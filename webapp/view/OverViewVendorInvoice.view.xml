@@ -108,10 +108,8 @@
                             itemPress=".onDetailVendorInvoice"
                         >
                             <columns>
-
-
                                 <Column
-                                    width="200px"
+                                    width="6rem"
                                     hAlign="Begin"
                                 >
                                     <customData>
@@ -123,13 +121,26 @@
                                     <Text
                                         text="Založil"
                                         wrapping="false"
-                                        
                                     />
-                                </Column>                           
-
+                                </Column>
+                                <Column
+                                    width="6rem"
+                                    hAlign="Begin"
+                                >
+                                    <customData>
+                                        <core:CustomData
+                                            key="p13nData"
+                                            value='\{"columnKey": "Erdat", "maxLength": "30", "columnIndex":"2","sortProperty": "Erdat",  "filterProperty": "Erdat", "leadingProperty": "Erdat"}'
+                                        />
+                                    </customData>
+                                    <Text
+                                        text="Datum založení"
+                                        wrapping="false"
+                                    />
+                                </Column>
 
                                 <Column
-                                    width="200px"
+                                    width="6rem"
                                     hAlign="Begin"
                                 >
                                     <customData>
@@ -143,7 +154,6 @@
                                         wrapping="false"
                                     />
                                 </Column>
-
                             </columns>
 
                             <items>
@@ -152,10 +162,13 @@
                                     press="onDetailVendorInvoice"
                                 >
                                     <cells>
-                                     <Text text="{Ernam}"></Text>
+                                        <Text text="{Ernam}" />
+
+                                        <Text
+                                            text="{path: 'Erdat' ,type: 'sap.ui.model.type.Date', formatOptions: { style: 'medium', strictParsing: true}}"
+                                        />
                                         <commons:MicroProcessFlow>
                                             <commons:content>
-
                                                 <commons:MicroProcessFlowItem
                                                     title="Faktura byla nahrána dodavatelem"
                                                     state="{path : 'Status', formatter : '.formatter.statusInvoiceState1'}"
@@ -180,8 +193,6 @@
                                                 />
                                             </commons:content>
                                         </commons:MicroProcessFlow>
-                                       
-                                        
                                     </cells>
                                 </ColumnListItem>
                             </items>
