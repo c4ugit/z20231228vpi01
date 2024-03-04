@@ -31,36 +31,10 @@ sap.ui.define([
         clearEbelnLogonDialog: function () {
         },
         onConfirmEbelnLogon: function (that) {
-           this._closeDialog(that._oEbelnLogon);        
+           this._closeDialog(that._oEbelnLogon);
+           return  that._oEbelnLogon;      
         },
 
-        /* =========================================================== */
-        /* =========================================================== */
-        /* Odmítnutí dodacího listu                                    */
-        /* =========================================================== */
-
-        getDialogRefusedDL: async function (that, model) {
-            if (!that._oRefusedDL) {
-                let oDialog = await Fragment.load({
-                    name: that.getConstantBase().getConstants().DIALOG_DL_REFUSED,
-                    controller: that
-                })
-                that.getView().addDependent(oDialog);
-                that._oRefusedDL = oDialog;
-             
-                return that._oRefusedDL;
-            } else {
-                 return that._oRefusedDL;
-            }
-        },
-        onCancelRefusedDL: function (that) {
-            this._closeDialog(that._oRefusedDL);
-        }, 
-        onConfirmRefusedDL: function (that) {
-           this._closeDialog(that._oRefusedDL);
-           return 
-          
-        },
 
         // /* =========================================================== */
         // /* =========================================================== */

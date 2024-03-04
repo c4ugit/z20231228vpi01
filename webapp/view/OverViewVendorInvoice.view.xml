@@ -18,6 +18,8 @@
         preserveHeaderStateOnScroll="true"
         toggleHeaderOnTitleClick="false"
         showFooter="true"
+                busy="{vendorInvoiceOverViewModel>/busy}"
+        busyIndicatorDelay="0"
     >
         <semantic:titleHeading>
             <Title
@@ -53,6 +55,7 @@
 
                     <!-- <Text text="{globalModelHelp>/sInfoLabel}"/> -->
                     <Text text="Uživatel: {globalModelUserInfo>/FullName}" />
+                    <Text text="Dodavatel: {globalModelUserInfo>/Lifnr} {globalModelUserInfo>/LifnrName}" />
                     <!-- <tnt:InfoLabel text="{path:'globalModelHelp>/sInfoLabel'}" renderMode="Loose" colorScheme="{path : 'globalModelAuthorization>/Colorlabel', formatter : '.formatter.colorlabel'}" displayOnly="true"/> -->
                     <ToolbarSpacer />
                 </content>

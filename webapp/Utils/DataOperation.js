@@ -80,20 +80,9 @@ sap.ui.define([
                         oComponent._fnResolveDeleteInvoiceAttachment(oDataServer);
                         break;
                     case "7":
-                        oComponent._fnResolveDeleteRequestSave(oDataServer);
+                        oComponent._fnResolveCheckEbeln(oDataServer);
                         break;
-                    case "8":
-                        oComponent._fnResolveReasonRequestList(oDataServer);
-                        break;
-                    case "9":
-                        oComponent._fnResolveRequestBudgetOLD(oDataServer);
-                        break;
-                    case "10":
-                        oComponent._fnResolveRequestBudget01(oDataServer);
-                        break;
-                    case "11":
-                        oComponent._fnResolveBudgetOverViewPrev(oDataServer);
-                        break;
+
 
                     default:
                         break;
@@ -120,7 +109,7 @@ sap.ui.define([
                         break;
                     case "4":
                         oComponent._fnRejectNewInvoiceSave(oError);
-                        break;                        
+                        break;
                     case "5":
                         oComponent._fnRejectDeleteInvoiceAttachmentIT(oError);
                         break;
@@ -128,20 +117,9 @@ sap.ui.define([
                         oComponent._fnRejectDeleteInvoiceAttachment(oError);
                         break;
                     case "7":
-                        oComponent._fnRejectDeleteRequestSave(oError);
+                        oComponent._fnRejectCheckEbeln(oDataServer);
                         break;
-                    case "8":
-                        oComponent._fnRejectReasonRequestList(oError);
-                        break;
-                    case "9":
-                        oComponent._fnRejectRequestBudgetOLD(oError);
-                        break;
-                    case "10":
-                        oComponent._fnRejectRequestBudget01(oError);
-                        break;
-                    case "11":
-                        oComponent._fnRejectBudgetOverViewPrev(oError);
-                        break;
+
 
                     default:
                         break;
@@ -283,7 +261,7 @@ sap.ui.define([
             return aDataTableCorrect;
         },
 
-        loopDataTableInvoiceAtt: function (aDataTable,Zinvoicr_Id) {
+        loopDataTableInvoiceAtt: function (aDataTable, Zinvoicr_Id) {
             let aDataTableCorrect = [];
             let sLength = aDataTable.length;
             let i, j;
@@ -293,7 +271,7 @@ sap.ui.define([
                 let oDataTableItemCorect = {};
                 oDataTableItemCorect = oDataTableItem;
                 oDataTableItemCorect.Zinvoicr_Id = Zinvoicr_Id;
-               
+
                 delete oDataTableItemCorect.__metadata;
                 delete oDataTableItemCorect.Counter;
 
@@ -302,15 +280,15 @@ sap.ui.define([
             }
             return aDataTableCorrect;
         },
-        loopDataTableInvItemAtt: function (aDataTable,aDataTableJoin,Zinvoicr_Id) {
+        loopDataTableInvItemAtt: function (aDataTable, aDataTableJoin, Zinvoicr_Id) {
 
             let lastAttach_Id;
-            if(aDataTable.length === 0) {
+            if (aDataTable.length === 0) {
                 lastAttach_Id = 0;
             } else {
                 lastAttach_Id = Math.max(...aDataTable.map(o => Number(o.Attach_Id)));
             }
-            
+
             let aDataTableCorrect = [];
             let sLength = aDataTable.length;
             let i, j;
@@ -318,7 +296,7 @@ sap.ui.define([
             for (i = 0; i < sLength; i++) {
                 let oDataTableItem = aDataTable[i];
                 let oDataTableItemCorect = {};
-                oDataTableItemCorect = oDataTableItem;         
+                oDataTableItemCorect = oDataTableItem;
                 delete oDataTableItemCorect.__metadata;
                 delete oDataTableItemCorect.Counter;
                 aDataTableCorrect.push(oDataTableItemCorect);
@@ -334,7 +312,7 @@ sap.ui.define([
                     let oDataTableItemJoin = aDataTableJoin[index];
                     let oDataTableItemCorectJoin = {};
 
-           
+
                     oDataTableItemCorectJoin.Zinvoicr_Id = Zinvoicr_Id;
                     oDataTableItemCorectJoin.Attach_Id = String(lastAttach_Id);
                     oDataTableItemCorectJoin.Filename = oDataTableItemJoin.Filename;
@@ -360,7 +338,7 @@ sap.ui.define([
                 let oDataTableItemCorect = {};
                 oDataTableItemCorect = oDataTableItem;
 
-              
+
                 delete oDataTableItemCorect.__metadata;
 
                 aDataTableCorrect.push(oDataTableItemCorect);

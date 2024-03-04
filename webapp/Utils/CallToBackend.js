@@ -205,56 +205,7 @@ sap.ui.define([
                 DataOperation.dataOperation(oParam);
             })
         },
-        callMaterialList: function (that) {
-            return new Promise(function (resolve, reject) {
-                let oParam = {};
-                oParam = DataOperation.getListOfCallVar();
-
-
-                that._oComponent._PromiseMaterialList = new Promise(function (fnResolve, fnReject) {
-                    that._oComponent._fnResolveMaterialList = fnResolve;
-                    that._oComponent._fnRejectMaterialList = fnReject;
-                }.bind(that));
-                that._oComponent._PromiseMaterialList.then(function (oData) {
-                    resolve(Object.freeze(oData));
-                }.bind(that)).catch(function (oError) {
-                    // resolve();
-                    reject(that.getMessagesBase().findFirstErrorMessage(that));
-                }.bind(that));
-
-                oParam.sNamePromise = "5";
-                oParam.sObjectPath = "/ZC_MaterialB198";
-                oParam.sViewmodel = that.CO_VIEW_MODEL;
-                oParam.scope = that;
-                oParam.component = that._oComponent;
-                DataOperation.dataOperation(oParam);
-            })
-        },
-        callReasonRequestList: function (that) {
-            return new Promise(function (resolve, reject) {
-                let oParam = {};
-                oParam = DataOperation.getListOfCallVar();
-
-
-                that._oComponent._PromiseReasonRequestList = new Promise(function (fnResolve, fnReject) {
-                    that._oComponent._fnResolveReasonRequestList = fnResolve;
-                    that._oComponent._fnRejectReasonRequestList = fnReject;
-                }.bind(that));
-                that._oComponent._PromiseReasonRequestList.then(function (oData) {
-                    resolve(Object.freeze(oData));
-                }.bind(that)).catch(function (oError) {
-                    // resolve();
-                    reject(that.getMessagesBase().findFirstErrorMessage(that));
-                }.bind(that));
-
-                oParam.sNamePromise = "8";
-                oParam.sObjectPath = "/ZC_ReasonReq";
-                oParam.sViewmodel = that.CO_VIEW_MODEL;
-                oParam.scope = that;
-                oParam.component = that._oComponent;
-                DataOperation.dataOperation(oParam);
-            })
-        },
+      
 
         callSaveNewInvoice: function (invoicePath, invoiceData, that) {
             return new Promise(function (resolve, reject) {
@@ -343,29 +294,30 @@ sap.ui.define([
 
             })
         },
-        callShipmentStatus: function (that) {
+        callCheckEbeln: function (that, ebeln, password) {
             return new Promise(function (resolve, reject) {
                 let oParam = {};
 
                 oParam = DataOperation.getListOfCallVar();
 
-                that._oComponent._PromiseShipmentIsAssigned = new Promise(function (fnResolve, fnReject) {
-                    that._oComponent._fnResolveShipmentIsAssigned = fnResolve;
-                    that._oComponent._fnRejectShipmentIsAssigned = fnReject;
+                that._oComponent._PromiseCheckEbeln = new Promise(function (fnResolve, fnReject) {
+                    that._oComponent._fnResolveCheckEbeln = fnResolve;
+                    that._oComponent._fnRejectCheckEbeln = fnReject;
                 }.bind(that));
-                that._oComponent._PromiseShipmentIsAssigned.then(function (oData) {
+                that._oComponent._PromiseCheckEbeln.then(function (oData) {
                     resolve(Object.freeze(oData));
                 }.bind(that)).catch(function (oError) {
-                    // resolve();
                     reject(that.getMessagesBase().findFirstErrorMessage(that));
                 }.bind(that));
 
-                oParam.sNamePromise = "10";
-                oParam.urlParameters = {
-                    // User: '1111111111'
+                oParam.sNamePromise = "7";
+                oParam.oParameters = {
+                    ebeln: ebeln,
+                    pasw: password,
+                  
                 };
                 oParam.bFunction = true;
-                oParam.sObjectPath = "/getShipmentStatus";
+                oParam.sObjectPath = "/checkEbeln";
                 oParam.sViewmodel = that.CO_VIEW_MODEL;
                 oParam.scope = that;
                 oParam.component = that._oComponent;
