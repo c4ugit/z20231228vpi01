@@ -8,7 +8,8 @@ sap.ui.define([
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (BaseController, JSONModel, formatter, Device,Sorter) {
+    function (BaseController, JSONModel, formatter, Device, Sorter)
+    {
         "use strict";
 
         return BaseController.extend("zmmvpi01.app.z20231228mmvpi01.controller.OverViewVendorInvoice", {
@@ -59,7 +60,8 @@ sap.ui.define([
             /* =========================================================== */
             /* lifecycle methods                                           */
             /* =========================================================== */
-            onInit: function () {
+            onInit: function ()
+            {
                 this._oComponent = this.getOwnerComponent();
                 this._oSmartTable = this.getView().byId(this.CO_SMART_TABLE_INVOICE_ID);
                 this._oSmartFilter = this.getView().byId(this.CO_SMART_FILTER_INVOICE_ID);
@@ -83,17 +85,21 @@ sap.ui.define([
             /* =========================================================== */
             /* event handlers                                              */
             /* =========================================================== */
-            onDetailVendorInvoice: function (oEvent) {
+            onDetailVendorInvoice: function (oEvent)
+            {
                 this._showDetailVendorInvoice(oEvent.getParameter("listItem") || oEvent.getSource());
             },
-            onNewInvoiceAttachCreatePressed: function (oEvent) {
+            onNewInvoiceAttachCreatePressed: function (oEvent)
+            {
                 //    this.messageBoxInformation("Logika pro vybrané tlačítko nebyla ještě implementována");
                 this._showCreateNewVendorInvoice();
             },
-            onBind: function (oEvent) {
+            onBind: function (oEvent)
+            {
                 this._bindSmartTable(oEvent);
             },
-            onSFBInitialized: function () {
+            onSFBInitialized: function ()
+            {
                 this._sFBInitialized();
             },
 
@@ -116,34 +122,56 @@ sap.ui.define([
             /* =========================================================== */
             /* begin: CORE internal methods                                */
             /* =========================================================== */
-            _onMasterMatched: function (oEvent) {
+            _onMasterMatched: function (oEvent)
+            {
                 this.getModel(this.getConstantBase().getConstants().APP_VIEW_MODEL).setProperty("/layout", "OneColumn");
-                this.getModel().metadataLoaded().then(function () {
-                    this._oComponent._PromiseDataLoadedInit.then(function () {
+                this.getModel().metadataLoaded().then(function ()
+                {
+                    this._oComponent._PromiseDataLoadedInit.then(function ()
+                    {
                         this._procesOnMatchedScenario();
                     }.bind(this));
                 }.bind(this));
             },
-            _procesOnMatchedScenario: function () {
-               
+            _procesOnMatchedScenario: function ()
+            {
+                //10kontrola zda je uživatel kanban a nebo ne
+                if (this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_USER_INFO).getData().kanban === true)
+                {
+                    //10a - pokračuj dále
+                } else
+                {
+                    //10b - ověř příhlášení pomocí objednávky a hesla
+                    //10b_10 - existuje již cookie
+                    //10b_40 - otevři dialog
+                    this._getDialogEbelnLogon();
+
+                }
+
                 this._rebindSmartTable();
 
 
             },
-            _rebindSmartTable: function (oEvent) {
-                 //10 Kontrola zda byl filtri inicializován
-                if (this._oSmartFilter.isInitialised() === true) {
+            _rebindSmartTable: function (oEvent)
+            {
+                //10 Kontrola zda byl filtri inicializován
+                if (this._oSmartFilter.isInitialised() === true)
+                {
                     this._oSmartTable.rebindTable();
-                } else {
-                    this._oComponent._PromiseSmartFilterInitialized = new Promise(function (fnResolve) {
+                } else
+                {
+                    this._oComponent._PromiseSmartFilterInitialized = new Promise(function (fnResolve)
+                    {
                         this._oComponent._fnResolveSmartFilterInitialized = fnResolve;
-                    }.bind(this)); this._oComponent._PromiseSmartFilterInitialized.then(function () {
+                    }.bind(this)); this._oComponent._PromiseSmartFilterInitialized.then(function ()
+                    {
                         this._oSmartTable.rebindTable();
                     }.bind(this));
                 }
             },
-            _bindSmartTable: function (oEvent) {
-        
+            _bindSmartTable: function (oEvent)
+            {
+
                 oEvent.getParameter("bindingParams").sorter.push(new Sorter("Zinvoicr_Id", true));
             },
 
@@ -170,7 +198,8 @@ sap.ui.define([
             /* =========================================================== */
             /* begin: internal methods                                     */
             /* =========================================================== */
-            _showDetailVendorInvoice: function (oItem) {
+            _showDetailVendorInvoice: function (oItem)
+            {
                 let bReplace = !Device.system.phone;
                 // set the layout property of FCL control to show two columns
                 this.getModel(this.getConstantBase().getConstants().APP_VIEW_MODEL).setProperty("/layout", "TwoColumnsMidExpanded");
@@ -178,13 +207,15 @@ sap.ui.define([
                     objectId: oItem.getBindingContext().getProperty("Zinvoicr_Id")
                 }, bReplace);
             },
-            _showCreateNewVendorInvoice: function (oItem) {
+            _showCreateNewVendorInvoice: function (oItem)
+            {
                 let bReplace = !Device.system.phone;
                 this.getModel(this.getConstantBase().getConstants().APP_VIEW_MODEL).setProperty("/layout", "OneColumn");
                 this.getRouter().navTo(this.getConstantBase().getConstants().ROUTE_CREATE_VENDOR_INVOICE, {}, bReplace);
             },
 
-            _sFBInitialized: function (oEvent) {
+            _sFBInitialized: function (oEvent)
+            {
                 // var oJSONData = {
                 //     Erdat: {
                 //         items: [],
@@ -200,7 +231,8 @@ sap.ui.define([
                 //     }
                 // };
                 // this._oSmartFilterBar.setFilterData(oJSONData);
-                if (this._oComponent._fnResolveSmartFilterInitialized) {
+                if (this._oComponent._fnResolveSmartFilterInitialized)
+                {
                     this._oComponent._fnResolveSmartFilterInitialized();
                 }
             },
@@ -223,7 +255,37 @@ sap.ui.define([
             /* =========================================================== */
             /* =========================================================== */
 
+            /* =========================================================== */
+            /* begin:  Dialog Ebeln logon                        */
+            /* =========================================================== */
+            _getDialogEbelnLogon: async function ()
+            {
 
+                let oEbelnLogon;
+                oEbelnLogon = await this.getDialogBase().getDialogEbelnLogon(this);
+                this.getDialogBase().openDialog(oEbelnLogon);
+
+
+            },
+            _cancelCustomerSignature: async function ()
+            {
+                this.getDialogBase().closeDialog(await this.getDialogBase().getDialogEbelnLogon(this));
+
+            },
+            _confirmEbelnLogon: function ()
+            {
+                let oEbelnLogon;
+                oEbelnLogon = this.getDialogBase().onConfirmEbelnLogon(this);               
+
+
+              
+
+            },
+            _deleteEbelnLogon: async function ()
+            {
+                this.getDialogBase().clearEbelnLogonDialog(await this.getDialogBase().getDialogEbelnLogon(this));
+
+            },
 
 
 

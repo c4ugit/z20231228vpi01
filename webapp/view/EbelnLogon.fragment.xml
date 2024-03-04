@@ -1,0 +1,15 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Dialog title="{i18n>login}" type="Message" afterClose="onEbelnLogonClose">
+		<content>
+			<MessageStrip text="{i18n>enterEbelnAndPasw}" showIcon="true"/>
+			<Input width="100%" placeholder="{i18n>purchaseOrder}" type="Number" maxLength="10"/>
+			<Input width="100%" placeholder="{i18n>pasw}" maxLength="6" type="Password"/>
+		</content>
+		<endButton>
+			<Button text="{i18n>cancelEbelnLogon}" press="onCancelEbelnLogon" width="100px"/>
+		</endButton>
+		<beginButton>
+			<Button text="{i18n>confirmEbelnLogon}" press="onConfirmEbelnLogon" width="100px"/>
+		</beginButton>
+	</Dialog>
+</core:FragmentDefinition>

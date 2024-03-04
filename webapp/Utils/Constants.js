@@ -28,6 +28,10 @@ sap.ui.define([], function () {
 
                 CUSTOMER_SELECTDIALOG: "zb19801.app.z20230809b19801.view.CustomerSelectList",
                 MATERIAL_SELECTDIALOG: "zb19801.app.z20230809b19801.view.MaterialSelectList",
+
+                EBELN_LOGON_DIALOG: "zb19801.app.z20230809b19801.view.EbelnLogon",
+
+                MESSAGE_POPOVER: "zmmvpi01.app.z20231228mmvpi01.view.MessagePopover",
                 MESSAGE_POPOVER: "zmmvpi01.app.z20231228mmvpi01.view.MessagePopover",
 
                 ROUTE_DETAIL_VENDOR_INVOICE: "routeDetailVendorInvoice",

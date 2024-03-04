@@ -5,76 +5,33 @@ sap.ui.define([
     "use strict";
 
     return {
-
-
-
         /* =========================================================== */
         /* =========================================================== */
-        /* Tisk                                           */
+        /* Ebeln logon                                                 */
         /* =========================================================== */
 
-    
-        getDialogPrint: async function (that, status) {
-            //OpenDialog
-            // load asynchronous XML fragment
-            this._status = "";
-            this._status = status;
-            if (!that._oPrint) {
+        getDialogEbelnLogon: async function (that) {
+            if (!that._oEbelnLogon) {
                 let oDialog = await Fragment.load({
-                    name:  that.getConstantBase().getConstants().DIALOG_PRINTER_SETTING,
+                    name: that.getConstantBase().getConstants().EBELN_LOGON_DIALOG,
                     controller: that
                 })
                 that.getView().addDependent(oDialog);
-                that._oPrint = oDialog
-
-                return that._oPrint;
-            } else {
-
-                return that._oPrint;
-            }
-        },
-        onCancelPrint: function (that) {           
-            this._closeDialog(that._oPrint);
-        },
-        onConfirmPrint: function (that) {           
-            this._closeDialog(that._oPrint);
-            return this._status;
-        },
-
-        /* =========================================================== */
-        /* =========================================================== */
-        /* Potvrzení PINem od Řidiče                                   */
-        /* =========================================================== */
-
-        getDialogCustomerSignature: async function (that) {
-            if (!that._oCustomerSignature) {
-                let oDialog = await Fragment.load({
-                    name: that.getConstantBase().getConstants().CUSTOMER_SIGNATURE,
-                    controller: that
-                })
-                that.getView().addDependent(oDialog);
-                that._oCustomerSignature = oDialog;
+                that._oEbelnLogon = oDialog;
              
-                return that._oCustomerSignature;
-            } else {
-              
+                return that._oEbelnLogon;
+            } else {             
 
-                return that._oCustomerSignature;
+                return that._oEbelnLogon;
             }
         },
-        onCancelCustomerSignature: function (that) {
-
-            this._closeDialog(that._oCustomerSignature);
+        onCancelEbelnLogon: function (that) {
+            this._closeDialog(that._oEbelnLogon);
         },
-        clearSignatureDialog: function (dialogSignature) {
-            dialogSignature.getContent()[0].getItems()[0].clear();
-            dialogSignature.getContent()[0].getItems()[0].setEditable(true);
+        clearEbelnLogonDialog: function () {
         },
-        onConfirmCustomerSignature: function (that) {
-
-           this._closeDialog(that._oCustomerSignature);
-           return(that._oCustomerSignature.getContent()[0].getItems()[0]);
-        //    return(that._oCustomerSignature.getContent()[0].getItems()[0].getSVGString());
+        onConfirmEbelnLogon: function (that) {
+           this._closeDialog(that._oEbelnLogon);        
         },
 
         /* =========================================================== */
