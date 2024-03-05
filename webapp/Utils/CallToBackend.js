@@ -326,6 +326,39 @@ sap.ui.define([
                 DataOperation.dataOperation(oParam);
             })
         },
+        callGetLifnr: function (that, ebeln, password, usertype) {
+            return new Promise(function (resolve, reject) {
+                let oParam = {};
+
+                oParam = DataOperation.getListOfCallVar();
+
+                that._oComponent._PromiseGetLifnr = new Promise(function (fnResolve, fnReject) {
+                    that._oComponent._fnResolveGetLifnr = fnResolve;
+                    that._oComponent._fnRejectGetLifnr = fnReject;
+                }.bind(that));
+                that._oComponent._PromiseGetLifnr.then(function (oData) {
+                    resolve(Object.freeze(oData));
+                }.bind(that)).catch(function (oError) {
+                    reject(that.getMessagesBase().findFirstErrorMessage(that));
+                }.bind(that));
+
+                oParam.sNamePromise = "8";
+                oParam.oParameters = {
+                    usertype:usertype,
+                    ebeln: ebeln,
+                    pasw: password,
+                  
+                };
+                oParam.bFunction = true;
+                oParam.sObjectPath = "/getLifnr";
+                oParam.sViewmodel = that.CO_VIEW_MODEL;
+                oParam.scope = that;
+                oParam.component = that._oComponent;
+                oParam.bBusyelement = false;
+
+                DataOperation.dataOperation(oParam);
+            })
+        },
     };
 
 

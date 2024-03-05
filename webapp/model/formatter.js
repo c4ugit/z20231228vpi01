@@ -14,7 +14,7 @@ sap.ui.define([
         currencyValue: function (iValue) {
             let oFormat = NumberFormat.getFloatInstance({
                 "groupingEnabled": true,  // grouping is enabled
-                "groupingSeparator": '', // grouping separator is '.'
+                "groupingSeparator": ' ', // grouping separator is '.'
                 "groupingSize": 3,        // the amount of digits to be grouped (here: thousand)
                 "decimalSeparator": ","   // the decimal separator must be different from the grouping separator
             });

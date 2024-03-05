@@ -106,6 +106,7 @@
                 placeholder="Poznámka k příloze v maximální délce 249znaků"
                 value="{invoiceModel>/Description}"
                 editable="true"
+                   enabled="{globalModelUserInfo>/bEnable}"
                 width="100%"
                 valueLiveUpdate="false"
                 
@@ -177,7 +178,7 @@
             <semantic:PositiveAction
                 text="Uložit novou fakturu"
                 press=".onSaveNewInvoice"
-                enabled="{incidentUserAuth>/Editinc}"
+                enabled="{globalModelUserInfo>/bEnable}"
                 visible="{detailVendorInvoiceViewModel>/bSaveIncidentVIS}"
             />
         </semantic:positiveAction>

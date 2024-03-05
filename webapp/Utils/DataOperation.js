@@ -82,6 +82,9 @@ sap.ui.define([
                     case "7":
                         oComponent._fnResolveCheckEbeln(oDataServer);
                         break;
+                    case "8":
+                        oComponent._fnResolveGetLifnr(oDataServer);
+                        break;
 
 
                     default:
@@ -117,7 +120,10 @@ sap.ui.define([
                         oComponent._fnRejectDeleteInvoiceAttachment(oError);
                         break;
                     case "7":
-                        oComponent._fnRejectCheckEbeln(oDataServer);
+                        oComponent._fnRejectCheckEbeln(oError);
+                        break;
+                    case "8":
+                        oComponent._fnRejectGetLifnr(oError);
                         break;
 
 

@@ -161,6 +161,7 @@
                 placeholder="Poznámka k příloze v maximální délece 249znaků"
                 value="{invoiceModel>/Description}"
                 editable="{ path:'invoiceModel>/Status', formatter : '.formatter.statusInvoiceUploadEnabled'}"
+                 enabled="{globalModelUserInfo>/bEnable}"
                 width="100%"
                 valueLiveUpdate="false"
                 
@@ -296,7 +297,7 @@
             <semantic:PositiveAction
                 text="Uložit změny"
                 press=".onSaveInvoiceChange"
-                enabled="{incidentUserAuth>/Editinc}"
+                enabled="{globalModelUserInfo>/bEnable}"
                 visible="{detailVendorInvoiceViewModel>/bSaveIncidentVIS}"
             />
         </semantic:positiveAction>
