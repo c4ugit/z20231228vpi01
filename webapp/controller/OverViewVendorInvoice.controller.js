@@ -154,7 +154,8 @@ sap.ui.define([
                 }.bind(this));
 
 
-                if (sUserType === '01') {
+                if (sUserType === '01' || sUserType === '04') {
+                    this._oSmartFilter.setShowGoOnFB(true);
                     //10a - pokračuj dále
                     // this._getDialogEbelnLogon();
                 } else {
@@ -196,7 +197,7 @@ sap.ui.define([
                 oEvent.getParameter("bindingParams").sorter.push(new Sorter("Zinvoicr_Id", true));
                 if (Object.keys(this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_HELP).getProperty("/oFilterForSmartTable")).length === 0) {
                 } else {
-                    oEvent.getParameter("bindingParams").filters.push(this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_HELP).getProperty("/oFilterForSmartTable"));
+                    // oEvent.getParameter("bindingParams").filters.push(this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_HELP).getProperty("/oFilterForSmartTable"));
                 }
             },
 
