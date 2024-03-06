@@ -58,6 +58,7 @@
                     <Text text="Dodavatel: {globalModelUserInfo>/Lifnr} {globalModelUserInfo>/LifnrName}" />
                     <!-- <tnt:InfoLabel text="{path:'globalModelHelp>/sInfoLabel'}" renderMode="Loose" colorScheme="{path : 'globalModelAuthorization>/Colorlabel', formatter : '.formatter.colorlabel'}" displayOnly="true"/> -->
                     <ToolbarSpacer />
+                    <Button press=".onDeleteCookie" type="Emphasized" visible="{globalModelUserInfo>/blogonebeln}" text="{i18n>changeOrder}"></Button>
                 </content>
             </Toolbar>
         </semantic:titleExpandedContent>
