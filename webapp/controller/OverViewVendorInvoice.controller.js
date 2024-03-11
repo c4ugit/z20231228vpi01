@@ -168,14 +168,19 @@ sap.ui.define([
                     this._fnResolveWaitGetLifnr();
                 }
                 else if (sUserType === '01') {
-                    let oLifnr = await this._callGetLifnr(
-                        "",
-                        "",
-                        sUserType
-                    );
-                    this._setHeaderLifnr(oLifnr);
-                    this._setFilterBindSmartTable(oLifnr.Lifnr);
-                    this._fnResolveWaitGetLifnr();
+                    try {
+                        let oLifnr = await this._callGetLifnr(
+                            "",
+                            "",
+                            sUserType
+                        );
+                        this._setHeaderLifnr(oLifnr);
+                        this._setFilterBindSmartTable(oLifnr.Lifnr);
+                        this._fnResolveWaitGetLifnr();
+                    } catch (error) {
+                        this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_USER_INFO).setProperty("/bEnable", false);
+                        return;
+                    }
 
                     //10a - pokračuj dále
                     // this._getDialogEbelnLogon();
@@ -187,27 +192,37 @@ sap.ui.define([
                     let bCheckCookieSuccess;
                     bCheckCookieSuccess = this._checkCookie();
                     if (bCheckCookieSuccess === true) {
-                        let oLifnr = await this._callGetLifnr(
-                            this._getCookie("ebeln"),
-                            this._getCookie("password"),
-                            sUserType
-                        );
-                        this._setHeaderLifnr(oLifnr);
-                        this._setFilterBindSmartTable(oLifnr.Lifnr);
-                        this._fnResolveWaitGetLifnr();
+                        try {
+                            let oLifnr = await this._callGetLifnr(
+                                this._getCookie("ebeln"),
+                                this._getCookie("password"),
+                                sUserType
+                            );
+                            this._setHeaderLifnr(oLifnr);
+                            this._setFilterBindSmartTable(oLifnr.Lifnr);
+                            this._fnResolveWaitGetLifnr();
+                        } catch (error) {
+                            this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_USER_INFO).setProperty("/bEnable", false);
+                            return;
+                        }
                     } else {
                         this._getDialogEbelnLogon();
                     }
 
                     this._PromiseWaitEbelnCheckEbeln.then(async function () {
-                        let oLifnr = await this._callGetLifnr(
-                            this.getModel(this.CO_VIEW_MODEL).getProperty("/ebeln"),
-                            this.getModel(this.CO_VIEW_MODEL).getProperty("/pasw"),
-                            sUserType
-                        );
-                        this._setHeaderLifnr(oLifnr);
-                        this._setFilterBindSmartTable(oLifnr.Lifnr);
-                        this._fnResolveWaitGetLifnr();
+                        try {
+                            let oLifnr = await this._callGetLifnr(
+                                this.getModel(this.CO_VIEW_MODEL).getProperty("/ebeln"),
+                                this.getModel(this.CO_VIEW_MODEL).getProperty("/pasw"),
+                                sUserType
+                            );
+                            this._setHeaderLifnr(oLifnr);
+                            this._setFilterBindSmartTable(oLifnr.Lifnr);
+                            this._fnResolveWaitGetLifnr();                            
+                        } catch (error) {
+                            this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_USER_INFO).setProperty("/bEnable", false);
+                            return;
+                        }
                     }.bind(this)).catch(async function (sErrorText) {
                         await this.messageBoxError(sErrorText);
                     }.bind(this));

@@ -180,7 +180,7 @@
                     fileSizeExceeded=".onFileSizeExceededIT"
                     fileTypeMismatch=".onFileTypeMismatchIT"
                     id="uploadSetOthersAttachment"
-                    instantUpload="true"
+                    instantUpload="false"
                     showIcons="true"
                     uploadEnabled="{ path:'invoiceModel>/Status', formatter : '.formatter.statusInvoiceUploadEnabled'}"
                     terminationEnabled="true"

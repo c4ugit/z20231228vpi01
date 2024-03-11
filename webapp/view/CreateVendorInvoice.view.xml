@@ -56,7 +56,7 @@
                     fileNameLengthExceeded=".onFileNameLengthExceeded"
                     fileSizeExceeded=".onFileSizeExceeded"
                     fileTypeMismatch=".onFileTypeMismatch"
-                    instantUpload="true"
+                    instantUpload="false"
                     showIcons="true"
                     uploadEnabled="true"
                     terminationEnabled="true"

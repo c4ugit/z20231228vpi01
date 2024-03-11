@@ -47,7 +47,7 @@ sap.ui.define([
                 that._oComponent._PromiseGetInvoiceList.then(function (oData) {
                     resolve(Object.freeze(oData));
                 }.bind(that)).catch(function (oError) {
-                    reject(that.getMessagesBase().findFirstErrorMessage(that));
+                    reject(that.getMessagesBase().findFirstErrorMessage(that));                    
                 }.bind(that));
 
              
@@ -155,7 +155,7 @@ sap.ui.define([
             })
         },
         callInfoUser: function (that) {
-            return new Promise(function (resolve, reject) {
+            // return new Promise(function (resolve, reject) {
                 let oParam = {};
                 oParam = DataOperation.getListOfCallVar();
 
@@ -165,10 +165,10 @@ sap.ui.define([
                     that._oComponent._fnRejectInfoUser = fnReject;
                 }.bind(that));
                 that._oComponent._PromiseInfoUser.then(function (oData) {
-                    resolve(Object.freeze(oData));
+                    // resolve(Object.freeze(oData));
                 }.bind(that)).catch(function (oError) {
                     // resolve();
-                    reject(that.getMessagesBase().findFirstErrorMessage(that));
+                    // reject(that.getMessagesBase().findFirstErrorMessage(that));
                 }.bind(that));
 
                 oParam.sNamePromise = "1";
@@ -177,8 +177,9 @@ sap.ui.define([
                 oParam.scope = that;
                 oParam.component = that._oComponent;
                 DataOperation.dataOperation(oParam);
-            })
-        },
+            },
+            // )
+        // },
         callCustomerList: function (that) {
             return new Promise(function (resolve, reject) {
                 let oParam = {};
