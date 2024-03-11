@@ -110,7 +110,7 @@
                     fileTypes="pdf"
                     maxFileNameLength="70"
                     maxFileSize="200"
-                    mediaTypes="text/plain,application/msword,image/jpeg,image/png,application/pdf"
+                    mediaTypes="application/pdf"
                     items="{path: 'invoiceAttachModel>/results', templateShareable: false}"
                     incompleteItems="{path: 'invoiceAttachInCompleteModel>/results', templateShareable: false}"
                 >
@@ -184,10 +184,10 @@
                     showIcons="true"
                     uploadEnabled="{ path:'invoiceModel>/Status', formatter : '.formatter.statusInvoiceUploadEnabled'}"
                     terminationEnabled="true"
-                    fileTypes="txt,doc,png,pdf,xls,xlsx.docx"
+                    fileTypes="txt,doc,png,pdf,xls,xlsx,docx"
                     maxFileNameLength="70"
                     maxFileSize="200"
-                    mediaTypes="text/plain,application/msword,image/jpeg"
+                    mediaTypes="text/plain,application/msword,image/jpeg,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf"
                     items="{path: 'invoiceItemAttachModel>/results', templateShareable: false}"
                     incompleteItems="{path: 'invoiceItemAttachInCompleteModel>/results', templateShareable: false}"
                 >

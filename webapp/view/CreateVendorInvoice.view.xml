@@ -60,18 +60,20 @@
                     showIcons="true"
                     uploadEnabled="true"
                     terminationEnabled="true"
-                    fileTypes="pdf,png"
+                    fileTypes="pdf"
                     maxFileNameLength="70"
-                    maxFileSize="200"
-                    mediaTypes="text/plain,application/msword,image/jpeg,image/png"
+                    maxFileSize="2000"
+                    mediaTypes="application/pdf"
                     items="{path: 'invoiceAttachModel>/results', templateShareable: false}"
                     incompleteItems="{path: 'invoiceAttachInCompleteModel>/results', templateShareable: false}"
                     uploadUrl="/"
+
                 >
                     <upload:toolbar>
                         <OverflowToolbar>
                             <Title text="Faktura - příloha v PDF (lze nahrát jen 1 přílohu v pdf formátu)" />
                             <ToolbarSpacer />
+
                         </OverflowToolbar>
                     </upload:toolbar>
                     <upload:incompleteItems>
@@ -120,7 +122,7 @@
                     fileTypes="txt,doc,png,pdf,xls,xlsx,docx"
                     maxFileNameLength="70"
                     maxFileSize="200"
-                    mediaTypes="text/plain,application/msword,image/jpeg,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                    mediaTypes="text/plain,application/msword,image/jpeg,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf"
                     items="{path: 'invoiceItemAttachModel>/results', templateShareable: false}"
                     incompleteItems="{path: 'invoiceItemAttachInCompleteModel>/results', templateShareable: false}"
                     beforeItemAdded=".onBeforeItemAddedIT"

@@ -12,8 +12,9 @@
         "dataSources": {
             "mainService": {
                 "uri": "/sap/opu/odata/sap/ZC4UVPI01_SRV/",
-                "type": "OData",
+                "type": "OData",                
                 "settings": {
+                    "defaultCountMode": "None",
                     "annotations": [
                         "ZC4UVPI01_ANNO_MDL"
                     ],
