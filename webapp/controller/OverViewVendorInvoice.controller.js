@@ -150,8 +150,9 @@ sap.ui.define([
                 }.bind(this));
             },
             _procesOnMatchedScenario: async function () {
+
                 let sUserType;
-                sUserType = this._getUserType();
+                sUserType = this.getUserType();
                 this._setFilterBindSmartTableBasedUserType(sUserType);
 
                 this._PromiseWaitEbelnCheckEbeln = new Promise(function (fnResolve, fnReject) {
@@ -169,12 +170,13 @@ sap.ui.define([
                 }
                 else if (sUserType === '01') {
                     try {
-                        let oLifnr = await this._callGetLifnr(
+                        let oLifnr = await this.callGetLifnr(
                             "",
                             "",
                             sUserType
                         );
-                        this._setHeaderLifnr(oLifnr);
+                        this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_USER_INFO).setProperty("/bEnable", true);
+                        this.setHeaderLifnr(oLifnr);
                         this._setFilterBindSmartTable(oLifnr.Lifnr);
                         this._fnResolveWaitGetLifnr();
                     } catch (error) {
@@ -190,15 +192,16 @@ sap.ui.define([
                     //10b_40 - otevři dialog
 
                     let bCheckCookieSuccess;
-                    bCheckCookieSuccess = this._checkCookie();
+                    bCheckCookieSuccess = this.checkCookie();
                     if (bCheckCookieSuccess === true) {
                         try {
-                            let oLifnr = await this._callGetLifnr(
-                                this._getCookie("ebeln"),
-                                this._getCookie("password"),
+                            let oLifnr = await this.callGetLifnr(
+                                this.getCookie("ebeln"),
+                                this.getCookie("password"),
                                 sUserType
                             );
-                            this._setHeaderLifnr(oLifnr);
+                            this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_USER_INFO).setProperty("/bEnable", true);
+                            this.setHeaderLifnr(oLifnr);
                             this._setFilterBindSmartTable(oLifnr.Lifnr);
                             this._fnResolveWaitGetLifnr();
                         } catch (error) {
@@ -211,12 +214,14 @@ sap.ui.define([
 
                     this._PromiseWaitEbelnCheckEbeln.then(async function () {
                         try {
-                            let oLifnr = await this._callGetLifnr(
+                            let oLifnr = await this.callGetLifnr(
                                 this.getModel(this.CO_VIEW_MODEL).getProperty("/ebeln"),
                                 this.getModel(this.CO_VIEW_MODEL).getProperty("/pasw"),
                                 sUserType
                             );
-                            this._setHeaderLifnr(oLifnr);
+                            this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_USER_INFO).setProperty("/bEnable", true);
+                            this._oSmartFilter.setShowGoOnFB(true);
+                            this.setHeaderLifnr(oLifnr);
                             this._setFilterBindSmartTable(oLifnr.Lifnr);
                             this._fnResolveWaitGetLifnr();                            
                         } catch (error) {
@@ -225,6 +230,7 @@ sap.ui.define([
                         }
                     }.bind(this)).catch(async function (sErrorText) {
                         await this.messageBoxError(sErrorText);
+                        this._oSmartFilter.setShowGoOnFB(false);
                     }.bind(this));
                 }
 
@@ -281,29 +287,21 @@ sap.ui.define([
             /* =========================================================== */
             _deleteCookieRefresh: function (oFifnr) {
                 var that = this;
-                this._deleteCookie();
+                this.deleteCookie();
                 var oHashChanger = this.getRouter().oHashChanger;
                 oHashChanger.setHash("");
                 this.getModel().removeData();
                 window.location.reload();
 
             },
-            _setHeaderLifnr: function (oFifnr) {
-
-                this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_USER_INFO).setProperty("/Lifnr", oFifnr.Lifnr);
-                this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_USER_INFO).setProperty("/LifnrName", oFifnr.LifnrName);
-            },
+          
             _setFilterBindSmartTable: function (lifnr) {
                 let oFilters;
                 oFilters = {};
                 oFilters = new Filter("Lifnr", FilterOperator.EQ, lifnr);
                 this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_HELP).setProperty("/oFilterForSmartTable", oFilters);
             },
-            _getUserType: function () {
-                let usertype;
-                usertype = this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_USER_INFO).getData().UserType;
-                return usertype;
-            },
+         
             _setFilterBindSmartTableBasedUserType(usertype) {
                 let oFilters, aFiltersMulti;
                 oFilters = {};
@@ -366,43 +364,8 @@ sap.ui.define([
                     this._oComponent._fnResolveSmartFilterInitialized();
                 }
             },
-            _setCookie: function (cname, cvalue, exdays) {
-                let d = new Date();
-                d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-                let expires = "expires=" + d.toUTCString();
-                document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-            },
-            _getCookie: function (cname) {
-                let name = cname + "=";
-                let decodedCookie = decodeURIComponent(document.cookie);
-                let ca = decodedCookie.split(';');
-                for (let i = 0; i < ca.length; i++) {
-                    let c = ca[i];
-                    while (c.charAt(0) == ' ') {
-                        c = c.substring(1);
-                    }
-                    if (c.indexOf(name) == 0) {
-                        return c.substring(name.length, c.length);
-                    }
-                }
-                return "";
-            },
-            _checkCookie: function () {
-                let oKeys = {};
-                oKeys.load = true;
-                let ebeln = this._getCookie("ebeln");
-                let password = this._getCookie("password");
-                // if (ebeln !== "" && password !== "") {
-                if (ebeln === "") {
-                    return false;
-                } else {
-                    return true;
-                }
-            },
-            _deleteCookie: function () {
-                document.cookie = 'ebeln=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-                document.cookie = 'password=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-            },
+      
+        
 
 
 
@@ -423,7 +386,7 @@ sap.ui.define([
             /* =========================================================== */
 
             /* =========================================================== */
-            /* begin:  Dialog Ebeln logon                        */
+            /* begin:  Dialog Ebeln logon                                   */
             /* =========================================================== */
             _getDialogEbelnLogon: async function () {
 
@@ -446,7 +409,7 @@ sap.ui.define([
                 this.getModel(this.CO_VIEW_MODEL).setProperty("/ebeln", oEbelnLogon.getContent()[1].getProperty("value"));
                 this.getModel(this.CO_VIEW_MODEL).setProperty("/pasw", oEbelnLogon.getContent()[2].getProperty("value"));
 
-                this._callCheckEbeln(
+                this.callCheckEbeln(
                     oEbelnLogon.getContent()[1].getProperty("value"),
                     oEbelnLogon.getContent()[2].getProperty("value")
                 )
@@ -487,8 +450,8 @@ sap.ui.define([
                         this._oSmartFilter.setShowGoOnFB(true);
                         this._fnResolveCheckEbeln();
 
-                        this._setCookie("ebeln", sEbeln, 0.0208);
-                        this._setCookie("password", sPassw, 0.0208);
+                        this.setCookie("ebeln", sEbeln, 0.0208);
+                        this.setCookie("password", sPassw, 0.0208);
 
                     } else {
                         this._oSmartFilter.setShowGoOnFB(false);

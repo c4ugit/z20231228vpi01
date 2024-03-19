@@ -222,6 +222,15 @@ sap.ui.define([
             {
 
             },
+            onConfirmEbelnLogon: function () {
+                this._confirmEbelnLogon();
+            },
+            onCancelEbelnLogon: function (oEvent) {
+                this._cancelEbelnLogon(oEvent);
+            },
+            onCloseEbelnLogon: function (oEvent) {
+                this._closeEbelnLogon(oEvent);
+            },
 
 
 
@@ -257,8 +266,102 @@ sap.ui.define([
                     }.bind(this));
                 }.bind(this));
             },
-            _procesOnMatchedScenario: function ()
+            _procesOnMatchedScenario: async function ()
             {
+
+                let sUserType;
+                sUserType = this.getUserType();
+              
+                this._PromiseWaitEbelnCheckEbeln = new Promise(function (fnResolve, fnReject) {
+                    this._fnResolveCheckEbeln = fnResolve;
+                    this._fnRejectCheckEbeln = fnReject;
+                }.bind(this));
+                this._PromiseWaitGetLifnr = new Promise(function (fnResolve, fnReject) {
+                    this._fnResolveWaitGetLifnr = fnResolve;
+                    this._fnRejectWaitGetLifnr = fnReject;
+                }.bind(this));
+
+                if (sUserType === '04') {
+                    this._fnResolveWaitGetLifnr();
+                }
+                else if (sUserType === '01') {
+                    try {
+                        let oLifnr = await this.callGetLifnr(
+                            "",
+                            "",
+                            sUserType
+                        );
+                        
+                        this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_USER_INFO).setProperty("/bEnable", true);
+                        this.setHeaderLifnr(oLifnr);                 
+                        this._fnResolveWaitGetLifnr();
+                    } catch (error) {
+                        this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_USER_INFO).setProperty("/bEnable", false);
+                        return;
+                    }
+
+                    //10a - pokračuj dále
+                    // this._getDialogEbelnLogon();
+                } else {
+                    //10b - ověř příhlášení pomocí objednávky a hesla
+                    //10b_10 - existuje již cookie
+                    //10b_40 - otevři dialog
+
+                    let bCheckCookieSuccess;
+                    bCheckCookieSuccess = this.checkCookie();
+                    if (bCheckCookieSuccess === true) {
+                        try {
+                            let oLifnr = await this.callGetLifnr(
+                                this.getCookie("ebeln"),
+                                this.getCookie("password"),
+                                sUserType
+                            );
+                            this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_USER_INFO).setProperty("/bEnable", true);
+                            this.setHeaderLifnr(oLifnr);                       
+                            this._fnResolveWaitGetLifnr();
+                        } catch (error) {
+                            this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_USER_INFO).setProperty("/bEnable", false);
+                            return;
+                        }
+                    } else {
+                        this._getDialogEbelnLogon();
+                    }
+
+                    this._PromiseWaitEbelnCheckEbeln.then(async function () {
+                        try {
+                            let oLifnr = await this.callGetLifnr(
+                                this.getModel(this.CO_VIEW_MODEL).getProperty("/ebeln"),
+                                this.getModel(this.CO_VIEW_MODEL).getProperty("/pasw"),
+                                sUserType
+                            );
+                            this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_USER_INFO).setProperty("/bEnable", true);
+                            this.setHeaderLifnr(oLifnr);                           
+                            this._fnResolveWaitGetLifnr();                            
+                        } catch (error) {
+                            this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_USER_INFO).setProperty("/bEnable", false);
+                            return;
+                        }
+                    }.bind(this)).catch(async function (sErrorText) {
+                        await this.messageBoxError(sErrorText);
+                    }.bind(this));
+                }
+
+                this._PromiseWaitGetLifnr.then(function () {
+
+                }.bind(this)).catch(async function (sErrorText) {
+
+                    await this.messageBoxError(sErrorText);
+                    let oCrossAppNavigator = sap.ushell.Container.getService("CrossApplicationNavigation");
+                    oCrossAppNavigator.toExternal({
+                        target: {
+                            shellHash: "#Shell-home"
+                        }
+                    });
+                }.bind(this));
+
+
+
+
                 if (this._oUploadSetAttachment.getIncompleteItems().length > 0)
                 {
                     for (let index = this._oUploadSetAttachment.getIncompleteItems().length - 1; index >= 0; index--)
@@ -593,7 +696,7 @@ sap.ui.define([
 
 
 
-            /* =========================================================== */
+              /* =========================================================== */
             /* =========================================================== */
             /* =========================================================== */
             /* =========================================================== */
@@ -607,6 +710,41 @@ sap.ui.define([
             /* begin: Fragments                                            */
             /* =========================================================== */
             /* =========================================================== */
+
+            /* =========================================================== */
+            /* begin:  Dialog Ebeln logon                                   */
+            /* =========================================================== */
+            _getDialogEbelnLogon: async function () {
+
+                let oEbelnLogon;
+                oEbelnLogon = await this.getDialogBase().getDialogEbelnLogon(this);
+                this.getDialogBase().openDialog(oEbelnLogon);
+
+
+            },
+            _cancelEbelnLogon: async function (oEvent) {
+                this.getDialogBase().closeDialog(await this.getDialogBase().getDialogEbelnLogon(this));
+
+            },
+            _closeEbelnLogon: async function (oEvent) {
+
+            },
+            _confirmEbelnLogon: function () {
+                let oEbelnLogon;
+                oEbelnLogon = this.getDialogBase().onConfirmEbelnLogon(this);
+                this.getModel(this.CO_VIEW_MODEL).setProperty("/ebeln", oEbelnLogon.getContent()[1].getProperty("value"));
+                this.getModel(this.CO_VIEW_MODEL).setProperty("/pasw", oEbelnLogon.getContent()[2].getProperty("value"));
+
+                this.callCheckEbeln(
+                    oEbelnLogon.getContent()[1].getProperty("value"),
+                    oEbelnLogon.getContent()[2].getProperty("value")
+                )
+
+            },
+            _deleteEbelnLogon: async function () {
+                this.getDialogBase().clearEbelnLogonDialog(await this.getDialogBase().getDialogEbelnLogon(this));
+
+            },
 
 
 

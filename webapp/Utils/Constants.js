@@ -49,6 +49,10 @@ sap.ui.define([], function () {
                 FILE_TYPE_MISMATCH_EXCEEDED_IT :"/FileTypeMismatchIT",
 
 
+                OVERVIEW: "overview",
+                CREATE : "create"
+
+
 
 
 
