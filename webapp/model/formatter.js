@@ -1,6 +1,7 @@
 sap.ui.define([
     "sap/ui/core/format/NumberFormat"
-], function (NumberFormat) {
+], function (NumberFormat)
+{
     "use strict";
 
     return {
@@ -11,84 +12,106 @@ sap.ui.define([
          * @param {string} sValue value to be formatted
          * @returns {string} formatted currency value with 2 digits
          */
-        currencyValue: function (iValue) {
+        currencyValue: function (iValue)
+        {
             let oFormat = NumberFormat.getFloatInstance({
                 "groupingEnabled": true,  // grouping is enabled
                 "groupingSeparator": ' ', // grouping separator is '.'
                 "groupingSize": 3,        // the amount of digits to be grouped (here: thousand)
                 "decimalSeparator": ","   // the decimal separator must be different from the grouping separator
             });
-        
-            if (!iValue) {
-                return oFormat.format(parseFloat(0).toFixed(2));
-               
-            } else if (typeof iValue === "number") {
-                return oFormat.format(parseFloat(iValue).toFixed(2))
-            } else {
 
-                return oFormat.format(parseFloat(iValue.replace(',','.').replace(' ','')).toFixed(2));
+            if (!iValue)
+            {
+                return oFormat.format(parseFloat(0).toFixed(2));
+
+            } else if (typeof iValue === "number")
+            {
+                return oFormat.format(parseFloat(iValue).toFixed(2))
+            } else
+            {
+
+                return oFormat.format(parseFloat(iValue.replace(',', '.').replace(' ', '')).toFixed(2));
             }
-            
+
 
         },
-        currencyValueChart: function (iValue) {
+        currencyValueChart: function (iValue)
+        {
             let oFormat = NumberFormat.getFloatInstance({
                 "groupingEnabled": true,  // grouping is enabled
                 "groupingSeparator": '', // grouping separator is '.'
                 "groupingSize": 3,        // the amount of digits to be grouped (here: thousand)
                 "decimalSeparator": ","   // the decimal separator must be different from the grouping separator
             });
-        
-            if (!iValue) {
-                return oFormat.format(parseFloat(0).toFixed(0));
-               
-            } else if (typeof iValue === "number") {
-                return oFormat.format(parseFloat(iValue).toFixed(0))
-            } else {
 
-                return oFormat.format(parseFloat(iValue.replace(',','.').replace(' ','')).toFixed(0));
+            if (!iValue)
+            {
+                return oFormat.format(parseFloat(0).toFixed(0));
+
+            } else if (typeof iValue === "number")
+            {
+                return oFormat.format(parseFloat(iValue).toFixed(0))
+            } else
+            {
+
+                return oFormat.format(parseFloat(iValue.replace(',', '.').replace(' ', '')).toFixed(0));
             }
-            
+
 
         },
-        budgetSpending: function (actual, budget) {
-			let iProgress;
-            if (actual === undefined || budget === undefined) {
+        budgetSpending: function (actual, budget)
+        {
+            let iProgress;
+            if (actual === undefined || budget === undefined)
+            {
                 return 0;
             }
-			if (Number(actual) === 0 || Number(budget) === null) {
-				iProgress = 0;
-			} else {
-				iProgress = parseFloat((Number(actual) / Number(budget)).toFixed(2)) * 100;
-			}
+            if (Number(actual) === 0 || Number(budget) === null)
+            {
+                iProgress = 0;
+            } else
+            {
+                iProgress = parseFloat((Number(actual) / Number(budget)).toFixed(2)) * 100;
+            }
 
-			return iProgress;
-		},
-		budgetSpendingColor: function (actual, budget) {
-			let sProgressColor, iProgress;
-			if (actual === undefined || budget === undefined) {} else {
+            return iProgress;
+        },
+        budgetSpendingColor: function (actual, budget)
+        {
+            let sProgressColor, iProgress;
+            if (actual === undefined || budget === undefined) { } else
+            {
 
-				if (Number(actual) === 0 || Number(budget) === null) {
-					sProgressColor = "Error";
-				} else {
-					iProgress = (actual / budget) * 100;
-					if (iProgress >= 100) {
-						sProgressColor = "Error";
-					} else if (iProgress < 99 && iProgress >= 50) {
-						sProgressColor = "Critical";
-					} else if (iProgress < 50 && iProgress > 0) {
-						sProgressColor = "Good";
-					} else if (iProgress === 0) {
-						sProgressColor = "Good";
-					} else {
-						//none
-					}
-				}
-			}
+                if (Number(actual) === 0 || Number(budget) === null)
+                {
+                    sProgressColor = "Error";
+                } else
+                {
+                    iProgress = (actual / budget) * 100;
+                    if (iProgress >= 100)
+                    {
+                        sProgressColor = "Error";
+                    } else if (iProgress < 99 && iProgress >= 50)
+                    {
+                        sProgressColor = "Critical";
+                    } else if (iProgress < 50 && iProgress > 0)
+                    {
+                        sProgressColor = "Good";
+                    } else if (iProgress === 0)
+                    {
+                        sProgressColor = "Good";
+                    } else
+                    {
+                        //none
+                    }
+                }
+            }
 
-			return sProgressColor;
-		},
-        currencyValueWithCurrency: function (iValue, sCurrency) {
+            return sProgressColor;
+        },
+        currencyValueWithCurrency: function (iValue, sCurrency)
+        {
             let oFormat = NumberFormat.getFloatInstance({
                 "groupingEnabled": true,  // grouping is enabled
                 "groupingSeparator": '', // grouping separator is '.'
@@ -96,53 +119,66 @@ sap.ui.define([
                 "decimalSeparator": ","   // the decimal separator must be different from the grouping separator
             });
             let result;
-        
-            if (!iValue) {
+
+            if (!iValue)
+            {
                 result = oFormat.format(parseFloat(0).toFixed(2)) + sCurrency;
                 return result;
-               
-            } else if (typeof iValue === "number") {
-                result =  oFormat.format(parseFloat(iValue).toFixed(2)) + sCurrency;
+
+            } else if (typeof iValue === "number")
+            {
+                result = oFormat.format(parseFloat(iValue).toFixed(2)) + sCurrency;
                 return result;
-            } else {                
-                result =  oFormat.format(parseFloat(iValue.replace(',','.').replace(' ','')).toFixed(2)) + sCurrency;
+            } else
+            {
+                result = oFormat.format(parseFloat(iValue.replace(',', '.').replace(' ', '')).toFixed(2)) + sCurrency;
                 return result;
             }
-            
+
 
         },
-        currencyValueState: function (iValue) {
-     
+        currencyValueState: function (iValue)
+        {
 
-            if (iValue > 0 ) {
+
+            if (iValue > 0)
+            {
                 return "Error"
-            } else {
-                return  "None"
-            }           
-        
+            } else
+            {
+                return "None"
+            }
+
 
         },
-        currencyValueState2: function (iValue) {
-     
+        currencyValueState2: function (iValue)
+        {
 
-            if (iValue > 0 ) {
+
+            if (iValue > 0)
+            {
                 return "Success"
-            } else {
-                return  "Error"
-            }           
-        
+            } else
+            {
+                return "Error"
+            }
+
 
         },
-        toNumber: function (sValue) {
-            if (!sValue) {
+        toNumber: function (sValue)
+        {
+            if (!sValue)
+            {
                 return 0;
             }
 
             return Number(sValue);
 
         },
-        ammountValue: function (sValue) {
-            if (!sValue) {
+        ammountValue: function (sValue)
+        {
+            if (!sValue)
+            {
                 return "";
             }
             var oFormat = NumberFormat.getFloatInstance({
@@ -154,8 +190,10 @@ sap.ui.define([
             return oFormat.format(parseFloat(sValue).toFixed(0))
 
         },
-        roundMengeCorrection: function (sValue) {
-            if (!sValue) {
+        roundMengeCorrection: function (sValue)
+        {
+            if (!sValue)
+            {
                 return "";
             }
             var oFormat = NumberFormat.getFloatInstance({
@@ -167,8 +205,10 @@ sap.ui.define([
             return oFormat.format(parseFloat(sValue).toFixed(0))
 
         },
-        weightValue: function (sValue) {
-            if (!sValue) {
+        weightValue: function (sValue)
+        {
+            if (!sValue)
+            {
                 return "";
             }
             var oFormat = NumberFormat.getFloatInstance({
@@ -180,25 +220,31 @@ sap.ui.define([
             return oFormat.format(parseFloat(sValue).toFixed(3))
 
         },
-        percentageValue: function (sValue) {
-            if (!sValue) {
+        percentageValue: function (sValue)
+        {
+            if (!sValue)
+            {
                 return "";
             }
             let sNewValue = sValue + '%';
             return sNewValue;
 
         },
-        percentageValue: function (sValue) {
-            if (!sValue) {
+        percentageValue: function (sValue)
+        {
+            if (!sValue)
+            {
                 return "";
             }
             let sNewValue = sValue + '%';
             return sNewValue;
 
         },
-        windowDeliveryColor: function (stype) {
+        windowDeliveryColor: function (stype)
+        {
             let sButtonType;
-            switch (stype) {
+            switch (stype)
+            {
                 case false:
                     sButtonType = "Default";
                     break;
@@ -211,9 +257,11 @@ sap.ui.define([
             }
             return sButtonType;
         },
-        blockCustomer: function (stype) {
+        blockCustomer: function (stype)
+        {
             let sCustomerBlockIcon;
-            switch (stype) {
+            switch (stype)
+            {
                 case false:
                     sCustomerBlockIcon = "";
                     break;
@@ -226,9 +274,11 @@ sap.ui.define([
             }
             return sCustomerBlockIcon;
         },
-        correctedMaterialStatus: function (stype) {
+        correctedMaterialStatus: function (stype)
+        {
             let sCorrectedMaterialStatus;
-            switch (stype) {
+            switch (stype)
+            {
                 case true:
                     sCorrectedMaterialStatus = "Information";
                     break;
@@ -240,9 +290,11 @@ sap.ui.define([
             }
             return sCorrectedMaterialStatus;
         },
-        rowHighlightZb198Status: function (status) {
+        rowHighlightZb198Status: function (status)
+        {
             let requestStatus;
-            switch (status) {
+            switch (status)
+            {
                 case "":
                     requestStatus = "Neutral";
                     break;
@@ -279,9 +331,11 @@ sap.ui.define([
             }
             return requestStatus;
         },
-        statusInvoiceState1: function (invoiceState) {
+        statusInvoiceState1: function (invoiceState)
+        {
             let Status;
-            switch (invoiceState) {             
+            switch (invoiceState)
+            {
                 case "1":
                     Status = "Warning";
                     break;
@@ -306,9 +360,11 @@ sap.ui.define([
             }
             return Status;
         },
-        statusInvoiceState2: function (invoiceState) {
+        statusInvoiceState2: function (invoiceState)
+        {
             let Status;
-            switch (invoiceState) {             
+            switch (invoiceState)
+            {
                 case "1":
                     Status = "None";
                     break;
@@ -333,9 +389,11 @@ sap.ui.define([
             }
             return Status;
         },
-        statusInvoiceState3: function (invoiceState) {
+        statusInvoiceState3: function (invoiceState)
+        {
             let Status;
-            switch (invoiceState) {             
+            switch (invoiceState)
+            {
                 case "1":
                     Status = "None";
                     break;
@@ -360,9 +418,11 @@ sap.ui.define([
             }
             return Status;
         },
-        statusInvoiceState4: function (invoiceState) {
+        statusInvoiceState4: function (invoiceState)
+        {
             let Status;
-            switch (invoiceState) {             
+            switch (invoiceState)
+            {
                 case "1":
                     Status = "None";
                     break;
@@ -387,9 +447,11 @@ sap.ui.define([
             }
             return Status;
         },
-        statusInvoiceState5: function (invoiceState) {
+        statusInvoiceState5: function (invoiceState)
+        {
             let Status;
-            switch (invoiceState) {             
+            switch (invoiceState)
+            {
                 case "1":
                     Status = "None";
                     break;
@@ -414,9 +476,11 @@ sap.ui.define([
             }
             return Status;
         },
-        statusInvoiceState5: function (invoiceState) {
+        statusInvoiceState5: function (invoiceState)
+        {
             let Status;
-            switch (invoiceState) {             
+            switch (invoiceState)
+            {
                 case "1":
                     Status = "None";
                     break;
@@ -441,9 +505,11 @@ sap.ui.define([
             }
             return Status;
         },
-        statusInvoiceState: function (invoiceState) {
+        statusInvoiceState: function (invoiceState)
+        {
             let Status;
-            switch (invoiceState) {           
+            switch (invoiceState)
+            {
 
                 case "6":
                     Status = "Success";
@@ -454,27 +520,29 @@ sap.ui.define([
             }
             return Status;
         },
-        statusInvoiceIcon: function (invoiceState) {
+        statusInvoiceIcon: function (invoiceState)
+        {
             let Icon;
-            switch (invoiceState) {           
+            switch (invoiceState)
+            {
 
                 case "1":
-                    Icon="sap-icon://account"
+                    Icon = "sap-icon://account"
                     break;
                 case "2":
-                    Icon="sap-icon://account"
+                    Icon = "sap-icon://account"
                     break;
                 case "3":
-                    Icon="sap-icon://account"
+                    Icon = "sap-icon://account"
                     break;
                 case "4":
-                    Icon="sap-icon://account"
+                    Icon = "sap-icon://account"
                     break;
                 case "5":
-                    Icon="sap-icon://account"
+                    Icon = "sap-icon://account"
                     break;
                 case "6":
-                    Icon="sap-icon://account"
+                    Icon = "sap-icon://account"
                     break;
                 default:
                     Icon = "";
@@ -482,27 +550,29 @@ sap.ui.define([
             }
             return Icon;
         },
-        statusInvoiceText: function (invoiceState) {
+        statusInvoiceText: function (invoiceState)
+        {
             let Text;
-            switch (invoiceState) {           
+            switch (invoiceState)
+            {
 
                 case "1":
-                    Text="Todo1"
+                    Text = "Todo1"
                     break;
                 case "2":
-                    Text="Todo2"
+                    Text = "Todo2"
                     break;
                 case "3":
-                    Text="Todo3"
+                    Text = "Todo3"
                     break;
                 case "4":
-                    Text="Todo4"
+                    Text = "Todo4"
                     break;
                 case "5":
-                    Text="Todo5"
+                    Text = "Todo5"
                     break;
                 case "6":
-                    Text="Todo6"
+                    Text = "Todo6"
                     break;
                 default:
                     Text = "";
@@ -510,68 +580,70 @@ sap.ui.define([
             }
             return Text;
         },
-        statusInvoiceUploadEnabled: function (invoiceState) {
+        statusInvoiceUploadEnabled: function (invoiceState)
+        {
             let uploadEnabled;
-            switch (invoiceState) {           
+            switch (invoiceState)
+            {
 
                 case "1":
-                    uploadEnabled=true;
+                    uploadEnabled = true;
                     break;
-               
+
                 default:
                     uploadEnabled = false;
                     break;
             }
             return uploadEnabled;
         },
-        itemTypeStatusIcon: function (itemTypeStatusIcon) {
+        itemTypeStatusIcon: function (itemTypeStatusIcon)
+        {
             let statusIcon;
-            switch (itemTypeStatusIcon) {
+            switch (itemTypeStatusIcon)
+            {
                 case "X":
                     statusIcon = "sap-icon://bell";
-                //   statusIcon = "sap-icon://BusinessSuiteInAppSymbols/icon-goods";
+                    //   statusIcon = "sap-icon://BusinessSuiteInAppSymbols/icon-goods";
                     break;
                 case "F":
                     statusIcon = "sap-icon://bell";
                     // statusIcon = "sap-icon://BusinessSuiteInAppSymbols/icon-goods";
-                    break;    
+                    break;
                 default:
                     statusIcon = "";
                     break;
             }
             return statusIcon;
         },
-   
-        columnListItemType: function (status,paymentType,paymentException,blocked,paymentCash) {
-            let navigationType;
 
-            if (status === "264" && paymentType === "P") {
-                navigationType =  "Inactive";
-            } else if (status === "265") {
-                navigationType =  "Inactive";            
-            } else if (status === "264" && paymentType === "H" && paymentException === true) {
-                navigationType =  "Inactive";       }
-            else if (status === "264" && paymentType === "H" && Number(paymentCash) >= 1000 ) {
-                navigationType =  "Inactive";            
-            } 
-            else if (status === "264" && paymentType === "X") {
-                navigationType =  "Inactive";            
-            } else {
-                navigationType =  "Navigation";
+        visibleSaveButton: function (status, usertype)
+        {
+            let bVisible;
+            if (usertype === '04')
+            {
+                bVisible = false;
+                return bVisible;
             }
 
-            if (blocked === true) {
-                // navigationType =  "Inactive";     
+            switch (status)
+            {
+                case "1":
+                    bVisible = true;
+                    break;
+                default:
+                    bVisible = false;
+                    break;
             }
-      
-            return navigationType;
+            return bVisible;
         },
-       
-      
-      
-     
-        rowHighlightSalesDocumentRjcnReason: function (sStatus) {
-            switch (sStatus) {
+
+
+
+
+        rowHighlightSalesDocumentRjcnReason: function (sStatus)
+        {
+            switch (sStatus)
+            {
                 case "":
                     return "None";
 
@@ -580,9 +652,11 @@ sap.ui.define([
 
             }
         },
-        textInfoLabelSDOrder: function (stype) {
+        textInfoLabelSDOrder: function (stype)
+        {
             let sTextLabel;
-            switch (stype) {
+            switch (stype)
+            {
                 case true:
                     sTextLabel = "Změna zakázky";
                     break;
@@ -594,12 +668,15 @@ sap.ui.define([
             }
             return sTextLabel;
         },
-        dateTimeDispWithActuTime: function (sTime) {
-            if (sTime === undefined) {
+        dateTimeDispWithActuTime: function (sTime)
+        {
+            if (sTime === undefined)
+            {
                 return;
             }
 
-            if (sTime.ms === 0) {
+            if (sTime.ms === 0)
+            {
                 var oTimeFormat = sap.ui.core.format.DateFormat
                     .getTimeInstance({
                         pattern: "kk:mm"
@@ -610,7 +687,8 @@ sap.ui.define([
                 return sTimeNew;
             }
 
-            if (sTime.ms) {
+            if (sTime.ms)
+            {
                 oTimeFormat = sap.ui.core.format.DateFormat
                     .getTimeInstance({
                         pattern: "kk:mm"
@@ -620,7 +698,8 @@ sap.ui.define([
                 sTimeNew = oTimeFormat.format(new Date(sTime.ms));
                 return sTimeNew;
             }
-            if (sTime) {
+            if (sTime)
+            {
                 oTimeFormat = sap.ui.core.format.DateFormat
                     .getTimeInstance({
                         pattern: "kk:mm"
@@ -632,7 +711,8 @@ sap.ui.define([
             }
 
         },
-        dateTimeDispString: function (sTime) {
+        dateTimeDispString: function (sTime)
+        {
             var oTimeFormat = sap.ui.core.format.DateFormat
                 .getTimeInstance({
                     pattern: "kk:mm:ss"
@@ -643,15 +723,20 @@ sap.ui.define([
 
 
         },
-        dateTimeDisp: function (sTime) {
-            if (sTime === null) {
+        dateTimeDisp: function (sTime)
+        {
+            if (sTime === null)
+            {
                 return;
             }
-            if (sTime === undefined) {
+            if (sTime === undefined)
+            {
                 return;
             }
-            if (sTime.ms === 0) {
-                if (sTime.ms === 0) {
+            if (sTime.ms === 0)
+            {
+                if (sTime.ms === 0)
+                {
                     var oTimeFormat = sap.ui.core.format.DateFormat
                         .getTimeInstance({
                             pattern: "kk:mm:ss"
@@ -662,7 +747,8 @@ sap.ui.define([
                     return sTimeNew;
                 }
             }
-            if (sTime) {
+            if (sTime)
+            {
                 var oTimeFormat = sap.ui.core.format.DateFormat
                     .getTimeInstance({
                         pattern: "kk:mm:ss"
@@ -678,8 +764,10 @@ sap.ui.define([
             }
 
         },
-        odataDate: function (sDate) {
-            if (sDate) {
+        odataDate: function (sDate)
+        {
+            if (sDate)
+            {
                 var oDateFormat = sap.ui.core.format.DateFormat
                     .getDateTimeInstance({
                         pattern: "yyyy-MM-ddTHH:mm:ss"
@@ -689,12 +777,15 @@ sap.ui.define([
                 var oDate = new Date(sDate);
                 var dNewDate = oDateFormat.format(new Date(oDate.getTime() - 2 * TZOffsetMs));
                 return dNewDate;
-            } else {
+            } else
+            {
                 return sDate;
             }
         },
-        dateFormatWithWeekDay: function (sDate) {
-            if (sDate) {
+        dateFormatWithWeekDay: function (sDate)
+        {
+            if (sDate)
+            {
                 var oDateFormat = sap.ui.core.format.DateFormat
                     .getDateTimeInstance({
                         pattern: "EEE, dd.MM.yyyy"
@@ -702,23 +793,26 @@ sap.ui.define([
 
                 var dNewDate = oDateFormat.format(new Date(sDate));
                 return dNewDate;
-            } else {
+            } else
+            {
                 return sDate;
             }
         },
-        thumbnailUrl: function (mimeType, attachUrl) {
-			var sUrlAttach;
-			switch (mimeType) {
-			case "image/jpeg":
-				sUrlAttach = attachUrl;
-				break;
-			case "application/pdf":
-				sUrlAttach = "../attach/pdf.png";
-				// sUrlAttach = "/sap/bc/bsp/sap/zhermapp/attach/pdf.png";
-				break;
-			default:
-			}
-			return sUrlAttach;
-		},
+        thumbnailUrl: function (mimeType, attachUrl)
+        {
+            var sUrlAttach;
+            switch (mimeType)
+            {
+                case "image/jpeg":
+                    sUrlAttach = attachUrl;
+                    break;
+                case "application/pdf":
+                    sUrlAttach = "../attach/pdf.png";
+                    // sUrlAttach = "/sap/bc/bsp/sap/zhermapp/attach/pdf.png";
+                    break;
+                default:
+            }
+            return sUrlAttach;
+        },
     };
 });

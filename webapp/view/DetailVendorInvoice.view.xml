@@ -297,9 +297,14 @@
             <semantic:PositiveAction
                 text="Uložit změny"
                 press=".onSaveInvoiceChange"
-                enabled="{globalModelUserInfo>/bEnable}"
-                visible="{detailVendorInvoiceViewModel>/bSaveIncidentVIS}"
+                enabled="{= ${invoiceModel>/Status} === '1'}"
+                
+                visible="{= ${globalModelUserInfo>/UserType} !== '04'}"
             />
+                <!-- visible="{ parts: [  'invoiceModel>/Status','{globalModelUserInfo>/UserType}'], formatter: '.formatter.visibleSaveButton' }" -->
+
+           
+                <!-- visible="{ path:'invoiceModel>/Status', formatter : '.formatter.statusInvoiceUploadEnabled'}" -->
         </semantic:positiveAction>
 
         <semantic:footerMainAction>

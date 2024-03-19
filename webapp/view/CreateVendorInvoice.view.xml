@@ -179,10 +179,13 @@
         <semantic:positiveAction>
             <semantic:PositiveAction
                 text="Uložit novou fakturu"
-                press=".onSaveNewInvoice"
+                press=".onSaveNewInvoice"         
+                
                 enabled="{globalModelUserInfo>/bEnable}"
-                visible="{detailVendorInvoiceViewModel>/bSaveIncidentVIS}"
+                visible="{= ${globalModelUserInfo>/UserType} !== '04'}"
+
             />
+
         </semantic:positiveAction>
     </semantic:SemanticPage>
 </mvc:View>

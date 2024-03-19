@@ -282,6 +282,7 @@ sap.ui.define([
                 }.bind(this));
 
                 if (sUserType === '04') {
+                    this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_USER_INFO).setProperty("/bEnable", false);
                     this._fnResolveWaitGetLifnr();
                 }
                 else if (sUserType === '01') {
