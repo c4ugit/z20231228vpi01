@@ -212,24 +212,30 @@
                                         <commons:MicroProcessFlow>
                                             <commons:content>
                                                 <commons:MicroProcessFlowItem
-                                                    title="Faktura byla nahrána dodavatelem"
+                                                
+                                                    
+                                                    title="Nová"
                                                     state="{path : 'Status', formatter : '.formatter.statusInvoiceState1'}"
                                                     icon="sap-icon://account"
                                                 />
                                                 <!-- state="Success" -->
                                                 <commons:MicroProcessFlowItem
+                                                 title="Faktura odeslána do OCR" 
                                                     state="{path : 'Status', formatter : '.formatter.statusInvoiceState2'}"
                                                     icon="sap-icon://account"
                                                 />
                                                 <commons:MicroProcessFlowItem
+                                                   title="Faktura předběžně pořízena" 
                                                     state="{path : 'Status', formatter : '.formatter.statusInvoiceState3'}"
                                                     icon="sap-icon://account"
                                                 />
                                                 <commons:MicroProcessFlowItem
+                                                   title="Faktura zaúčtována" 
                                                     state="{path : 'Status', formatter : '.formatter.statusInvoiceState4'}"
                                                     icon="sap-icon://account"
                                                 />
                                                 <commons:MicroProcessFlowItem
+                                                   title="Faktura vyrovnána" 
                                                     state="{path : 'Status', formatter : '.formatter.statusInvoiceState5'}"
                                                     icon="sap-icon://cancel"
                                                 />
