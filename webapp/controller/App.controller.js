@@ -132,15 +132,16 @@ sap.ui.define(
       /* =========================================================== */
       _getInitialData: function () {
         this.getCallToBackendBase().callInfoUser(this);
-        // this.getCallToBackendBase().callMaterialList(this);     
+        this.getCallToBackendBase().callStatusName(this);     
         // this.getCallToBackendBase().callReasonRequestList(this);     
         Promise.all([
-          this._oComponent._PromiseInfoUser,
-          //  this._oComponent._PromiseMaterialList,      
+            this._oComponent._PromiseInfoUser,
+            this._oComponent._PromiseStatusName,      
           //  this._oComponent._PromiseReasonRequestList      
         ]).then(function (aPromise) {
        
             this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_USER_INFO).setData(aPromise[0].results[0]);     
+            this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_STATUS_NAME).setData(aPromise[1]);     
 
           this.getOwnerComponent()._fnResolveDataLoadedInit();
         }.bind(this)).catch(async function (msg) {

@@ -178,6 +178,28 @@ sap.ui.define([
                 oParam.component = that._oComponent;
                 DataOperation.dataOperation(oParam);
             },
+            callStatusName: function (that) {
+            // return new Promise(function (resolve, reject) {
+                let oParam = {};
+                oParam = DataOperation.getListOfCallVar();
+                that._oComponent._PromiseStatusName = new Promise(function (fnResolve, fnReject) {
+                    that._oComponent._fnResolveStatusName = fnResolve;
+                    that._oComponent._fnRejectStatusName = fnReject;
+                }.bind(that));
+                that._oComponent._PromiseStatusName.then(function (oData) {
+                    // resolve(Object.freeze(oData));
+                }.bind(that)).catch(function (oError) {
+                    // resolve();
+                    // reject(that.getMessagesBase().findFirstErrorMessage(that));
+                }.bind(that));
+
+                oParam.sNamePromise = "9";
+                oParam.sObjectPath = "/ZC_StatusName";
+                oParam.sViewmodel = that.CO_VIEW_MODEL;
+                oParam.scope = that;
+                oParam.component = that._oComponent;
+                DataOperation.dataOperation(oParam);
+            },
             // )
         // },
         callCustomerList: function (that) {

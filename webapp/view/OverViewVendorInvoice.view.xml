@@ -212,30 +212,38 @@
                                         <commons:MicroProcessFlow>
                                             <commons:content>
                                                 <commons:MicroProcessFlowItem
-                                                
-                                                    
-                                                    title="Nová"
+                                                                                                  
+                                             
+                                                    title="{ parts: [  'globalModelStatusName>/results','Status'], formatter: '.formatter.statusInvoiceStateName1' }"
                                                     state="{path : 'Status', formatter : '.formatter.statusInvoiceState1'}"
                                                     icon="sap-icon://account"
                                                 />
                                                 <!-- state="Success" -->
                                                 <commons:MicroProcessFlowItem
-                                                 title="Faktura odeslána do OCR" 
+                                               
+                                                    title="{ parts: [  'globalModelStatusName>/results','Status'], formatter: '.formatter.statusInvoiceStateName2' }"
+                                                 
                                                     state="{path : 'Status', formatter : '.formatter.statusInvoiceState2'}"
                                                     icon="sap-icon://account"
                                                 />
                                                 <commons:MicroProcessFlowItem
-                                                   title="Faktura předběžně pořízena" 
+                                                 
+                                                    title="{ parts: [  'globalModelStatusName>/results','Status'], formatter: '.formatter.statusInvoiceStateName3' }"
+                                             
                                                     state="{path : 'Status', formatter : '.formatter.statusInvoiceState3'}"
                                                     icon="sap-icon://account"
                                                 />
                                                 <commons:MicroProcessFlowItem
-                                                   title="Faktura zaúčtována" 
+                                                 
+                                                    title="{ parts: [  'globalModelStatusName>/results','Status'], formatter: '.formatter.statusInvoiceStateName4' }"
+                                             
                                                     state="{path : 'Status', formatter : '.formatter.statusInvoiceState4'}"
                                                     icon="sap-icon://account"
                                                 />
                                                 <commons:MicroProcessFlowItem
-                                                   title="Faktura vyrovnána" 
+                                                
+                                                    title="{ parts: [  'globalModelStatusName>/results','Status'], formatter: '.formatter.statusInvoiceStateName5' }"
+                                             
                                                     state="{path : 'Status', formatter : '.formatter.statusInvoiceState5'}"
                                                     icon="sap-icon://cancel"
                                                 />

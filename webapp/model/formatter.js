@@ -360,6 +360,36 @@ sap.ui.define([
             }
             return Status;
         },
+        statusInvoiceStateName1: function (results,status)
+        {
+            let StatusName;
+            switch (status)
+            {
+                case "1":              
+                    StatusName = results[0].StatusName;
+                    break;
+              
+                default:
+                    StatusName = results[0].StatusName;
+                    break;
+            }
+            return StatusName;
+        },
+        statusInvoiceStateName2: function (results,status)
+        {
+            let StatusName;
+            switch (status)
+            {
+             
+                case "2":                 
+                    StatusName = results[1].StatusName;
+                    break;             
+                default:
+                    StatusName = results[1].StatusName;
+                    break;
+            }
+            return StatusName;
+        },
         statusInvoiceState2: function (invoiceState)
         {
             let Status;
@@ -389,6 +419,59 @@ sap.ui.define([
             }
             return Status;
         },
+        statusInvoiceStateName3: function (results,status)
+        {
+            let StatusName;
+            switch (status)
+            {
+          
+                case "3":
+                  
+                    StatusName = results[2].StatusName;
+                    break;
+          
+                default:
+                    StatusName = results[2].StatusName;
+                    break;
+            }
+            return StatusName;
+        },
+        statusInvoiceStateName4: function (results,status)
+        {
+            let StatusName;
+            switch (status)
+            {
+          
+                case "4":
+                  
+                    StatusName = results[3].StatusName;
+                    break;
+          
+                default:
+                    StatusName = results[3].StatusName;
+                    break;
+            }
+            return StatusName;
+        },
+        statusInvoiceStateName5: function (results,status)
+        {
+            let StatusName;
+            switch (status)
+            {
+          
+                case "5":
+                  
+                    StatusName = results[4].StatusName;
+                    break;
+          
+                default:
+                    StatusName = results[4].StatusName;
+                    break;
+            }
+            return StatusName;
+        },
+       
+     
         statusInvoiceState3: function (invoiceState)
         {
             let Status;

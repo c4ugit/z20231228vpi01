@@ -12,6 +12,7 @@ sap.ui.define([], function () {
                 GLOBAL_MODEL_VENDOR_INFO: "globalModelVendorInfo",
                 GLOBAL_MODEL_VENDOR_INFO: "globalModelVendorInfo",
                 GLOBAL_MODEL_FC_ATTACH: "globalModelFCAttach",
+                GLOBAL_MODEL_STATUS_NAME: "globalModelStatusName",
 
                 GLOBAL_MODEL_MATERIAL_LIST: "globalModelMaterialList", 
                 GLOBAL_MODEL_CUSTOMER_LIST: "globalModelCustomerList", 
