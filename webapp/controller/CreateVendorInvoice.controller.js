@@ -672,6 +672,8 @@ sap.ui.define([
 
 
                 oInvoiceDataObject.Zinvoicr_Id = "9000000000";
+                // oInvoiceDataObject.Bldat = new Date();
+                // oInvoiceDataObject.Zfbdt = new Date();
                 oInvoiceDataObject.Description = this.getModel(this.CO_ODATA_INVOICE_HEADER_MODEL).getProperty("/Description");
                 oInvoiceDataObject.ShortDescr = this.getModel(this.CO_ODATA_INVOICE_HEADER_MODEL).getProperty("/ShortDescr");
                 oInvoiceDataObject.Lifnr = this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_USER_INFO).getProperty("/Lifnr");
