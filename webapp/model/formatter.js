@@ -360,6 +360,36 @@ sap.ui.define([
             }
             return Status;
         },
+   
+        statusInvoiceState2: function (invoiceState)
+        {
+            let Status;
+            switch (invoiceState)
+            {
+                case "1":
+                    Status = "None";
+                    break;
+                case "2":
+                    Status = "Warning";
+                    break;
+                case "3":
+                    Status = "Success";
+                    break;
+                case "4":
+                    Status = "Success";
+                    break;
+                case "5":
+                    Status = "Success";
+                    break;
+                case "6":
+                    Status = "Success";
+                    break;
+                default:
+                    Status = "None";
+                    break;
+            }
+            return Status;
+        },
         statusInvoiceStateName1: function (results,status)
         {
             let StatusName;
@@ -389,35 +419,6 @@ sap.ui.define([
                     break;
             }
             return StatusName;
-        },
-        statusInvoiceState2: function (invoiceState)
-        {
-            let Status;
-            switch (invoiceState)
-            {
-                case "1":
-                    Status = "None";
-                    break;
-                case "2":
-                    Status = "Warning";
-                    break;
-                case "3":
-                    Status = "Success";
-                    break;
-                case "4":
-                    Status = "Success";
-                    break;
-                case "5":
-                    Status = "Success";
-                    break;
-                case "6":
-                    Status = "Success";
-                    break;
-                default:
-                    Status = "None";
-                    break;
-            }
-            return Status;
         },
         statusInvoiceStateName3: function (results,status)
         {
