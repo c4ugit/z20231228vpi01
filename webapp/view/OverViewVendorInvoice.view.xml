@@ -156,7 +156,7 @@
                                         />
                                     </customData>
                                     <Text
-                                        text="OCR - Částka v měně dokladu"
+                                        text="Částka v měně dokladu"
                                         wrapping="false"
                                     />
                                 </Column>
@@ -171,7 +171,7 @@
                                         />
                                     </customData>
                                     <Text
-                                        text="OCR - Částka daně v měně dokladu"
+                                        text="Částka daně v měně dokladu"
                                         wrapping="false"
                                     />
                                 </Column>
