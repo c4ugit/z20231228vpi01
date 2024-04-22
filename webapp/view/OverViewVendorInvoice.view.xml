@@ -18,7 +18,7 @@
         preserveHeaderStateOnScroll="true"
         toggleHeaderOnTitleClick="false"
         showFooter="true"
-                busy="{vendorInvoiceOverViewModel>/busy}"
+        busy="{vendorInvoiceOverViewModel>/busy}"
         busyIndicatorDelay="0"
     >
         <semantic:titleHeading>
@@ -112,32 +112,13 @@
                             rememberSelections="true"
                             mode="SingleSelectMaster"
                             itemPress=".onDetailVendorInvoice"
-                            
                         >
                             <columns>
-                                <Column
-                                    width="6rem"
-                                    hAlign="Begin"
-                                >
+                                <Column width="6rem">
                                     <customData>
                                         <core:CustomData
                                             key="p13nData"
-                                            value='\{"columnKey": "Ernam", "maxLength": "30","columnIndex":"1",  "sortProperty": "Ernam",  "filterProperty": "Ernam","leadingProperty": "Ernam" }'
-                                        />
-                                    </customData>
-                                    <Text
-                                        text="Založil"
-                                        wrapping="false"
-                                    />
-                                </Column>
-                                <Column
-                                    width="6rem"
-                                    hAlign="Begin"
-                                >
-                                    <customData>
-                                        <core:CustomData
-                                            key="p13nData"
-                                            value='\{"columnKey": "Erdat", "maxLength": "30", "columnIndex":"2","sortProperty": "Erdat",  "filterProperty": "Erdat", "leadingProperty": "Erdat"}'
+                                            value='\{"columnKey": "Erdat", "maxLength": "30", "columnIndex":"10","sortProperty": "Erdat",  "filterProperty": "Erdat", "leadingProperty": "Erdat"}'
                                         />
                                     </customData>
                                     <Text
@@ -145,14 +126,38 @@
                                         wrapping="false"
                                     />
                                 </Column>
-                                <Column
-                                    width="6rem"
-                                    hAlign="Begin"
+                                <Column width="6rem">
+                                    <customData>
+                                        <core:CustomData
+                                            key="p13nData"
+                                            value='\{"columnKey": "Erzet", "maxLength": "30", "columnIndex":"15","sortProperty": "Erzet",  "filterProperty": "Erzet", "leadingProperty": "Erzet"}'
+                                        />
+                                    </customData>
+                                    <Text
+                                        text="Čas založení"
+                                        wrapping="false"
+                                    />
+                                </Column>
+
+                                <Column width="6rem">
+                                    <customData>
+                                        <core:CustomData
+                                            key="p13nData"
+                                            value='\{"columnKey": "Bldat", "maxLength": "30","columnIndex":"20","sortProperty": "Bldat",  "filterProperty": "Bldat","leadingProperty": "Bldat" }'
+                                        />
+                                    </customData>
+                                    <Text
+                                        text="Datum dokladu"
+                                        wrapping="false"
+                                    />
+                                </Column>
+                                <Column width="6rem"
+                                 hAlign="End"
                                 >
                                     <customData>
                                         <core:CustomData
                                             key="p13nData"
-                                            value='\{"columnKey": "Rmwwr", "maxLength": "30", "columnIndex":"3","sortProperty": "Rmwwr",  "filterProperty": "Rmwwr", "leadingProperty": "Rmwwr"}'
+                                            value='\{"columnKey": "Rmwwr", "maxLength": "30", "columnIndex":"30","sortProperty": "Rmwwr",  "filterProperty": "Rmwwr", "leadingProperty": "Rmwwr"}'
                                         />
                                     </customData>
                                     <Text
@@ -160,14 +165,13 @@
                                         wrapping="false"
                                     />
                                 </Column>
-                                <Column
-                                    width="6rem"
-                                    hAlign="Begin"
+                                <Column width="6rem"
+                                hAlign="End"
                                 >
                                     <customData>
                                         <core:CustomData
                                             key="p13nData"
-                                            value='\{"columnKey": "Wmwst", "maxLength": "30", "columnIndex":"4","sortProperty": "Wmwst",  "filterProperty": "Wmwst", "leadingProperty": "Wmwst"}'
+                                            value='\{"columnKey": "Wmwst", "maxLength": "30", "columnIndex":"40","sortProperty": "Wmwst",  "filterProperty": "Wmwst", "leadingProperty": "Wmwst"}'
                                         />
                                     </customData>
                                     <Text
@@ -175,15 +179,68 @@
                                         wrapping="false"
                                     />
                                 </Column>
-
-                                <Column
-                                    width="13rem"
-                                    hAlign="Begin"
+                                <Column width="3rem"
+                                hAlign="End"
                                 >
                                     <customData>
                                         <core:CustomData
                                             key="p13nData"
-                                            value='\{"columnKey": "Status", "maxLength": "30","columnIndex":"20",  "sortProperty": "Status",  "filterProperty": "Status", "leadingProperty": "Status"}'
+                                            value='\{"columnKey": "Waers", "maxLength": "30", "columnIndex":"50","sortProperty": "Waers",  "filterProperty": "Waers", "leadingProperty": "Waers"}'
+                                        />
+                                    </customData>
+                                    <Text
+                                        text="Měna"
+                                        wrapping="false"
+                                    />
+                                </Column>
+                                <Column width="6rem"
+                                hAlign="End"
+                                >
+                                    <customData>
+                                        <core:CustomData
+                                            key="p13nData"
+                                            value='\{"columnKey": "Xblnr", "maxLength": "30", "columnIndex":"60","sortProperty": "Xblnr",  "filterProperty": "Xblnr", "leadingProperty": "Xblnr"}'
+                                        />
+                                    </customData>
+                                    <Text
+                                        text="Č.ref.dokladu"
+                                        wrapping="false"
+                                    />
+                                </Column>
+                                <Column width="6rem"
+                                hAlign="End"
+                                >
+                                    <customData>
+                                        <core:CustomData
+                                            key="p13nData"
+                                            value='\{"columnKey": "Sgtxt", "maxLength": "30", "columnIndex":"70","sortProperty": "Sgtxt",  "filterProperty": "Sgtxt", "leadingProperty": "Sgtxt"}'
+                                        />
+                                    </customData>
+                                    <Text
+                                        text="Text"
+                                        wrapping="false"
+                                    />
+                                </Column>
+                                <Column width="auto"
+                                hAlign="End"
+                                >
+                                    <customData>
+                                        <core:CustomData
+                                            key="p13nData"
+                                            value='\{"columnKey": "Description", "maxLength": "30", "columnIndex":"80","sortProperty": "Description",  "filterProperty": "Description", "leadingProperty": "Description"}'
+                                        />
+                                    </customData>
+                                    <Text
+                                        text="Poznámka"
+                                        wrapping="false"
+                                    />
+                                </Column>
+
+                                <Column width="13rem">
+                                    <customData>
+                                        <core:CustomData
+                                            key="p13nData"
+                                            value='\{"columnKey": "Status", "maxLength": "30","columnIndex":"200",  "sortProperty": "Status",  "filterProperty": "Status", "leadingProperty": "Status"}'
                                         />
                                     </customData>
                                     <Text
@@ -199,51 +256,59 @@
                                     press="onDetailVendorInvoice"
                                 >
                                     <cells>
-                                        <Text text="{Ernam}" />
+                                        <!-- <Text text="{Ernam}" /> -->
                                         <Text
                                             text="{path: 'Erdat' ,type: 'sap.ui.model.type.Date', formatOptions: { style: 'medium', strictParsing: true}}"
                                         />
                                         <Text
+                                            text="{path: 'Erzet' ,formatter: '.formatter.dateTimeDisp'}"
+                                        />
+                                        <Text
+                                            text="{path: 'Bldat' ,type: 'sap.ui.model.type.Date', formatOptions: { style: 'medium', strictParsing: true}}"
+                                        />
+                                        <Text
                                             text="{path: 'Rmwwr' , formatter : '.formatter.currencyValue'}"
-                                        />   
+                                        />
                                         <Text
                                             text="{path: 'Wmwst' , formatter : '.formatter.currencyValue'}"
-                                        />                                         
+                                        />
+                                        <Text
+                                            text="{path: 'Waers' }"
+                                        />
+                                        <Text
+                                            text="{path: 'Xblnr' }"
+                                        />
+                                        <Text
+                                            text="{path: 'Sgtxt' }"
+                                        />
+                                        <Text
+                                            text="{path: 'Description' }"
+                                        />
                                         <commons:MicroProcessFlow>
                                             <commons:content>
                                                 <commons:MicroProcessFlowItem
-                                                                                                  
-                                             
                                                     title="{ parts: [  'globalModelStatusName>/results','Status'], formatter: '.formatter.statusInvoiceStateName1' }"
                                                     state="{path : 'Status', formatter : '.formatter.statusInvoiceState1'}"
                                                     icon="sap-icon://account"
                                                 />
                                                 <!-- state="Success" -->
                                                 <commons:MicroProcessFlowItem
-                                               
                                                     title="{ parts: [  'globalModelStatusName>/results','Status'], formatter: '.formatter.statusInvoiceStateName2' }"
-                                                 
                                                     state="{path : 'Status', formatter : '.formatter.statusInvoiceState2'}"
                                                     icon="sap-icon://account"
                                                 />
                                                 <commons:MicroProcessFlowItem
-                                                 
                                                     title="{ parts: [  'globalModelStatusName>/results','Status'], formatter: '.formatter.statusInvoiceStateName3' }"
-                                             
                                                     state="{path : 'Status', formatter : '.formatter.statusInvoiceState3'}"
                                                     icon="sap-icon://account"
                                                 />
                                                 <commons:MicroProcessFlowItem
-                                                 
                                                     title="{ parts: [  'globalModelStatusName>/results','Status'], formatter: '.formatter.statusInvoiceStateName4' }"
-                                             
                                                     state="{path : 'Status', formatter : '.formatter.statusInvoiceState4'}"
                                                     icon="sap-icon://account"
                                                 />
                                                 <commons:MicroProcessFlowItem
-                                                
                                                     title="{ parts: [  'globalModelStatusName>/results','Status'], formatter: '.formatter.statusInvoiceStateName5' }"
-                                             
                                                     state="{path : 'Status', formatter : '.formatter.statusInvoiceState5'}"
                                                     icon="sap-icon://cancel"
                                                 />
