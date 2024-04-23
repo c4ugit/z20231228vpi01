@@ -419,6 +419,9 @@ sap.ui.define([
         },
         statusInvoiceStateName1: function (results, status) {
             let StatusName;
+            if (results.length === 0) {
+                return;
+            }
             switch (status) {
                 case "1":
                     StatusName = results[0].StatusName;
@@ -432,6 +435,9 @@ sap.ui.define([
         },
         statusInvoiceStateName2: function (results, status) {
             let StatusName;
+            if (results.length === 0) {
+                return;
+            }
             switch (status) {
 
                 case "2":
@@ -445,6 +451,9 @@ sap.ui.define([
         },
         statusInvoiceStateName3: function (results, status) {
             let StatusName;
+            if (results.length === 0) {
+                return;
+            }
             switch (status) {
 
                 case "3":
@@ -460,6 +469,9 @@ sap.ui.define([
         },
         statusInvoiceStateName4: function (results, status) {
             let StatusName;
+            if (results.length === 0) {
+                return;
+            }
             switch (status) {
 
                 case "4":
@@ -475,6 +487,9 @@ sap.ui.define([
         },
         statusInvoiceStateName5: function (results, status) {
             let StatusName;
+            if (results.length === 0) {
+                return;
+            }
             switch (status) {
 
                 case "5":
