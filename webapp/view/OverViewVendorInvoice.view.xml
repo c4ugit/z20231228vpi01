@@ -151,7 +151,7 @@
                                         wrapping="false"
                                     />
                                 </Column>
-                                <Column width="6rem"
+                                <Column width="8rem"
                                  hAlign="End"
                                 >
                                     <customData>
@@ -160,15 +160,17 @@
                                             value='\{"columnKey": "Rmwwr", "maxLength": "30", "columnIndex":"30","sortProperty": "Rmwwr",  "filterProperty": "Rmwwr", "leadingProperty": "Rmwwr"}'
                                         />
                                     </customData>
+                                    <!-- •	Částka v měně dokladu – zalomit za měně -->
                                     <Text
                                         text="Částka v měně dokladu"
-                                        wrapping="false"
+                                        wrapping="true"
                                     />
                                 </Column>
-                                <Column width="6rem"
+                                <Column width="8rem"
                                 hAlign="End"
                                 >
                                     <customData>
+                                    <!-- •	Částka daně v měně dokladu – zalomit za daně -->
                                         <core:CustomData
                                             key="p13nData"
                                             value='\{"columnKey": "Wmwst", "maxLength": "30", "columnIndex":"40","sortProperty": "Wmwst",  "filterProperty": "Wmwst", "leadingProperty": "Wmwst"}'
@@ -176,7 +178,7 @@
                                     </customData>
                                     <Text
                                         text="Částka daně v měně dokladu"
-                                        wrapping="false"
+                                        wrapping="true"
                                     />
                                 </Column>
                                 <Column width="3rem"
@@ -207,7 +209,21 @@
                                         wrapping="false"
                                     />
                                 </Column>
-                                <Column width="6rem"
+                                <Column width="8rem"
+                                hAlign="End"
+                                >
+                                    <customData>
+                                        <core:CustomData
+                                            key="p13nData"
+                                            value='\{"columnKey": "Belnr", "maxLength": "30", "columnIndex":"60","sortProperty": "Belnr",  "filterProperty": "Belnr", "leadingProperty": "Belnr"}'
+                                        />
+                                    </customData>
+                                    <Text
+                                        text="Předběžně pořízený doklad"
+                                        wrapping="true"
+                                    />
+                                </Column>
+                                <Column width="30rem"
                                 hAlign="End"
                                 >
                                     <customData>
@@ -277,6 +293,9 @@
                                         />
                                         <Text
                                             text="{path: 'Xblnr' }"
+                                        />
+                                        <Text
+                                            text="{path: 'Belnr' }"
                                         />
                                         <Text
                                             text="{path: 'Sgtxt' }"
