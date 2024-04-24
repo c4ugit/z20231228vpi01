@@ -114,7 +114,7 @@
                             itemPress=".onDetailVendorInvoice"
                         >
                             <columns>
-                                <Column width="6rem">
+                                <Column width="6rem"     hAlign="Begin">
                                     <customData>
                                         <core:CustomData
                                             key="p13nData"
@@ -126,7 +126,7 @@
                                         wrapping="false"
                                     />
                                 </Column>
-                                <Column width="6rem">
+                                <Column width="6rem"     hAlign="Begin">
                                     <customData>
                                         <core:CustomData
                                             key="p13nData"
@@ -139,7 +139,7 @@
                                     />
                                 </Column>
 
-                                <Column width="6rem">
+                                <Column width="6rem"      hAlign="Begin">
                                     <customData>
                                         <core:CustomData
                                             key="p13nData"
@@ -152,7 +152,7 @@
                                     />
                                 </Column>
                                 <Column width="8rem"
-                                 hAlign="End"
+                                 hAlign="Begin"
                                 >
                                     <customData>
                                         <core:CustomData
@@ -167,7 +167,7 @@
                                     />
                                 </Column>
                                 <Column width="8rem"
-                                hAlign="End"
+                                hAlign="Begin"
                                 >
                                     <customData>
                                     <!-- •	Částka daně v měně dokladu – zalomit za daně -->
@@ -182,7 +182,7 @@
                                     />
                                 </Column>
                                 <Column width="3rem"
-                                hAlign="End"
+                                hAlign="Begin"
                                 >
                                     <customData>
                                         <core:CustomData
@@ -196,7 +196,7 @@
                                     />
                                 </Column>
                                 <Column width="6rem"
-                                hAlign="End"
+                                hAlign="Begin"
                                 >
                                     <customData>
                                         <core:CustomData
@@ -210,12 +210,12 @@
                                     />
                                 </Column>
                                 <Column width="8rem"
-                                hAlign="End"
+                                hAlign="Begin"
                                 >
                                     <customData>
                                         <core:CustomData
                                             key="p13nData"
-                                            value='\{"columnKey": "Belnr", "maxLength": "30", "columnIndex":"60","sortProperty": "Belnr",  "filterProperty": "Belnr", "leadingProperty": "Belnr"}'
+                                            value='\{"columnKey": "Belnr", "maxLength": "30", "columnIndex":"61","sortProperty": "Belnr",  "filterProperty": "Belnr", "leadingProperty": "Belnr"}'
                                         />
                                     </customData>
                                     <Text
@@ -223,8 +223,36 @@
                                         wrapping="true"
                                     />
                                 </Column>
+                                <Column width="8rem"
+                                hAlign="Begin"
+                                >
+                                    <customData>
+                                        <core:CustomData
+                                            key="p13nData"
+                                            value='\{"columnKey": "Lifnr", "maxLength": "30", "columnIndex":"62","sortProperty": "Lifnr",  "filterProperty": "Lifnr", "leadingProperty": "Lifnr"}'
+                                        />
+                                    </customData>
+                                    <Text
+                                        text="Dodavatel"
+                                        wrapping="true"
+                                    />
+                                </Column>
+                                <Column width="12rem"
+                                hAlign="Begin"
+                                >
+                                    <customData>
+                                        <core:CustomData
+                                            key="p13nData"
+                                            value='\{"columnKey": "BusinessPartnerName", "maxLength": "30", "columnIndex":"63","sortProperty": "BusinessPartnerName",  "filterProperty": "BusinessPartnerName", "leadingProperty": "BusinessPartnerName"}'
+                                        />
+                                    </customData>
+                                    <Text
+                                        text="Název dodavatele"
+                                        wrapping="true"
+                                    />
+                                </Column>
                                 <Column width="30rem"
-                                hAlign="End"
+                                hAlign="Begin"
                                 >
                                     <customData>
                                         <core:CustomData
@@ -238,7 +266,7 @@
                                     />
                                 </Column>
                                 <Column width="auto"
-                                hAlign="End"
+                                hAlign="Begin"
                                 >
                                     <customData>
                                         <core:CustomData
@@ -252,7 +280,8 @@
                                     />
                                 </Column>
 
-                                <Column width="13rem">
+                                <Column width="13rem"
+                                hAlign="Begin">
                                     <customData>
                                         <core:CustomData
                                             key="p13nData"
@@ -282,12 +311,16 @@
                                         <Text
                                             text="{path: 'Bldat' ,type: 'sap.ui.model.type.Date', formatOptions: { style: 'medium', strictParsing: true}}"
                                         />
+                                        <HBox justifyContent="End" >
                                         <Text
-                                            text="{path: 'Rmwwr' , formatter : '.formatter.currencyValue'}"
-                                        />
+                                              textAlign="End" text="{path: 'Rmwwr' , formatter : '.formatter.currencyValue'}"
+                                        />                                        
+                                        </HBox>
+                                            <HBox justifyContent="End" >
                                         <Text
-                                            text="{path: 'Wmwst' , formatter : '.formatter.currencyValue'}"
+                                             textAlign="End" text="{path: 'Wmwst' , formatter : '.formatter.currencyValue'}"
                                         />
+                                           </HBox>
                                         <Text
                                             text="{path: 'Waers' }"
                                         />
@@ -296,6 +329,12 @@
                                         />
                                         <Text
                                             text="{path: 'Belnr' }"
+                                        />
+                                        <Text
+                                            text="{path: 'Lifnr' }"
+                                        />
+                                        <Text
+                                            text="{path: 'BusinessPartnerName' }"
                                         />
                                         <Text
                                             text="{path: 'Sgtxt' }"
