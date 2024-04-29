@@ -5,6 +5,39 @@ sap.ui.define([
     "use strict";
 
     return {
+
+
+       
+        /* =========================================================== */
+        /* =========================================================== */
+        /* Nápovšda                          */
+        /* =========================================================== */
+
+        getDialogHelpForUser: async function (that, sModelName, oDataModel) {
+            if (!that._oHelpForUser) {
+                let oDialog = await Fragment.load({
+                    name: that.getConstantBase().getConstants().HELP_FOR_USER_DIALOG,
+                    controller: that
+                })
+                that.getView().addDependent(oDialog);
+                that._oHelpForUser = oDialog;
+                that._oHelpForUser.setModel(oDataModel, sModelName);
+
+                return that._oHelpForUser;
+            } else {
+                that._oHelpForUser.setModel(oDataModel, sModelName);
+                return that._oHelpForUser;
+            }
+        },
+        onCancelHelpForUser: function (that) {
+            this._closeDialog(that._oHelpForUser);
+        },
+        clearHelpForUser: function () {
+        },
+        onConfirmHelpForUser: function (that) {
+            this._closeDialog(that._oHelpForUser);
+
+        },
         /* =========================================================== */
         /* =========================================================== */
         /* Ebeln logon                                                 */
@@ -36,33 +69,7 @@ sap.ui.define([
         },
 
 
-        // /* =========================================================== */
-        // /* =========================================================== */
-        // /* Tisk                                                        */
-        // /* =========================================================== */    
-        // getDialogPrint: async function (that, model) {          
-        //     if (!that._oPrint) {
-        //         let oDialog = await Fragment.load({
-        //             name:  Constants.getConstants().DIALOG_PRINTER_SETTING,
-        //             controller: that
-        //         })
-        //         that.getView().addDependent(oDialog);
-        //         that._oPrint = oDialog
-
-        //         return that._oPrint;
-        //     } else {
-
-        //         return that._oPrint;
-        //     }
-        // },
-        // onCancelPrint: function (that) {
-           
-        //     this._closeDialog(that._oPrint);
-        // },
-        // onConfirmPrint: function (that) {
-           
-        //     this._closeDialog(that._oPrint);
-        // },
+      
 
 
 

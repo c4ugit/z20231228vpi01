@@ -1,0 +1,112 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+  >
+    <Dialog title="Nápověda pro uživatele" type="Message" >
+        <content>
+
+
+            <VBox>
+                <Table xmlns="sap.m"  busyIndicatorDelay="0"             
+                items="{
+                    path: 'greenBeerModel>/results',
+                    templateShareable: true
+                }"
+                
+                fixedLayout="false" alternateRowColors="true" noDataText="Na nápovědě se stále pracuje...">
+                    <items>
+                        <ColumnListItem class="sapUiNoContentPadding" type="Inactive">
+                            <!-- <cells>
+                                <Text  text="{greenBeerModel>Salesorder}"/>
+             
+                                    <ObjectStatus text="{
+                                        path:'greenBeerModel>SDStatusName'
+                                          }" inverted="true" state="{
+                                        path:'greenBeerModel>SDStatus', formatter:'.formatter.sdStatusState'
+                                          }" />
+                                <Text  text="{greenBeerModel>Distributionchannel}"/>
+                                <Text text="{path:'greenBeerModel>Requesteddeliverydate', type: 'sap.ui.model.type.Date', formatOptions: { style: 'medium', strictParsing: true}}"/>
+                                <Text  text="{greenBeerModel>Material}"/>
+                                <Text  text="{greenBeerModel>MaterialName}"/>
+                                <Text  text="{greenBeerModel>Orderquantity}"/>
+                                <Text text="{greenBeerModel>Orderquantityunit}"/>    
+                                <Text text="{greenBeerModel>SalesDocumentRjcnReason}"/>    
+                              
+                            </cells> -->
+
+                        </ColumnListItem>
+                    </items>
+
+                    <columns>
+                        <!-- <Column width="7rem">
+                            <header>
+                                <Label text="Číslo zakázky"/>
+                            </header>
+                        </Column>
+                    
+                        <Column width="9rem">
+                            <header>
+                                <Label text="Status"/>
+                            </header>
+                        </Column>
+                        <Column width="7rem">
+                            <header>
+                                <Label wrapping="true" text="Cesta odbytu"/>
+                            </header>
+                        </Column>      
+                        <Column width="7rem">
+                            <header>
+                                <Label wrapping="true" text="Datum závozu"/>
+                            </header>
+                        </Column>
+
+
+                        <Column width="7rem">
+                            <header>
+                                <Label wrapping="true" text="SKU"/>
+                            </header>
+                        </Column>
+                        <Column>
+                            <header>
+                                <Label wrapping="true" text="Označení SKU"/>
+                            </header>
+                        </Column>
+
+                        <Column>
+                            <header>
+                                <Label wrapping="true" text="Počet balení"/>
+                            </header>
+                        </Column>   
+                        <Column>
+                            <header>
+                                <Label wrapping="true" text="MJ"/>
+                            </header>
+                        </Column>
+                        <Column>
+                            <header>
+                                <Label wrapping="true" text="SL"/>
+                            </header>
+                        </Column> -->
+                     
+                    </columns>
+
+                    <headerToolbar>
+                        <!-- <Toolbar width="100%">
+                            <content> -->
+                                <!-- <Label required="true" text="Datum Simulace"/>
+                                <DatePicker width="auto"/> -->
+                                <!-- <ToolbarSpacer/>
+                                <Button text="Spustit simulaci" enabled="{globalModelCheckFieldControl>/bBTNSimulaceSDOrderENB}" width="20rem" type="Accept" icon="sap-icon://vertical-bar-chart"/> -->
+                            <!-- </content>
+                        </Toolbar> -->
+                    </headerToolbar>
+                </Table>
+            </VBox>
+
+        </content>
+
+        <buttons>
+
+            <Button class="sapUiSmallMarginBegin" text="Zavřít okno" press=".onConfirmHelpForUser" width="auto"/>       
+        </buttons>       
+    </Dialog>
+</core:FragmentDefinition>

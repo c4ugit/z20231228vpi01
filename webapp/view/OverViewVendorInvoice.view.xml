@@ -32,6 +32,7 @@
             <smartVariantManagement:SmartVariantManagement
                 id="pageVariantIdInc"
                 persistencyKey="PageVariantPKey"
+                enabled="{globalModelUserInfo>/variantmanag}"
             />
             <smartFilterBar:SmartFilterBar
                 id="smartFilterBarInc"
@@ -39,6 +40,7 @@
                 smartVariant="pageVariantIdInc"
                 entitySet="ZC_Invoice"
                 persistencyKey="SmartFilterPKey"
+                
             />
         </semantic:headerContent>
         <semantic:titleExpandedHeading />
@@ -87,6 +89,7 @@
                         demandPopin="true"
                         paste="onPaste"
                         requestAtLeastFields="Zinvoicr_Id,Lifnr"
+                        showTablePersonalisation="{globalModelUserInfo>/tableperson}"
                         
                     >
                         <!-- http://www.ut163.com/sapui5/docs/topics/bed8274140d04fc0b9bcb2db42d8bac2.html -->
@@ -101,6 +104,14 @@
                                     icon="sap-icon://attachment"
                                     press=".onNewInvoiceAttachCreatePressed"
                                     enabled="{globalModelUserInfo>/bEnable}"
+                                />
+                                <OverflowToolbarButton
+                                    text="Nápověda"
+                                    type="Default"
+                                    icon="sap-icon://hint"
+                                    press=".onPressOpenHelpForUser"
+                                    enabled="true"
+                                    visible="{globalModelUserInfo>/helpforuser}"
                                 />
                             </OverflowToolbar>
                         </smartTable:customToolbar>
@@ -209,7 +220,7 @@
                                         wrapping="false"
                                     />
                                 </Column>
-                                <Column width="8rem"
+                                <!-- <Column width="8rem"
                                 hAlign="Begin"
                                 >
                                     <customData>
@@ -222,8 +233,8 @@
                                         text="Předběžně pořízený doklad"
                                         wrapping="true"
                                     />
-                                </Column>
-                                <Column width="8rem"
+                                </Column> -->
+                                <!-- <Column width="8rem"
                                 hAlign="Begin"
                                 >
                                     <customData>
@@ -236,8 +247,8 @@
                                         text="Dodavatel"
                                         wrapping="true"
                                     />
-                                </Column>
-                                <Column width="12rem"
+                                </Column> -->
+                                <!-- <Column width="12rem"
                                 hAlign="Begin"
                                 >
                                     <customData>
@@ -250,8 +261,8 @@
                                         text="Název dodavatele"
                                         wrapping="true"
                                     />
-                                </Column>
-                                <Column width="30rem"
+                                </Column> -->
+                                <Column width="25rem"
                                 hAlign="Begin"
                                 >
                                     <customData>
@@ -265,7 +276,7 @@
                                         wrapping="false"
                                     />
                                 </Column>
-                                <Column width="auto"
+                                <Column width="25rem"
                                 hAlign="Begin"
                                 >
                                     <customData>
@@ -313,12 +324,12 @@
                                         />
                                         <HBox justifyContent="End" >
                                         <Text
-                                              textAlign="End" text="{path: 'Rmwwr' , formatter : '.formatter.currencyValue'}"
+                                           text="{path: 'Rmwwr' , formatter : '.formatter.currencyValue'}"
                                         />                                        
                                         </HBox>
                                             <HBox justifyContent="End" >
                                         <Text
-                                             textAlign="End" text="{path: 'Wmwst' , formatter : '.formatter.currencyValue'}"
+                                             text="{path: 'Wmwst' , formatter : '.formatter.currencyValue'}"
                                         />
                                            </HBox>
                                         <Text
@@ -327,7 +338,7 @@
                                         <Text
                                             text="{path: 'Xblnr' }"
                                         />
-                                        <Text
+                                        <!-- <Text
                                             text="{path: 'Belnr' }"
                                         />
                                         <Text
@@ -335,7 +346,7 @@
                                         />
                                         <Text
                                             text="{path: 'BusinessPartnerName' }"
-                                        />
+                                        /> -->
                                         <Text
                                             text="{path: 'Sgtxt' }"
                                         />

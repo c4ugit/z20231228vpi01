@@ -143,6 +143,10 @@ sap.ui.define(
             this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_USER_INFO).setData(aPromise[0].results[0]);     
             this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_STATUS_NAME).setData(aPromise[1]);     
 
+
+            // this.byId(this.CO_SMART_FILTER_INVOICE_ID).getSmartVariant().setVisible(false)
+            // this.byId(this.CO_SMART_TABLE_INVOICE_ID).setShowTablePersonalisation(false)
+
           this.getOwnerComponent()._fnResolveDataLoadedInit();
         }.bind(this)).catch(async function (msg) {
           await this.messageBoxError(this.getMessagesBase().findFirstErrorMessage(this));

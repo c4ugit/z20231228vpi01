@@ -117,9 +117,22 @@ sap.ui.define([
             onCloseEbelnLogon: function (oEvent) {
                 this._closeEbelnLogon(oEvent);
             },
+
+            onPressOpenHelpForUser: function () {
+                this._getDialogHelpForUser();
+            },
+            onConfirmHelpForUser: function () {
+                this._confirmHelpForUser();
+            },
+            onCancelHelpForUser: function (oEvent) {
+                this._cancelHelpForUser(oEvent);
+            },
+            onCloseHelpForUser: function (oEvent) {
+                this._closeHelpForUser(oEvent);
+            },
+
             onDeleteCookie: function (oEvent) {
                 this._deleteCookieRefresh();
-
             },
 
 
@@ -385,6 +398,34 @@ sap.ui.define([
             /* begin: Fragments                                            */
             /* =========================================================== */
             /* =========================================================== */
+
+            /* =========================================================== */
+            /* begin:  Dialog Get UserHelp                                 */
+            /* =========================================================== */
+            _getDialogHelpForUser: async function () {
+
+                let oHelpForUser;
+                oHelpForUser = await this.getDialogBase().getDialogHelpForUser(this);
+                this.getDialogBase().openDialog(oHelpForUser);
+
+
+            },
+            _cancelHelpForUser: async function (oEvent) {
+                this.getDialogBase().closeDialog(await this.getDialogBase().getDialogHelpForUser(this));
+
+            },
+            _closeHelpForUser: async function (oEvent) {
+
+            },
+            _confirmHelpForUser: function () {
+                let oHelpForUser;
+                oHelpForUser = this.getDialogBase().onConfirmHelpForUser(this);          
+
+            },
+            _deleteHelpForUser: async function () {
+                this.getDialogBase().clearEbelnLogonDialog(await this.getDialogBase().getDialogEbelnLogon(this));
+
+            },
 
             /* =========================================================== */
             /* begin:  Dialog Ebeln logon                                   */

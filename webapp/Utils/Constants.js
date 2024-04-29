@@ -31,6 +31,7 @@ sap.ui.define([], function () {
                 MATERIAL_SELECTDIALOG: "zb19801.app.z20230809b19801.view.MaterialSelectList",
 
                 EBELN_LOGON_DIALOG: "zmmvpi01.app.z20231228mmvpi01.view.EbelnLogon",
+                HELP_FOR_USER_DIALOG: "zmmvpi01.app.z20231228mmvpi01.view.HelpForUser",
 
                 MESSAGE_POPOVER: "zmmvpi01.app.z20231228mmvpi01.view.MessagePopover",
                 MESSAGE_POPOVER: "zmmvpi01.app.z20231228mmvpi01.view.MessagePopover",
