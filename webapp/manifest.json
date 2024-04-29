@@ -104,6 +104,10 @@
             "globalModelStatusName": {
                 "type": "sap.ui.model.json.JSONModel",
                 "preload": true
+            },
+            "globalModelHelpForUser": {
+                "type": "sap.ui.model.json.JSONModel",
+                "preload": true
             }
         },
         "resources": {

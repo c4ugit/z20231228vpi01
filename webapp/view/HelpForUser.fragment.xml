@@ -8,47 +8,47 @@
             <VBox>
                 <Table xmlns="sap.m"  busyIndicatorDelay="0"             
                 items="{
-                    path: 'greenBeerModel>/results',
+                    path: 'helpUserModel>/results',
                     templateShareable: true
                 }"
                 
                 fixedLayout="false" alternateRowColors="true" noDataText="Na nápovědě se stále pracuje...">
                     <items>
                         <ColumnListItem class="sapUiNoContentPadding" type="Inactive">
-                            <!-- <cells>
-                                <Text  text="{greenBeerModel>Salesorder}"/>
+                            <cells>
+                                <Text   text="{helpUserModel>Attribut}"/>
              
-                                    <ObjectStatus text="{
-                                        path:'greenBeerModel>SDStatusName'
+                                    <!-- <ObjectStatus text="{
+                                        path:'greenBeerModel>Attribut'
                                           }" inverted="true" state="{
                                         path:'greenBeerModel>SDStatus', formatter:'.formatter.sdStatusState'
-                                          }" />
-                                <Text  text="{greenBeerModel>Distributionchannel}"/>
-                                <Text text="{path:'greenBeerModel>Requesteddeliverydate', type: 'sap.ui.model.type.Date', formatOptions: { style: 'medium', strictParsing: true}}"/>
+                                          }" /> -->
+                                <Text  text="{helpUserModel>AttributValue}"/>
+                                <!-- <Text text="{path:'greenBeerModel>Requesteddeliverydate', type: 'sap.ui.model.type.Date', formatOptions: { style: 'medium', strictParsing: true}}"/>
                                 <Text  text="{greenBeerModel>Material}"/>
                                 <Text  text="{greenBeerModel>MaterialName}"/>
                                 <Text  text="{greenBeerModel>Orderquantity}"/>
                                 <Text text="{greenBeerModel>Orderquantityunit}"/>    
-                                <Text text="{greenBeerModel>SalesDocumentRjcnReason}"/>    
+                                <Text text="{greenBeerModel>SalesDocumentRjcnReason}"/>     -->
                               
-                            </cells> -->
+                            </cells>
 
                         </ColumnListItem>
                     </items>
 
                     <columns>
-                        <!-- <Column width="7rem">
+                        <Column width="18rem">
                             <header>
-                                <Label text="Číslo zakázky"/>
+                                <Label text="Pole/tlačítko/text aplikace"/>
                             </header>
                         </Column>
                     
-                        <Column width="9rem">
+                        <Column width="50rem">
                             <header>
-                                <Label text="Status"/>
+                                <Label text="Vysvětlující text"/>
                             </header>
                         </Column>
-                        <Column width="7rem">
+                     <!--    <Column width="7rem">
                             <header>
                                 <Label wrapping="true" text="Cesta odbytu"/>
                             </header>

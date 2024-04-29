@@ -31,6 +31,7 @@ sap.ui.define([
 
             CO_VIEW_MODEL: "vendorInvoiceOverViewModel",
             CO_ODATA_XX_MODEL: "requestModel",
+            CO_ODATA_HELP_USER_MODEL: "helpUserModel",
             CO_REQUEST_TABLE_ID: "overviewvendorinvoiceTableID",
             CO_OVERVIEW_VENDOR_PAGE_ID: "overviewvendorinvoicePage",
             CO_SMART_TABLE_INVOICE_ID: "smartTableInvoiceID",
@@ -71,6 +72,8 @@ sap.ui.define([
 
                 });
                 this.setModel(oViewModel, this.CO_VIEW_MODEL);
+                this.setModel(new JSONModel(), this.CO_ODATA_HELP_USER_MODEL);
+
                 this._oComponent = this.getOwnerComponent();
                 this._oSmartTable = this.getView().byId(this.CO_SMART_TABLE_INVOICE_ID);
                 this._oSmartFilter = this.getView().byId(this.CO_SMART_FILTER_INVOICE_ID);
@@ -119,7 +122,7 @@ sap.ui.define([
             },
 
             onPressOpenHelpForUser: function () {
-                this._getDialogHelpForUser();
+                this._getDialogHelpForUser(this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_HELP_FOR_USER).getData());
             },
             onConfirmHelpForUser: function () {
                 this._confirmHelpForUser();
@@ -402,10 +405,15 @@ sap.ui.define([
             /* =========================================================== */
             /* begin:  Dialog Get UserHelp                                 */
             /* =========================================================== */
-            _getDialogHelpForUser: async function () {
+            _getDialogHelpForUser: async function (oDataHelp) {
 
                 let oHelpForUser;
-                oHelpForUser = await this.getDialogBase().getDialogHelpForUser(this);
+                this.getModel(this.CO_ODATA_HELP_USER_MODEL).setData(oDataHelp);
+                oHelpForUser = await this.getDialogBase().getDialogHelpForUser(
+                    this,
+                    this.CO_ODATA_HELP_USER_MODEL,
+                    this.getModel(this.CO_ODATA_HELP_USER_MODEL)                
+                );
                 this.getDialogBase().openDialog(oHelpForUser);
 
 

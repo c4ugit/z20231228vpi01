@@ -88,6 +88,9 @@ sap.ui.define([
                     case "9":
                         oComponent._fnResolveStatusName(oDataServer);
                         break;
+                    case "10":
+                        oComponent._fnResolveHelpForUser(oDataServer);
+                        break;
 
 
                     default:
@@ -130,6 +133,9 @@ sap.ui.define([
                         break;
                     case "9":
                         oComponent._fnRejectStatusName(oError);
+                        break;
+                    case "10":
+                        oComponent._fnRejectHelpForUser(oError);
                         break;
                     default:
                         break;
