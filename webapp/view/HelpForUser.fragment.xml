@@ -16,13 +16,17 @@
                     <items>
                         <ColumnListItem class="sapUiNoContentPadding" type="Inactive">
                             <cells>
+                                <Text   text="{helpUserModel>IdAttribut}"/>
                                 <Text   text="{helpUserModel>Attribut}"/>
              
-                                    <!-- <ObjectStatus text="{
-                                        path:'greenBeerModel>Attribut'
-                                          }" inverted="true" state="{
-                                        path:'greenBeerModel>SDStatus', formatter:'.formatter.sdStatusState'
-                                          }" /> -->
+                                    <ObjectStatus  icon="{
+                                        path:'helpUserModel>IconValue'
+                                          }" 
+                                       state="{
+                                        path:'Success'
+                                          }" />
+                               
+                                
                                 <Text  text="{helpUserModel>AttributValue}"/>
                                 <!-- <Text text="{path:'greenBeerModel>Requesteddeliverydate', type: 'sap.ui.model.type.Date', formatOptions: { style: 'medium', strictParsing: true}}"/>
                                 <Text  text="{greenBeerModel>Material}"/>
@@ -37,9 +41,19 @@
                     </items>
 
                     <columns>
+                        <Column  visible="false" width="3rem">
+                            <header>
+                                <Label text="ID pole"/>
+                            </header>
+                        </Column>
                         <Column width="18rem">
                             <header>
                                 <Label text="Pole/tlačítko/text aplikace"/>
+                            </header>
+                        </Column>
+                        <Column width="18rem">
+                            <header>
+                                <Label text="Ikona"/>
                             </header>
                         </Column>
                     

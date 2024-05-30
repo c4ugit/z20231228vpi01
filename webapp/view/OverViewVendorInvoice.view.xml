@@ -358,28 +358,28 @@
                                                 <commons:MicroProcessFlowItem
                                                     title="{ parts: [  'globalModelStatusName>/results','Status'], formatter: '.formatter.statusInvoiceStateName1' }"
                                                     state="{path : 'Status', formatter : '.formatter.statusInvoiceState1'}"
-                                                    icon="sap-icon://account"
+                                                    icon="sap-icon://initiative"
                                                 />
                                                 <!-- state="Success" -->
                                                 <commons:MicroProcessFlowItem
                                                     title="{ parts: [  'globalModelStatusName>/results','Status'], formatter: '.formatter.statusInvoiceStateName2' }"
                                                     state="{path : 'Status', formatter : '.formatter.statusInvoiceState2'}"
-                                                    icon="sap-icon://account"
+                                                    icon="sap-icon://locked"
                                                 />
                                                 <commons:MicroProcessFlowItem
                                                     title="{ parts: [  'globalModelStatusName>/results','Status'], formatter: '.formatter.statusInvoiceStateName3' }"
                                                     state="{path : 'Status', formatter : '.formatter.statusInvoiceState3'}"
-                                                    icon="sap-icon://account"
+                                                    icon="sap-icon://performance"
                                                 />
                                                 <commons:MicroProcessFlowItem
                                                     title="{ parts: [  'globalModelStatusName>/results','Status'], formatter: '.formatter.statusInvoiceStateName4' }"
                                                     state="{path : 'Status', formatter : '.formatter.statusInvoiceState4'}"
-                                                    icon="sap-icon://account"
+                                                    icon="sap-icon://pending"
                                                 />
                                                 <commons:MicroProcessFlowItem
                                                     title="{ parts: [  'globalModelStatusName>/results','Status'], formatter: '.formatter.statusInvoiceStateName5' }"
                                                     state="{path : 'Status', formatter : '.formatter.statusInvoiceState5'}"
-                                                    icon="sap-icon://cancel"
+                                                    icon="sap-icon://lead"
                                                 />
                                             </commons:content>
                                         </commons:MicroProcessFlow>
