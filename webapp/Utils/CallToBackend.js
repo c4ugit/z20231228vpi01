@@ -202,6 +202,30 @@ sap.ui.define([
                 oParam.component = that._oComponent;
                 DataOperation.dataOperation(oParam);
             },
+            callInfoForUser: function (that) {
+            // return new Promise(function (resolve, reject) {
+                let oParam = {};
+                oParam = DataOperation.getListOfCallVar();
+
+
+                that._oComponent._PromiseInfoForUser = new Promise(function (fnResolve, fnReject) {
+                    that._oComponent._fnResolveInfoForUser = fnResolve;
+                    that._oComponent._fnRejectInfoForUser = fnReject;
+                }.bind(that));
+                that._oComponent._PromiseInfoForUser.then(function (oData) {
+                    // resolve(Object.freeze(oData));
+                }.bind(that)).catch(function (oError) {
+                    // resolve();
+                    // reject(that.getMessagesBase().findFirstErrorMessage(that));
+                }.bind(that));
+
+                oParam.sNamePromise = "11";
+                oParam.sObjectPath = "/ZC_Info";
+                oParam.sViewmodel = that.CO_VIEW_MODEL;
+                oParam.scope = that;
+                oParam.component = that._oComponent;
+                DataOperation.dataOperation(oParam);
+            },
             callStatusName: function (that) {
             // return new Promise(function (resolve, reject) {
                 let oParam = {};

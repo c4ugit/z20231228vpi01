@@ -108,6 +108,10 @@
             "globalModelHelpForUser": {
                 "type": "sap.ui.model.json.JSONModel",
                 "preload": true
+            },
+            "globalModelInfoForUser": {
+                "type": "sap.ui.model.json.JSONModel",
+                "preload": true
             }
         },
         "resources": {

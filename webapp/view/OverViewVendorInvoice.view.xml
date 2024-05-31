@@ -42,6 +42,8 @@
                 persistencyKey="SmartFilterPKey"
                 
             />
+              <MessageStrip  showCloseButton="true" visible="{globalModelInfoForUser>/Bfooterdisplay}" 
+                showIcon="true" type="{globalModelInfoForUser>/Footermessagetype}" text="{globalModelInfoForUser>/Footertext}"/>
         </semantic:headerContent>
         <semantic:titleExpandedHeading />
         <semantic:titleExpandedContent>
@@ -70,6 +72,8 @@
                 direction="Column"
             >
                 <items>
+              
+                
                     <smartTable:SmartTable
                         id="smartTableInvoiceID"
                         smartVariant="pageVariantIdInc"
