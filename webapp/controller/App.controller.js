@@ -149,6 +149,18 @@ sap.ui.define(
             this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_HELP_FOR_USER).setData(aPromise[2]);     
             this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_INFO_FOR_USER).setData(aPromise[3].results[0]);     
 
+            if (aPromise[3].results.length === 0) {
+              let odata = {};
+              odata.Bfooterdisplay = false;
+              odata.Footertext = "";
+              odata.Footermessagetype = "Information";
+              this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_INFO_FOR_USER).setData(odata);     
+            }
+
+
+            // <MessageStrip  showCloseButton="true" visible="{globalModelInfoForUser>/Bfooterdisplay}" 
+            //     showIcon="true" type="{globalModelInfoForUser>/Footermessagetype}" text="{globalModelInfoForUser>/Footertext}"/>
+
 
             // this.byId(this.CO_SMART_FILTER_INVOICE_ID).getSmartVariant().setVisible(false)
             // this.byId(this.CO_SMART_TABLE_INVOICE_ID).setShowTablePersonalisation(false)
