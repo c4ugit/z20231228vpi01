@@ -137,6 +137,9 @@ sap.ui.define([
             onDeleteCookie: function (oEvent) {
                 this._deleteCookieRefresh();
             },
+            onBeforeExport: function(oEvent) {
+                this._beforeExport(oEvent);
+            }, 
 
 
 
@@ -302,6 +305,9 @@ sap.ui.define([
             /* =========================================================== */
             /* begin: internal methods                                     */
             /* =========================================================== */
+            _beforeExport: function (oEvent) {
+
+            },
             _deleteCookieRefresh: function (oFifnr) {
                 var that = this;
                 this.deleteCookie();

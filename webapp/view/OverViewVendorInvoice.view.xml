@@ -133,7 +133,7 @@
                                     <customData>
                                         <core:CustomData
                                             key="p13nData"
-                                            value='\{"columnKey": "Erdat", "maxLength": "30", "columnIndex":"10","sortProperty": "Erdat",  "filterProperty": "Erdat", "leadingProperty": "Erdat"}'
+                                            value='\{"columnKey": "Erdat", "maxLength": "30", "columnIndex":"10","sortProperty": "Erdat",  "filterProperty": "Erdat", "leadingProperty": "Erdat", "type":"date"}'
                                         />
                                     </customData>
                                     <Text
