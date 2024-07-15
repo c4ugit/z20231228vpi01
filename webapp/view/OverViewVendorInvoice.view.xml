@@ -145,7 +145,7 @@
                                     <customData>
                                         <core:CustomData
                                             key="p13nData"
-                                            value='\{"columnKey": "Erzet", "maxLength": "30", "columnIndex":"15","sortProperty": "Erzet",  "filterProperty": "Erzet", "leadingProperty": "Erzet"}'
+                                            value='\{"columnKey": "Erzet", "maxLength": "30", "columnIndex":"15","sortProperty": "Erzet",  "filterProperty": "Erzet", "leadingProperty": "Erzet", "type":"time"}'
                                         />
                                     </customData>
                                     <Text
@@ -158,7 +158,7 @@
                                     <customData>
                                         <core:CustomData
                                             key="p13nData"
-                                            value='\{"columnKey": "Bldat", "maxLength": "30","columnIndex":"20","sortProperty": "Bldat",  "filterProperty": "Bldat","leadingProperty": "Bldat" }'
+                                            value='\{"columnKey": "Bldat", "maxLength": "30","columnIndex":"20","sortProperty": "Bldat",  "filterProperty": "Bldat","leadingProperty": "Bldat", "type":"date" }'
                                         />
                                     </customData>
                                     <Text
