@@ -357,6 +357,22 @@ sap.ui.define([
                     this._oUploadSetAttachment.removeIncompleteItem(oParameter);
                     return;
                 }
+                //08kontrola, kolik je nahraných příloh, může být maximálně 1
+                  if (oSource.getIncompleteItems().length > 1)
+                    {
+                        if (this._oUploadSetAttachment.getIncompleteItems().length > 0)
+                        {
+                            for (let index = 0; index < this._oUploadSetAttachment.getIncompleteItems().length - 1; index++)
+                            {
+                                this._oUploadSetAttachment.removeIncompleteItem(this._oUploadSetAttachment.getIncompleteItems()[index])
+                            }
+                        }
+                        await this.messageBoxWarning("Příloha již byla nahrána. Pro nahrání nové přlohy je nutné původní nejprve smazat.");
+                        return;
+                    } else
+                    {
+    
+                    }
                 //10kontrola, kolik je nahraných příloh, může být maximálně 1
                 if (oSource.getItems().length > 0) {
                     if (this._oUploadSetAttachment.getIncompleteItems().length > 0) {
@@ -398,23 +414,25 @@ sap.ui.define([
                 let reader = new FileReader();
 
                 reader.onload = function (e) {
-                    let raw = e.target.result;
-                    let binaryString = raw;
-                    let Content = btoa(binaryString);
+                    // let raw = e.target.result;
+                    // let binaryString = raw;
+                    // let Content = btoa(binaryString);
 
 
-                    oNewAttachmet.Filename = oParameter.getProperty("fileName");
-                    oNewAttachmet.Mimetype = oParameter.getProperty("mediaType");
-                    oNewAttachmet.UploadState = oParameter.getProperty("uploadState");
-                    oNewAttachmet.Counter = i;
-                    oNewAttachmet.Content = Content;
-                    this.getModel(this.CO_ODATA_INVOICE_HEADER_INCOMPLETE_ATTACH_MODEL).getData().results.push(oNewAttachmet);
-                    this.getModel(this.CO_ODATA_INVOICE_HEADER_INCOMPLETE_ATTACH_MODEL).updateBindings(true);
+                    // oNewAttachmet.Filename = oParameter.getProperty("fileName");
+                    // oNewAttachmet.Mimetype = oParameter.getProperty("mediaType");
+                    // oNewAttachmet.UploadState = oParameter.getProperty("uploadState");
+                    // oNewAttachmet.Counter = i;
+                    // oNewAttachmet.Content = Content;
+                    // this.getModel(this.CO_ODATA_INVOICE_HEADER_INCOMPLETE_ATTACH_MODEL).getData().results.push(oNewAttachmet);
+                    // this.getModel(this.CO_ODATA_INVOICE_HEADER_INCOMPLETE_ATTACH_MODEL).updateBindings(true);
                     // var oLocalData.content = "data:image/jpeg;base64," + base64;
+                    this.getFileReaderBase().onLoadFileReader(e, this, oParameter, i);
                 }.bind(this);
 
                 reader.onerror = function (e) {
                     this.messageToastShow("error");
+                    this.getFileReaderBase().onLoadFileReader(e, this, oParameter, i);
                 };
                 reader.readAsBinaryString(oFile);
             },
@@ -467,22 +485,24 @@ sap.ui.define([
                 let reader = new FileReader();
 
                 reader.onload = function (e) {
-                    let raw = e.target.result;
-                    let binaryString = raw;
-                    let Content = btoa(binaryString);
+                    // let raw = e.target.result;
+                    // let binaryString = raw;
+                    // let Content = btoa(binaryString);
 
 
-                    oNewAttachmet.Filename = oParameter.getProperty("fileName");
-                    oNewAttachmet.Mimetype = oParameter.getProperty("mediaType");
-                    oNewAttachmet.UploadState = oParameter.getProperty("uploadState");
-                    oNewAttachmet.Counter = i;
-                    oNewAttachmet.Content = Content;
-                    this.getModel(this.CO_ODATA_INVOICE_ITEM_INCOMPLETE_ATTACH_MODEL).getData().results.push(oNewAttachmet);
-                    this.getModel(this.CO_ODATA_INVOICE_ITEM_INCOMPLETE_ATTACH_MODEL).updateBindings(true);
+                    // oNewAttachmet.Filename = oParameter.getProperty("fileName");
+                    // oNewAttachmet.Mimetype = oParameter.getProperty("mediaType");
+                    // oNewAttachmet.UploadState = oParameter.getProperty("uploadState");
+                    // oNewAttachmet.Counter = i;
+                    // oNewAttachmet.Content = Content;
+                    // this.getModel(this.CO_ODATA_INVOICE_ITEM_INCOMPLETE_ATTACH_MODEL).getData().results.push(oNewAttachmet);
+                    // this.getModel(this.CO_ODATA_INVOICE_ITEM_INCOMPLETE_ATTACH_MODEL).updateBindings(true);
+                    this.getFileReaderBase().onLoadFileReaderIT(e, this, oParameter, i);
                     // var oLocalData.content = "data:image/jpeg;base64," + base64;
                 }.bind(this);
                 reader.onerror = function (e) {
                     this.messageToastShow("error");
+                    this.getFileReaderBase().onLoadFileReaderIT(e, this, oParameter, i);
                 };
 
                 reader.readAsBinaryString(oFile);

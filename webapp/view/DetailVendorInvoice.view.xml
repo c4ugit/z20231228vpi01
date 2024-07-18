@@ -135,7 +135,7 @@
                             visibleRemove="true"
                             visibleEdit="true"
                             enabledRemove="true"
-                            enabledEdit="false"
+                            enabledEdit="true"
                         />
                     </upload:incompleteItems>
                     <upload:items>
@@ -149,7 +149,7 @@
                             visibleRemove="true"
                             visibleEdit="true"
                             enabledRemove="true"
-                            enabledEdit="false"
+                            enabledEdit="true"
                         />
                     </upload:items>
                 </upload:UploadSet>
@@ -216,7 +216,7 @@
                             visibleRemove="true"
                             visibleEdit="true"
                             enabledRemove="true"
-                            enabledEdit="false"
+                            enabledEdit="true"
                         />
                     </upload:incompleteItems>
                     <upload:items>
@@ -230,7 +230,7 @@
                             visibleRemove="true"
                             visibleEdit="true"
                             enabledRemove="true"
-                            enabledEdit="false"
+                            enabledEdit="true"
                         />
                     </upload:items>
                 </upload:UploadSet>
@@ -297,7 +297,7 @@
             <semantic:PositiveAction
                 text="Uložit změny"
                 press=".onSaveInvoiceChange"
-                enabled="{= ${invoiceModel>/Status} === '1'}"
+                enabled="{= ${invoiceModel>/Status} === '1' || ${invoiceModel>/Status} === '9'}"
                 
                 visible="{= ${globalModelUserInfo>/UserType} !== '04'}"
             />

@@ -85,7 +85,7 @@
                             removePressed=".onRemoveAttachmentPressed"
                             openPressed=".onOpenAttachmentPressed"
                             visibleRemove="true"
-                            visibleEdit="true"
+                            visibleEdit="false"
                         />
                     </upload:incompleteItems>
                     <upload:items>
@@ -97,7 +97,7 @@
                             removePressed=".onRemoveAttachmentPressed"
                             openPressed=".onOpenAttachmentPressed"
                             visibleRemove="true"
-                            visibleEdit="true"
+                            visibleEdit="false"
                         />
                     </upload:items>
                 </upload:UploadSet>
@@ -151,7 +151,7 @@
                             removePressed=".onRemoveAttachmentPressed"
                             openPressed=".onOpenAttachmentPressed"
                             visibleRemove="true"
-                            visibleEdit="true"
+                            visibleEdit="false"
                         />
                     </upload:incompleteItems>
                     <upload:items>
@@ -163,7 +163,7 @@
                             removePressed=".onRemoveAttachmentPressed"
                             openPressed=".onOpenAttachmentPressed"
                             visibleRemove="true"
-                            visibleEdit="true"
+                            visibleEdit="false"
                         />
                     </upload:items>
                 </upload:UploadSet>

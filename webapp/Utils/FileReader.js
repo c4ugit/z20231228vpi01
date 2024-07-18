@@ -25,9 +25,16 @@ sap.ui.define([
             that.getModel(that.CO_ODATA_INVOICE_ITEM_INCOMPLETE_ATTACH_MODEL).updateBindings(true);
             for (let index = 0; index < that._oUploadSetOthersAttachment.getIncompleteItems().length; index++) {
                 //10_1
-                that._oUploadSetOthersAttachment.getIncompleteItems()[index].setVisibleEdit(false);
-
+                that._oUploadSetOthersAttachment.getIncompleteItems()[index].setUploadState("Complete");
+                that._oUploadSetOthersAttachment.getIncompleteItems()[index]._oEditButton.setProperty("visible",false)
             }
+            // for (let index = 0; index < that._oUploadSetOthersAttachment.getIncompleteItems().length; index++) {
+            //     //10_1
+              
+            //     that._oUploadSetOthersAttachment.getIncompleteItems()[index].setVisibleEdit(false);
+              
+              
+            // }
         },        
         onErrorFileReaderIT(e,that)  {
             that.messageToastShow("error");
@@ -48,9 +55,16 @@ sap.ui.define([
             that.getModel(that.CO_ODATA_INVOICE_HEADER_INCOMPLETE_ATTACH_MODEL).updateBindings(true);
             for (let index = 0; index < that._oUploadSetAttachment.getIncompleteItems().length; index++) {
                 //10_1
-                that._oUploadSetAttachment.getIncompleteItems()[index].setVisibleEdit(false);
+                 that._oUploadSetAttachment.getIncompleteItems()[index].setUploadState("Complete");
+                 that._oUploadSetAttachment.getIncompleteItems()[index]._oEditButton.setProperty("visible",false)
 
             }
+            // for (let index = 0; index < that._oUploadSetAttachment.getIncompleteItems().length; index++) {
+            //     //10_1
+            //     that._oUploadSetAttachment.getIncompleteItems()[index].setVisibleEdit(false);
+
+
+            // }
         },        
         onErrorFileReader(e,that)  {
             that.messageToastShow("error");

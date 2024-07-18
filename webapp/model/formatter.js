@@ -300,6 +300,12 @@ sap.ui.define([
                 case "6":
                     Status = "Success";
                     break;
+                case "7":
+                    Status = "Error";
+                    break;
+                case "9":
+                    Status = "Error";
+                    break;
                 default:
                     Status = "None";
                     break;
@@ -328,6 +334,13 @@ sap.ui.define([
                 case "6":
                     Status = "Success";
                     break;
+                case "7":
+                    Status = "Error";
+                    break;
+                case "9":
+                    Status = "None";
+                    break;
+                
                 default:
                     Status = "None";
                     break;
@@ -357,6 +370,12 @@ sap.ui.define([
                 case "6":
                     Status = "Success";
                     break;
+                    case "7":
+                        Status = "Error";
+                        break;
+                        case "9":
+                            Status = "None";
+                            break;
                 default:
                     Status = "None";
                     break;
@@ -384,6 +403,12 @@ sap.ui.define([
                 case "6":
                     Status = "Success";
                     break;
+                    case "7":
+                        Status = "Error";
+                        break;
+                        case "9":
+                            Status = "None";
+                            break;                        
                 default:
                     Status = "None";
                     break;
@@ -411,6 +436,12 @@ sap.ui.define([
                 case "6":
                     Status = "Success";
                     break;
+                    case "7":
+                        Status = "Error";
+                        break;
+                        case "9":
+                            Status = "None";
+                            break;
                 default:
                     Status = "None";
                     break;
@@ -510,6 +541,12 @@ sap.ui.define([
                 case "6":
                     Status = "Success";
                     break;
+                case "7":
+                    Status = "Error";
+                    break;
+                case "9":
+                    Status = "Error";
+                    break;
                 default:
                     Status = "Warning";
                     break;
@@ -521,23 +558,21 @@ sap.ui.define([
             switch (invoiceState) {
 
                 case "1":
-                    Icon = "sap-icon://account"
+                    Icon = "sap-icon://initiative"
                     break;
                 case "2":
-                    Icon = "sap-icon://account"
+                    Icon = "sap-icon://locked"
                     break;
                 case "3":
-                    Icon = "sap-icon://account"
+                    Icon = "sap-icon://performance"
                     break;
                 case "4":
-                    Icon = "sap-icon://account"
+                    Icon = "sap-icon://pending"
                     break;
                 case "5":
-                    Icon = "sap-icon://account"
+                    Icon = "sap-icon://lead"
                     break;
-                case "6":
-                    Icon = "sap-icon://account"
-                    break;
+             
                 default:
                     Icon = "";
                     break;
@@ -577,6 +612,9 @@ sap.ui.define([
             switch (invoiceState) {
 
                 case "1":
+                    uploadEnabled = true;
+                    break;
+                case "9":
                     uploadEnabled = true;
                     break;
 
