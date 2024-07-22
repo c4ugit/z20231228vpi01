@@ -805,7 +805,7 @@ sap.ui.define([
                     this.getModel(this.CO_ODATA_INVOICE_ITEM_INCOMPLETE_ATTACH_MODEL).setData({ results: [] });
 
 
-                    await this.messageToastShow("Uložení proběhlo v pořádku", 300);
+                    await this.messageToastShow("Uložení proběhlo v pořádku", 1200);
 
                     if (this._oUploadSetOthersAttachment.getIncompleteItems().length > 0)
                     {

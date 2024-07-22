@@ -173,14 +173,17 @@ sap.ui.define([
             onOpenAttachmentPressed: function (oEvent) {
 
             },
-            onRemoveAttachmentPressed: function (oEvent) {
+            onRemoveAttachmentPressed:  function (oEvent) {
+             
                 this._removeAttachmentPressed(oEvent);
             
 
 
             },
-            onBeforeItemRemove: function (oEvent) {
-                this._beforeItemRemove(oEvent);
+            onBeforeItemRemove:  function (oEvent) {
+        
+                    
+                this._beforeItemRemove(oEvent,oEvent.getSource(),oEvent.getParameter("item"));
             },
             onBeforeItemAdded: function (oEvent) {
 
@@ -330,10 +333,17 @@ sap.ui.define([
                 }
                 oEvent.getParameters().item.destroy();
             },
-            _beforeItemRemove:function(oEvent) {
+            _beforeItemRemove: async function(oEvent,source,item) {
+           
+                
                 oEvent.preventDefault();
-                oEvent.getSource().removeIncompleteItem(oEvent.getParameter("item"));
-                let oItem = oEvent.getParameter("item").getBindingContext(this.CO_ODATA_INVOICE_HEADER_INCOMPLETE_ATTACH_MODEL).getObject();
+                let bDelete = await this.messageBoxWarning2("Pozor, následujícím potvrzením smažete přílohu.");
+                if (bDelete === false) {
+                    return;
+                }
+
+                source.removeIncompleteItem(item);
+                let oItem = item.getBindingContext(this.CO_ODATA_INVOICE_HEADER_INCOMPLETE_ATTACH_MODEL).getObject();
 
                 let i;
                 for (i = this.getModel(this.CO_ODATA_INVOICE_HEADER_INCOMPLETE_ATTACH_MODEL).getData().results.length - 1; i >= 0; i--) {
@@ -345,7 +355,8 @@ sap.ui.define([
                         break;
                     }
                 }
-                oEvent.getParameters().item.destroy();
+                // oEvent2.getParameters().item.destroy();
+                item.destroy();
             },
             _afterItemAdded: async function (oEvent) {
                 let bCheckPropertiesAttachFC;

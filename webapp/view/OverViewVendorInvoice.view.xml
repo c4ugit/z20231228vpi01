@@ -362,7 +362,7 @@
                                                 <commons:MicroProcessFlowItem
                                                     title="{ parts: [  'globalModelStatusName>/results','Status'], formatter: '.formatter.statusInvoiceStateName1' }"
                                                     state="{path : 'Status', formatter : '.formatter.statusInvoiceState1'}"
-                                                    icon="sap-icon://initiative"
+                                                    icon="sap-icon://attachment"
                                                 />
                                                 <!-- state="Success" -->
                                                 <commons:MicroProcessFlowItem
