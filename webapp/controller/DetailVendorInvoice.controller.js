@@ -175,7 +175,7 @@ sap.ui.define([
             },
             onRemoveAttachmentPressed:  function (oEvent) {
              
-                this._removeAttachmentPressed(oEvent);
+                this._removeAttachmentPressed(oEvent,oEvent.getSource(),oEvent.getParameter("item"));
             
 
 
@@ -337,10 +337,10 @@ sap.ui.define([
            
                 
                 oEvent.preventDefault();
-                let bDelete = await this.messageBoxWarning2("Pozor, následujícím potvrzením smažete přílohu.");
-                if (bDelete === false) {
-                    return;
-                }
+                // let bDelete = await this.messageBoxWarning2("Pozor, následujícím potvrzením smažete přílohu.");
+                // if (bDelete === false) {
+                //     return;
+                // }
 
                 source.removeIncompleteItem(item);
                 let oItem = item.getBindingContext(this.CO_ODATA_INVOICE_HEADER_INCOMPLETE_ATTACH_MODEL).getObject();
@@ -540,11 +540,16 @@ sap.ui.define([
                 }
                 oEvent.getParameters().item.destroy();
             },
-            _removeAttachmentPressed: function (oEvent) {
+            _removeAttachmentPressed: async function (oEvent,source,item) {
                 oEvent.preventDefault();
-                oEvent.getSource().getParent().removeItem(oEvent.getParameter("item"));
 
-                let oItem = oEvent.getParameter("item").getBindingContext(this.CO_ODATA_INVOICE_HEADER_ATTACH_MODEL).getObject();
+                let bDelete = await this.messageBoxWarning2("Pozor, následujícím potvrzením smažete přílohu.");
+                if (bDelete === false) {
+                    return;
+                }
+                source.getParent().removeItem(item);
+
+                let oItem = item.getBindingContext(this.CO_ODATA_INVOICE_HEADER_ATTACH_MODEL).getObject();
 
                 let i;
                 for (i = this.getModel(this.CO_ODATA_INVOICE_HEADER_ATTACH_MODEL).getData().results.length - 1; i >= 0; i--) {
@@ -558,7 +563,7 @@ sap.ui.define([
                         break;
                     }
                 }
-                oEvent.getParameters().item.destroy();
+               item.destroy();
             },
             _saveInvoiceChange: function () {
                 this._prepraveSaveInvoiceChange();
