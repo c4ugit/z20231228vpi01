@@ -31,7 +31,7 @@ sap.ui.define([
         {
             if (this.getPropertyAttachFC(that.getConstantBase().getConstants().FILE_NAME_LENGTH_EXCEEDED,that) === false)
             {
-                await that.messageBoError("Překročena délka názvu přílohy (max70).");
+                await that.messageBoxError("Překročena délka názvu přílohy (max70).");
                 return false;
             };
             if (this.getPropertyAttachFC(that.getConstantBase().getConstants().FILE_NAME_SIZE_EXCEEDED,that) === false)
