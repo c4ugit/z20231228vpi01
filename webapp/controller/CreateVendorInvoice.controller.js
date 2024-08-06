@@ -516,7 +516,7 @@ sap.ui.define([
                             this._oUploadSetAttachment.removeIncompleteItem(this._oUploadSetAttachment.getIncompleteItems()[index])
                         }
                     }
-                    await this.messageBoxWarning(this.getResourceBundle().getText("theAttachmentHasAlreadyBeenUploaded."));
+                    await this.messageBoxWarning(this.getResourceBundle().getText("theAttachmentHasAlreadyBeenUploaded"));
                     return;
                 } else
                 {
