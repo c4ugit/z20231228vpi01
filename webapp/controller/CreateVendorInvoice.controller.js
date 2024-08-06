@@ -660,7 +660,7 @@ sap.ui.define([
                     };
                 } else
                 {
-                    let message = this.getResourceBundle().getText("requiredFieldsNotCompleted)");
+                    let message = this.getResourceBundle().getText("requiredFieldsNotCompleted");
                     this.messageBoxError(message);
                 }
   
@@ -816,7 +816,7 @@ sap.ui.define([
                     }
 
 
-                    let message = this.getResourceBundle().getText("uploadNextInvoice.");
+                    let message = this.getResourceBundle().getText("uploadNextInvoice");
                     if (await this.messageBoxConfirm(message) === false)
                     {
                         this.getRouter().navTo(this.getConstantBase().getConstants().ROUTE_OVERVIEW_VENDOR_INVOICE);

@@ -7,7 +7,7 @@ sap.ui.define([
         confirm: async function (text) {            
             return new Promise(function (resolve) {
                 MessageBox.confirm(text, {
-                    title: "Upozorn\u011Bn\xED",
+                    // title: "Upozorn\u011Bn\xED",
                     actions: [
                         MessageBox.Action.YES,
                         MessageBox.Action.NO
@@ -26,7 +26,7 @@ sap.ui.define([
         error: async function (text) {            
             return new Promise(function (resolve) {
                 MessageBox.error(text, {
-                    title: "Chyba",
+                    // title: "Chyba",
                     actions: [
                         MessageBox.Action.CLOSE                      
                     ],
@@ -42,7 +42,7 @@ sap.ui.define([
         success: async function (text) {            
             return new Promise(function (resolve) {
                 MessageBox.success(text, {
-                    title: "OK",
+                    // title: "OK",
                     actions: [
                         MessageBox.Action.CLOSE                      
                     ],
@@ -58,7 +58,7 @@ sap.ui.define([
         information: async function (text) {            
             return new Promise(function (resolve) {
                 MessageBox.information(text, {
-                    title: "Informace",
+                    // title: "Informace",
                     actions: [
                         MessageBox.Action.CLOSE                      
                     ],
@@ -90,7 +90,7 @@ sap.ui.define([
         warning: async function (text) {            
             return new Promise(function (resolve) {
                 MessageBox.warning(text, {
-                    title: "Upozornění",
+                    // title: "Upozornění",
                     actions: [
                         MessageBox.Action.CLOSE                      
                     ],
