@@ -23,7 +23,7 @@
     >
         <semantic:titleHeading>
             <Title
-                text="Číslo faktury {invoiceModel>/Zinvoicr_Id}"
+                text="{i18n>technicalID}: {invoiceModel>/Zinvoicr_Id}"
                 level="H2"
             />
         </semantic:titleHeading>
@@ -117,7 +117,7 @@
                     <upload:toolbar>
                         <OverflowToolbar>
                             <Title
-                                text="Faktura - příloha v PDF (lze nahrát jen 1 přílohu v pdf formátu)"
+                                text="{i18n>invoicePDFAttachmentOnly1Attachment}"
                             />
                             <ToolbarSpacer />
  
@@ -158,7 +158,7 @@
                 rows="3"
             
                 maxLength="249"
-                placeholder="Poznámka k příloze v maximální délece 249znaků"
+                placeholder="{i18n>noteToAttachedInvoice}"
                 value="{invoiceModel>/Description}"
                 editable="{ path:'invoiceModel>/Status', formatter : '.formatter.statusInvoiceUploadEnabled'}"
                  enabled="{globalModelUserInfo>/bEnable}"
@@ -193,7 +193,7 @@
                 >
                     <upload:toolbar>
                         <OverflowToolbar>
-                            <Title text="Ostatní přílohy k faktuře" />
+                            <Title text="{i18n>otherInvoiceAttachments}" />
                             <ToolbarSpacer />
                             <!-- <Button
                                 text="Upload selected"
@@ -295,7 +295,7 @@
         </semantic:messagesIndicator>
         <semantic:positiveAction>
             <semantic:PositiveAction
-                text="Uložit změny"
+                text="{i18n>saveChanges}"
                 press=".onSaveInvoiceChange"
                 enabled="{= ${invoiceModel>/Status} === '1' || ${invoiceModel>/Status} === '9'}"
                 

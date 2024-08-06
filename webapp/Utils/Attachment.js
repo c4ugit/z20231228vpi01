@@ -31,32 +31,32 @@ sap.ui.define([
         {
             if (this.getPropertyAttachFC(that.getConstantBase().getConstants().FILE_NAME_LENGTH_EXCEEDED,that) === false)
             {
-                await that.messageBoxError("Překročena délka názvu přílohy (max70).");
+                await that.messageBoxError(this.getResourceBundle().getText("attachmentNameTooLong"));
                 return false;
             };
             if (this.getPropertyAttachFC(that.getConstantBase().getConstants().FILE_NAME_SIZE_EXCEEDED,that) === false)
             {
-                await that.messageBoxError("Překročena velikost přílohy.");
+                await that.messageBoxError(this.getResourceBundle().getText("attachmentSizeExceeded"));
                 return false;
             };
             if (this.getPropertyAttachFC(that.getConstantBase().getConstants().FILE_TYPE_MISMATCH_EXCEEDED,that) === false)
             {
-                await that.messageBoxError("Špatný typ přílohy.");
+                await that.messageBoxError(this.getResourceBundle().getText("attachmentWrongType"));
                 return false;
             };
             if (this.getPropertyAttachFC(that.getConstantBase().getConstants().FILE_NAME_LENGTH_EXCEEDED_IT,that) === false)
             {
-                await that.messageBoxError("Překročena délka názvu přílohy (max70).");
+                await that.messageBoxError(this.getResourceBundle().getText("attachmentNameTooLong"));
                 return false;
             };
             if (this.getPropertyAttachFC(that.getConstantBase().getConstants().FILE_NAME_SIZE_EXCEEDED_IT,that) === false)
             {
-                await that.messageBoxError("Překročena velikost přílohy.");
+                await that.messageBoxError(this.getResourceBundle().getText("attachmentSizeExceeded"));
                 return false;
             };
             if (this.getPropertyAttachFC(that.getConstantBase().getConstants().FILE_TYPE_MISMATCH_EXCEEDED_IT,that) === false)
             {
-                await that.messageBoxError("Špatný typ přílohy.");
+                await that.messageBoxError(this.getResourceBundle().getText("attachmentWrongType"));
                 return false;
             };
             return true;

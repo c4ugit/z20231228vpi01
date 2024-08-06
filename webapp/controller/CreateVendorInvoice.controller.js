@@ -516,7 +516,7 @@ sap.ui.define([
                             this._oUploadSetAttachment.removeIncompleteItem(this._oUploadSetAttachment.getIncompleteItems()[index])
                         }
                     }
-                    await this.messageBoxWarning("Příloha již byla nahrána. Pro nahrání nové přlohy je nutné původní nejprve smazat.");
+                    await this.messageBoxWarning(this.getResourceBundle().getText("theAttachmentHasAlreadyBeenUploaded."));
                     return;
                 } else
                 {
@@ -640,7 +640,7 @@ sap.ui.define([
 
                 if (this._oUploadSetAttachment.getIncompleteItems().length === 0)
                 {
-                    this.getMessagesBase().addMessage("Pozor, nebyla přidána žádná příloha ", MessageType.Error, "", this.getModel());
+                    this.getMessagesBase().addMessage(this.getResourceBundle().getText("noAttachmentUploaded"), "", this.getModel());
                     this.getModel(this.CO_VIEW_MODEL).setProperty("/bValid", false);
                 }
                 if (this._oUploadSetOthersAttachment.getIncompleteItems().length === 0)
@@ -650,7 +650,7 @@ sap.ui.define([
 
               if (this.getModel(this.CO_VIEW_MODEL).getProperty("/bValid") === true)
                 {
-                    let message = "Přejete si uložit novou fakturu do SAPu?";
+                    let message = this.getResourceBundle().getText("saveNewInvoice");
                     if (await this.messageBoxConfirm(message) === false)
                     {
                         return;
@@ -660,7 +660,7 @@ sap.ui.define([
                     };
                 } else
                 {
-                    let message = "Pozor, nebyla vyplněna všechna povinná pole.(VIZ. log vlevo dole)";
+                    let message = this.getResourceBundle().getText("requiredFieldsNotCompleted)");
                     this.messageBoxError(message);
                 }
   
@@ -816,7 +816,7 @@ sap.ui.define([
                     }
 
 
-                    let message = "Přejete si pokračovat s uložením další faktury?";
+                    let message = this.getResourceBundle().getText("uploadNextInvoice.");
                     if (await this.messageBoxConfirm(message) === false)
                     {
                         this.getRouter().navTo(this.getConstantBase().getConstants().ROUTE_OVERVIEW_VENDOR_INVOICE);

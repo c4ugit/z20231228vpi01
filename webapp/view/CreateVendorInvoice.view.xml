@@ -22,7 +22,7 @@
     >
         <semantic:titleHeading>
             <Title
-                text="Nová faktura"
+                text="{i18n>newInvoice}"
                 level="H2"
             />
         </semantic:titleHeading>
@@ -71,7 +71,7 @@
                 >
                     <upload:toolbar>
                         <OverflowToolbar>
-                            <Title text="Faktura - příloha v PDF (lze nahrát jen 1 přílohu v pdf formátu)" />
+                            <Title text="{i18n>invoicePDFAttachmentOnly1Attachment}" />
                             <ToolbarSpacer />
 
                         </OverflowToolbar>
@@ -105,7 +105,7 @@
                 rows="3"
             
                 maxLength="249"
-                placeholder="Poznámka k příloze v maximální délce 249znaků"
+                placeholder="{i18n>noteToAttachedInvoice}" 
                 value="{invoiceModel>/Description}"
                 editable="true"
                    enabled="{globalModelUserInfo>/bEnable}"
@@ -138,7 +138,7 @@
                 >
                     <upload:toolbar>
                         <OverflowToolbar>
-                            <Title text="Ostatní přílohy k faktuře" />
+                            <Title text="{i18n>otherInvoiceAttachments}" />
                             <ToolbarSpacer />
                         </OverflowToolbar>
                     </upload:toolbar>
@@ -178,7 +178,7 @@
         </semantic:messagesIndicator>
         <semantic:positiveAction>
             <semantic:PositiveAction
-                text="Uložit novou fakturu"
+                text="{i18n>saveInvoice}"
                 press=".onSaveNewInvoice"         
                 
                 enabled="{globalModelUserInfo>/bEnable}"

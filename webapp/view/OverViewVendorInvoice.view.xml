@@ -24,7 +24,7 @@
         <semantic:titleHeading>
             <Title
                 id="masterPageTitle"
-                text="Přehled faktur dodavatele"
+                text="{i18n>vendorInvoiceOverview}"
                 level="H2"
             />
         </semantic:titleHeading>
@@ -58,8 +58,8 @@
                     <!-- <f2:Avatar displaySize="{globalModelUserInfo>/Avatarsize}" displayShape="{globalModelUserInfo>/Avatarshape}" src="{globalModelUserInfo>/Avataricon}" backgroundColor="{globalModelUserInfo>/Avatarcolor}"/> -->
 
                     <!-- <Text text="{globalModelHelp>/sInfoLabel}"/> -->
-                    <Text text="Uživatel: {globalModelUserInfo>/FullName}" />
-                    <Text text="Dodavatel: {globalModelUserInfo>/Lifnr} {globalModelUserInfo>/LifnrName}" />
+                    <Text text="{i18n>user}: {globalModelUserInfo>/FullName}" />
+                    <Text text="{i18n>vendor}: {globalModelUserInfo>/Lifnr} {globalModelUserInfo>/LifnrName}" />
                     <!-- <tnt:InfoLabel text="{path:'globalModelHelp>/sInfoLabel'}" renderMode="Loose" colorScheme="{path : 'globalModelAuthorization>/Colorlabel', formatter : '.formatter.colorlabel'}" displayOnly="true"/> -->
                     <ToolbarSpacer />
                     <Button press=".onDeleteCookie" type="Emphasized" visible="{globalModelUserInfo>/bLogonEbeln}" text="{i18n>changeOrder}"></Button>
@@ -84,7 +84,7 @@
                         beforeExport="onBeforeExport"
                         useVariantManagement="true"
                         useTablePersonalisation="true"
-                        header="Seznam faktur"
+                        header="{i18n>listOfInvoicess}"
                         showRowCount="true"
                         beforeRebindTable="onBind"
                         persistencyKey="SmartTableRefApp_Explored"
@@ -103,14 +103,14 @@
                                 <ToolbarSpacer />
 
                                 <OverflowToolbarButton
-                                    text="Nová příloha"
+                                    text="{i18n>newAttachment}Nová příloha"
                                     type="Emphasized"
                                     icon="sap-icon://attachment"
                                     press=".onNewInvoiceAttachCreatePressed"
                                     enabled="{globalModelUserInfo>/bEnable}"
                                 />
                                 <OverflowToolbarButton
-                                    text="Nápověda"
+                                    text="{i18n>help}"
                                     type="Default"
                                     icon="sap-icon://hint"
                                     press=".onPressOpenHelpForUser"
@@ -137,7 +137,7 @@
                                         />
                                     </customData>
                                     <Text
-                                        text="Datum založení"
+                                        text="{i18n>createdOn}"
                                         wrapping="false"
                                     />
                                 </Column>
@@ -149,7 +149,7 @@
                                         />
                                     </customData>
                                     <Text
-                                        text="Čas založení"
+                                        text="{i18n>time}"
                                         wrapping="false"
                                     />
                                 </Column>
@@ -162,7 +162,7 @@
                                         />
                                     </customData>
                                     <Text
-                                        text="Datum dokladu"
+                                        text="{i18n>documentDate}"
                                         wrapping="false"
                                     />
                                 </Column>
@@ -177,7 +177,7 @@
                                     </customData>
                                     <!-- •	Částka v měně dokladu – zalomit za měně -->
                                     <Text
-                                        text="Částka v měně dokladu"
+                                        text="{i18n>grossInvAmnt}"
                                         wrapping="true"
                                     />
                                 </Column>
@@ -192,7 +192,7 @@
                                         />
                                     </customData>
                                     <Text
-                                        text="Částka daně v měně dokladu"
+                                        text="{i18n>taxAmount}"
                                         wrapping="true"
                                     />
                                 </Column>
@@ -206,7 +206,7 @@
                                         />
                                     </customData>
                                     <Text
-                                        text="Měna"
+                                        text="{i18n>currency}"
                                         wrapping="false"
                                     />
                                 </Column>
@@ -220,7 +220,7 @@
                                         />
                                     </customData>
                                     <Text
-                                        text="Č.ref.dokladu"
+                                        text="{i18n>reference}"
                                         wrapping="false"
                                     />
                                 </Column>
@@ -276,7 +276,7 @@
                                         />
                                     </customData>
                                     <Text
-                                        text="Text"
+                                        text="{i18n>text}"
                                         wrapping="false"
                                     />
                                 </Column>
@@ -290,7 +290,7 @@
                                         />
                                     </customData>
                                     <Text
-                                        text="Poznámka"
+                                        text="{i18n>note}"
                                         wrapping="false"
                                     />
                                 </Column>
@@ -304,7 +304,7 @@
                                         />
                                     </customData>
                                     <Text
-                                        text="Status faktury"
+                                        text="{i18n>stateOfInvoice}"
                                         wrapping="false"
                                     />
                                 </Column>

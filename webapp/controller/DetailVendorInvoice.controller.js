@@ -378,7 +378,7 @@ sap.ui.define([
                                 this._oUploadSetAttachment.removeIncompleteItem(this._oUploadSetAttachment.getIncompleteItems()[index])
                             }
                         }
-                        await this.messageBoxWarning("Příloha již byla nahrána. Pro nahrání nové přlohy je nutné původní nejprve smazat.");
+                        await this.messageBoxWarning(this.getResourceBundle().getText("theAttachmentHasAlreadyBeenUploaded."));
                         return;
                     } else
                     {
@@ -394,7 +394,7 @@ sap.ui.define([
                     let oHelpArray = {};
                     oHelpArray.results = [];
                     this.getModel(this.CO_ODATA_INVOICE_HEADER_INCOMPLETE_ATTACH_MODEL).setData(oHelpArray);
-                    await this.messageBoxWarning("Příloha již byla nahrána. Pro nahrání nové přlohy je nutné původní nejprve smazat.");
+                    await this.messageBoxWarning(this.getResourceBundle().getText("theAttachmentHasAlreadyBeenUploaded."));
                     return;
                 } else {
 
@@ -543,7 +543,7 @@ sap.ui.define([
             _removeAttachmentPressed: async function (oEvent,source,item) {
                 oEvent.preventDefault();
 
-                let bDelete = await this.messageBoxWarning2("Pozor, následujícím potvrzením smažete přílohu.");
+                let bDelete = await this.messageBoxWarning2(this.getResourceBundle().getText("warningAttachmentWillBeDeleted"));
                 if (bDelete === false) {
                     return;
                 }
