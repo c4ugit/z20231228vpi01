@@ -69,7 +69,7 @@
 
                     <Label
                         required="false"
-                        text="Status faktury"
+                        text="{i18n>stateOfInvoice}"  
                     />
                     <ObjectStatus 
                     text="{ path:'invoiceModel>/StatusName'}" 
