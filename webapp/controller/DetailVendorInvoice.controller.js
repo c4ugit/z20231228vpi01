@@ -715,7 +715,7 @@ sap.ui.define([
                 let oDataConfirmSaveInvoice = {};
                 try {
                     oDataConfirmSaveInvoice = await this.getCallToBackendBase().callSaveNewInvoice(sPath, oData, this);
-                    await this.messageToastShow("Uložení proběhlo v pořádku", 300);
+                    await this.messageToastShow(this.getResourceBundle().getText("theSaveWasSuccessful"), 1200);
                     this.getRouter().navTo(
                         this.getConstantBase().getConstants().ROUTE_OVERVIEW_VENDOR_INVOICE,
                         {
@@ -732,7 +732,7 @@ sap.ui.define([
                 // let oDataConfirmDeleteInvoiceIT = {};
                 try {
                     await this.getCallToBackendBase().callDeleteInvoiceAttachmentIT(sPath, this);
-                    await this.messageToastShow("Příloha byla smazána ze systému.", 800);
+                    await this.messageToastShow(this.getResourceBundle().getText("theAttachmentWasDeleted"), 1200);
                 } catch (error) {
                     await this.messageBoxError(error);
                 }
@@ -741,7 +741,7 @@ sap.ui.define([
 
                 try {
                     await this.getCallToBackendBase().callDeleteInvoiceAttachment(sPath, this);
-                    await this.messageToastShow("Příloha byla smazána ze systému.", 800);
+                    await this.messageToastShow(this.getResourceBundle().getText("theAttachmentWasDeleted"), 1200);
                 } catch (error) {
                     await this.messageBoxError(error);
                 }
