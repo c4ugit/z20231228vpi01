@@ -261,6 +261,34 @@ sap.ui.define([
             },
             _procesOnMatchedScenario: async function (sInvoiceId) {
                 //10
+                this._setInitStep();
+            
+
+                //20 Načtení dat z backendu.
+                await this._callInvoiceHeader(
+                    sInvoiceId
+                )
+                //30Next steps...
+                this._nextStepsAfterDataCalled();
+            },
+
+
+            /* =========================================================== */
+            /* =========================================================== */
+            /* =========================================================== */
+            /* =========================================================== */
+            /* =========================================================== */
+            /* =========================================================== */
+            /* =========================================================== */
+            /* =========================================================== */
+            /* =========================================================== */
+            /* =========================================================== */
+            /* =========================================================== */
+            /* =========================================================== */
+            /* =========================================================== */
+            /* begin: internal methods                                     */
+            /* =========================================================== */
+            _setInitStep:function () {
                 if (this._oUploadSetAttachment.getIncompleteItems().length > 0) {
                     for (let index = this._oUploadSetAttachment.getIncompleteItems().length - 1; index >= 0; index--) {
                         this._oUploadSetAttachment.removeIncompleteItem(this._oUploadSetAttachment.getIncompleteItems()[index])
@@ -291,31 +319,7 @@ sap.ui.define([
                 this.getModel(this.CO_ODATA_INVOICE_ITEM_MODEL).setData(oHelpArray3);
                 this.getModel(this.CO_ODATA_INVOICE_ITEM_ATTACH_MODEL).setData(oHelpArray4);
                 this.getModel(this.CO_ODATA_INVOICE_ITEM_INCOMPLETE_ATTACH_MODEL).setData(oHelpArray5);
-
-                //20 Načtení dat z backendu.
-                await this._callInvoiceHeader(
-                    sInvoiceId
-                )
-                //30Next steps...
-                this._nextStepsAfterDataCalled();
             },
-
-
-            /* =========================================================== */
-            /* =========================================================== */
-            /* =========================================================== */
-            /* =========================================================== */
-            /* =========================================================== */
-            /* =========================================================== */
-            /* =========================================================== */
-            /* =========================================================== */
-            /* =========================================================== */
-            /* =========================================================== */
-            /* =========================================================== */
-            /* =========================================================== */
-            /* =========================================================== */
-            /* begin: internal methods                                     */
-            /* =========================================================== */
             _beforeItemRemoveIT:function (oEvent) {
                 oEvent.preventDefault();
                 oEvent.getSource().removeIncompleteItem(oEvent.getParameter("item"));
@@ -596,7 +600,7 @@ sap.ui.define([
                     Attach_Id: Attach_Id
                 });
 
-                this._callDeleteInvoiceAttachIT("/" + sPath);
+                this._callDeleteInvoiceAttachIT("/" + sPath,Zinvoicr_Id);
 
             },
             _prepareDeleteInvoiceAttach: function (Zinvoicr_Id) {
@@ -606,7 +610,7 @@ sap.ui.define([
                     Zinvoicr_Id: Zinvoicr_Id
                 });
 
-                this._callDeleteInvoiceAttach("/" + sPath);
+                this._callDeleteInvoiceAttach("/" + sPath,Zinvoicr_Id);
 
             },
 
@@ -725,25 +729,34 @@ sap.ui.define([
 
                 } catch (error) {
                     await this.messageBoxError(error);
+                    this._setInitStep();
+                    await this._callInvoiceHeader(oData.Zinvoicr_Id);
+                    this._nextStepsAfterDataCalled();
 
                 }
             },
-            _callDeleteInvoiceAttachIT: async function (sPath) {
+            _callDeleteInvoiceAttachIT: async function (sPath,zinvoicrId) {
                 // let oDataConfirmDeleteInvoiceIT = {};
                 try {
                     await this.getCallToBackendBase().callDeleteInvoiceAttachmentIT(sPath, this);
                     await this.messageToastShow(this.getResourceBundle().getText("theAttachmentWasDeleted"), 1200);
                 } catch (error) {
                     await this.messageBoxError(error);
+                    this._setInitStep();
+                    await this._callInvoiceHeader(zinvoicrId);
+                    this._nextStepsAfterDataCalled();
                 }
             },
-            _callDeleteInvoiceAttach: async function (sPath) {
+            _callDeleteInvoiceAttach: async function (sPath,zinvoicrId) {
 
                 try {
                     await this.getCallToBackendBase().callDeleteInvoiceAttachment(sPath, this);
                     await this.messageToastShow(this.getResourceBundle().getText("theAttachmentWasDeleted"), 1200);
                 } catch (error) {
                     await this.messageBoxError(error);
+                    this._setInitStep();
+                    await this._callInvoiceHeader(zinvoicrId);
+                    this._nextStepsAfterDataCalled();
                 }
             }
 
