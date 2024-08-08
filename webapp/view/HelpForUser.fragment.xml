@@ -1,7 +1,7 @@
 <core:FragmentDefinition xmlns="sap.m"
     xmlns:core="sap.ui.core"
   >
-    <Dialog title="Nápověda pro uživatele" type="Message" >
+    <Dialog title="{i18n>help}" type="Message" >
         <content>
 
 

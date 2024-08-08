@@ -103,7 +103,8 @@
                                 <ToolbarSpacer />
 
                                 <OverflowToolbarButton
-                                    text="{i18n>newAttachment}Nová příloha"
+                                    text="{i18n>newAttachment}"
+                                    tooltip="{i18n>newAttachment}"
                                     type="Emphasized"
                                     icon="sap-icon://attachment"
                                     press=".onNewInvoiceAttachCreatePressed"
@@ -111,6 +112,7 @@
                                 />
                                 <OverflowToolbarButton
                                     text="{i18n>help}"
+                                    tooltip="{i18n>help}"
                                     type="Default"
                                     icon="sap-icon://hint"
                                     press=".onPressOpenHelpForUser"
