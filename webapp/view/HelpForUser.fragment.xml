@@ -43,23 +43,27 @@
                     <columns>
                         <Column  visible="false" width="3rem">
                             <header>
-                                <Label text="ID pole"/>
+                                <Label text="{i18n>idField}"/>
+                                <!-- ID Field -->
                             </header>
                         </Column>
                         <Column width="18rem">
                             <header>
-                                <Label text="Pole/tlačítko/text aplikace"/>
+                                <Label text="{i18n>fldbutttext}"/>
+                                <!-- Field/button/text in application -->
                             </header>
                         </Column>
                         <Column width="18rem">
                             <header>
-                                <Label text="Ikona"/>
+                                <Label text="{i18n>icon}"/>
+                                <!-- Icon -->
                             </header>
                         </Column>
                     
                         <Column width="50rem">
                             <header>
-                                <Label text="Vysvětlující text"/>
+                                <Label text="{i18n>explainText}"/>
+                                <!-- Explain text -->
                             </header>
                         </Column>
                      <!--    <Column width="7rem">
@@ -120,7 +124,7 @@
 
         <buttons>
 
-            <Button class="sapUiSmallMarginBegin" text="Zavřít okno" press=".onConfirmHelpForUser" width="auto"/>       
+            <Button class="sapUiSmallMarginBegin" text="{i18n>closeWindow}" press=".onConfirmHelpForUser" width="auto"/>       
         </buttons>       
     </Dialog>
 </core:FragmentDefinition>
