@@ -29,7 +29,7 @@ sap.ui.define([
                 oParam.localViewModel = false;
                 oParam.scope = that;
                 oParam.component = that._oComponent;
-                oParam.sExpandParameter = "to_invItemAtt,to_invoiceAtt,to_items";
+                oParam.sExpandParameter = "to_invItemAtt,to_invoiceAtt,to_items,to_statUserType";
 
                 DataOperation.dataOperation(oParam);
             })

@@ -105,7 +105,7 @@
                     id="uploadSetAttachment"
                     instantUpload="false"
                     showIcons="true"
-                    uploadEnabled="{ path:'invoiceModel>/Status', formatter : '.formatter.statusInvoiceUploadEnabled'}"
+                     uploadEnabled="{userTypeStatusModel>/Editallowed}"
                     terminationEnabled="true"
                     fileTypes="pdf"
                     maxFileNameLength="70"
@@ -114,6 +114,7 @@
                     items="{path: 'invoiceAttachModel>/results', templateShareable: false}"
                     incompleteItems="{path: 'invoiceAttachInCompleteModel>/results', templateShareable: false}"
                 >
+                    <!-- uploadEnabled="{ path:'invoiceModel>/Status', formatter : '.formatter.statusInvoiceUploadEnabled'}" -->
                     <upload:toolbar>
                         <OverflowToolbar>
                             <Title
@@ -160,12 +161,13 @@
                 maxLength="249"
                 placeholder="{i18n>noteToAttachedInvoice}"
                 value="{invoiceModel>/Description}"
-                editable="{ path:'invoiceModel>/Status', formatter : '.formatter.statusInvoiceUploadEnabled'}"
-                 enabled="{globalModelUserInfo>/bEnable}"
+                editable="true"
+                 enabled="{userTypeStatusModel>/Editallowed}"
                 width="100%"
                 valueLiveUpdate="false"
                 
                 />
+                <!-- editable="{ path:'invoiceModel>/Status', formatter : '.formatter.statusInvoiceUploadEnabled'}" -->
 
                 <!-- </upload:UploadSet> -->
                 <upload:UploadSet  class="sapUiTinyMarginTop"
@@ -182,7 +184,7 @@
                     id="uploadSetOthersAttachment"
                     instantUpload="false"
                     showIcons="true"
-                    uploadEnabled="{ path:'invoiceModel>/Status', formatter : '.formatter.statusInvoiceUploadEnabled'}"
+                    uploadEnabled="{userTypeStatusModel>/Editallowed}"
                     terminationEnabled="true"
                     fileTypes="txt,doc,png,pdf,xls,xlsx,docx"
                     maxFileNameLength="70"
@@ -191,6 +193,7 @@
                     items="{path: 'invoiceItemAttachModel>/results', templateShareable: false}"
                     incompleteItems="{path: 'invoiceItemAttachInCompleteModel>/results', templateShareable: false}"
                 >
+                    <!-- uploadEnabled="{ path:'invoiceModel>/Status', formatter : '.formatter.statusInvoiceUploadEnabled'}" -->
                     <upload:toolbar>
                         <OverflowToolbar>
                             <Title text="{i18n>otherInvoiceAttachments}" />
@@ -297,10 +300,12 @@
             <semantic:PositiveAction
                 text="{i18n>saveChanges}"
                 press=".onSaveInvoiceChange"
-                enabled="{= ${invoiceModel>/Status} === '1' || ${invoiceModel>/Status} === '9'}"
-                
-                visible="{= ${globalModelUserInfo>/UserType} !== '04'}"
+                enabled="{userTypeStatusModel>/Editallowed}"               
+                visible="{userTypeStatusModel>/Editallowed}"
             />
+                <!-- visible="{= ${globalModelUserInfo>/UserType} !== '04'}" -->
+                <!-- enabled="{= ${invoiceModel>/Status} === '1' || ${invoiceModel>/Status} === '9'}" -->
+                <!-- enabled="{= ${invoiceModel>/Status} === '1' || ${invoiceModel>/Status} === '9'}" -->
                 <!-- visible="{ parts: [  'invoiceModel>/Status','{globalModelUserInfo>/UserType}'], formatter: '.formatter.visibleSaveButton' }" -->
 
            

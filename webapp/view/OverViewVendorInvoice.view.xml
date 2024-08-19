@@ -108,7 +108,7 @@
                                     type="Emphasized"
                                     icon="sap-icon://attachment"
                                     press=".onNewInvoiceAttachCreatePressed"
-                                    enabled="{globalModelUserInfo>/bEnable}"
+                                    enabled="{globalModelUserInfo>/newattachment}"
                                 />
                                 <OverflowToolbarButton
                                     text="{i18n>help}"

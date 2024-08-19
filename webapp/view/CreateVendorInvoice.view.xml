@@ -58,7 +58,7 @@
                     fileTypeMismatch=".onFileTypeMismatch"
                     instantUpload="false"
                     showIcons="true"
-                    uploadEnabled="true"
+                    uploadEnabled="{globalModelUserInfo>/editallowed}"
                     terminationEnabled="true"
                     fileTypes="pdf"
                     maxFileNameLength="70"
@@ -108,7 +108,7 @@
                 placeholder="{i18n>noteToAttachedInvoice}" 
                 value="{invoiceModel>/Description}"
                 editable="true"
-                   enabled="{globalModelUserInfo>/bEnable}"
+                   enabled="{globalModelUserInfo>/editallowed}"
                 width="100%"
                 valueLiveUpdate="false"
                 
@@ -117,7 +117,7 @@
                     id="createUploadSetOthersAttachment"
                     instantUpload="false"
                     showIcons="true"
-                    uploadEnabled="true"
+                    uploadEnabled="{globalModelUserInfo>/editallowed}"
                     terminationEnabled="true"
                     fileTypes="txt,doc,png,pdf,xls,xlsx,docx"
                     maxFileNameLength="70"
@@ -180,11 +180,12 @@
             <semantic:PositiveAction
                 text="{i18n>saveInvoice}"
                 press=".onSaveNewInvoice"         
-                
-                enabled="{globalModelUserInfo>/bEnable}"
-                visible="{= ${globalModelUserInfo>/UserType} !== '04'}"
+                  enabled="{globalModelUserInfo>/editallowed}"               
+                visible="{globalModelUserInfo>/editallowed}"
 
             />
+                <!-- enabled="{globalModelUserInfo>/bEnable}"
+                visible="{= ${globalModelUserInfo>/UserType} !== '04'}" -->
 
         </semantic:positiveAction>
     </semantic:SemanticPage>

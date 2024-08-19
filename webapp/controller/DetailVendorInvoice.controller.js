@@ -38,6 +38,7 @@ sap.ui.define([
             CO_ODATA_INVOICE_ITEM_MODEL: "invoiceItemModel",
             CO_ODATA_INVOICE_ITEM_ATTACH_MODEL: "invoiceItemAttachModel",
             CO_ODATA_INVOICE_ITEM_INCOMPLETE_ATTACH_MODEL: "invoiceItemAttachInCompleteModel",
+            CO_ODATA_USER_TYPE_STATUS: "userTypeStatusModel",
 
 
 
@@ -93,6 +94,7 @@ sap.ui.define([
                 this.setModel(new JSONModel(), this.CO_ODATA_INVOICE_ITEM_MODEL);
                 this.setModel(new JSONModel(), this.CO_ODATA_INVOICE_ITEM_ATTACH_MODEL);
                 this.setModel(new JSONModel(), this.CO_ODATA_INVOICE_ITEM_INCOMPLETE_ATTACH_MODEL);
+                this.setModel(new JSONModel(), this.CO_ODATA_USER_TYPE_STATUS);
                 this.getModel(this.CO_ODATA_INVOICE_ITEM_INCOMPLETE_ATTACH_MODEL).setData({ results: [] });
                 this.getModel(this.CO_ODATA_INVOICE_ITEM_ATTACH_MODEL).setData({ results: [] });
                 this.getModel(this.CO_ODATA_INVOICE_HEADER_INCOMPLETE_ATTACH_MODEL).setData({ results: [] });
@@ -694,8 +696,8 @@ sap.ui.define([
                     this.getModel(this.CO_ODATA_INVOICE_HEADER_ATTACH_MODEL).setData(oDataGetGetInvoiceHeader.to_invoiceAtt);
                     this.getModel(this.CO_ODATA_INVOICE_ITEM_MODEL).setData(oDataGetGetInvoiceHeader.to_items);
                     this.getModel(this.CO_ODATA_INVOICE_ITEM_ATTACH_MODEL).setData(oDataGetGetInvoiceHeader.to_invItemAtt);
-
-
+                    this.getModel(this.CO_ODATA_USER_TYPE_STATUS).setData(oDataGetGetInvoiceHeader.to_statUserType);
+                 
                     this.getModel(this.CO_ODATA_INVOICE_HEADER_MODEL).setProperty("/Deleteflag", oDataGetGetInvoiceHeader.Deleteflag);
                     this.getModel(this.CO_ODATA_INVOICE_HEADER_MODEL).setProperty("/Description", oDataGetGetInvoiceHeader.Description);
                     this.getModel(this.CO_ODATA_INVOICE_HEADER_MODEL).setProperty("/Erdat", oDataGetGetInvoiceHeader.Erdat);
