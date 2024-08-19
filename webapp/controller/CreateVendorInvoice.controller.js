@@ -303,7 +303,7 @@ sap.ui.define([
 
                     //10a - pokračuj dále
                     // this._getDialogEbelnLogon();
-                } else {
+                } else if (sUserType === '02' || sUserType === '03') {
                     //10b - ověř příhlášení pomocí objednávky a hesla
                     //10b_10 - existuje již cookie
                     //10b_40 - otevři dialog
@@ -345,6 +345,8 @@ sap.ui.define([
                     }.bind(this)).catch(async function (sErrorText) {
                         await this.messageBoxError(sErrorText);
                     }.bind(this));
+                } else {
+                    await this.messageBoxError("Error");
                 }
 
                 this._PromiseWaitGetLifnr.then(function () {

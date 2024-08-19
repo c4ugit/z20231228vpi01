@@ -228,9 +228,12 @@ sap.ui.define([
                             // this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_USER_INFO).setProperty("/bEnable", false);
                             return;
                         }
-                    } else if(sUserType === '02' || sUserType === '03'){
+                    } else if(sUserType === '02' || sUserType === '03') {
                         this._getDialogEbelnLogon();
+                    }  else {
+                        await this.messageBoxError("Error");
                     }
+    
 
                     this._PromiseWaitEbelnCheckEbeln.then(async function () {
                         try {
