@@ -169,7 +169,7 @@ sap.ui.define(
         }.bind(this)).catch(async function (msg) {
           await this.messageBoxError(this.getMessagesBase().findFirstErrorMessage(this));
       
-          this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_USER_INFO).setProperty("/bEnable", false);
+          // this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_USER_INFO).setProperty("/bEnable", false);
           // await this.messageBoxError(msg);
         }.bind(this));
 

@@ -282,7 +282,7 @@ sap.ui.define([
                 }.bind(this));
 
                 if (sUserType === '04') {
-                    this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_USER_INFO).setProperty("/bEnable", false);
+                    // this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_USER_INFO).setProperty("/bEnable", false);
                     this._fnResolveWaitGetLifnr();
                 }
                 else if (sUserType === '01') {
@@ -293,11 +293,11 @@ sap.ui.define([
                             sUserType
                         );
                         
-                        this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_USER_INFO).setProperty("/bEnable", true);
+                        // this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_USER_INFO).setProperty("/bEnable", true);
                         this.setHeaderLifnr(oLifnr);                 
                         this._fnResolveWaitGetLifnr();
                     } catch (error) {
-                        this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_USER_INFO).setProperty("/bEnable", false);
+                        // this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_USER_INFO).setProperty("/bEnable", false);
                         return;
                     }
 
@@ -317,11 +317,11 @@ sap.ui.define([
                                 this.getCookie("password"),
                                 sUserType
                             );
-                            this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_USER_INFO).setProperty("/bEnable", true);
+                            // this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_USER_INFO).setProperty("/bEnable", true);
                             this.setHeaderLifnr(oLifnr);                       
                             this._fnResolveWaitGetLifnr();
                         } catch (error) {
-                            this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_USER_INFO).setProperty("/bEnable", false);
+                            // this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_USER_INFO).setProperty("/bEnable", false);
                             return;
                         }
                     } else {
@@ -335,11 +335,11 @@ sap.ui.define([
                                 this.getModel(this.CO_VIEW_MODEL).getProperty("/pasw"),
                                 sUserType
                             );
-                            this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_USER_INFO).setProperty("/bEnable", true);
+                            // this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_USER_INFO).setProperty("/bEnable", true);
                             this.setHeaderLifnr(oLifnr);                           
                             this._fnResolveWaitGetLifnr();                            
                         } catch (error) {
-                            this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_USER_INFO).setProperty("/bEnable", false);
+                            // this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_USER_INFO).setProperty("/bEnable", false);
                             return;
                         }
                     }.bind(this)).catch(async function (sErrorText) {
