@@ -430,6 +430,36 @@ sap.ui.define([
                 DataOperation.dataOperation(oParam);
             })
         },
+        callGetUserAuthorizations: function (that) {
+            return new Promise(function (resolve, reject) {
+                let oParam = {};
+
+                oParam = DataOperation.getListOfCallVar();
+
+                that._oComponent._PromiseGetUserAuthorizations = new Promise(function (fnResolve, fnReject) {
+                    that._oComponent._fnResolveGetUserAuthorizations = fnResolve;
+                    that._oComponent._fnRejectGetUserAuthorizations = fnReject;
+                }.bind(that));
+                that._oComponent._PromiseGetUserAuthorizations.then(function (oData) {
+                    resolve(Object.freeze(oData));
+                }.bind(that)).catch(function (oError) {
+                    reject(that.getMessagesBase().findFirstErrorMessage(that));
+                }.bind(that));
+
+                oParam.sNamePromise = "12";
+                oParam.oParameters = {            
+                  
+                };
+                oParam.bFunction = true;
+                oParam.sObjectPath = "/getUserAuthorizations";
+                oParam.sViewmodel = that.CO_VIEW_MODEL;
+                oParam.scope = that;
+                oParam.component = that._oComponent;
+                oParam.bBusyelement = false;
+
+                DataOperation.dataOperation(oParam);
+            })
+        },
     };
 
 

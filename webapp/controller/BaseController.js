@@ -182,6 +182,10 @@ sap.ui.define([
         {
             return this._getUserType();
         },
+        getLogonEbeln:  function ()
+        {
+            return this._getLogonEbeln();
+        },
         setHeaderLifnr:  function (oLifnr)
         {
              this._setHeaderLifnr(oLifnr);
@@ -273,6 +277,11 @@ sap.ui.define([
         _getUserType: function () {
             let usertype;
             usertype = this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_USER_INFO).getData().UserType;
+            return usertype;
+        },
+        _getLogonEbeln: function () {
+            let logonebeln;
+            logonebeln = this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_USER_INFO).getData().bLogonEbeln;
             return usertype;
         },
         _setHeaderLifnr: function (oFifnr) {

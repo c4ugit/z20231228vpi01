@@ -171,8 +171,8 @@ sap.ui.define([
             _procesOnMatchedScenario: async function () {
 
                 let sUserType;
-                sUserType = this.getUserType();
-                this._setFilterBindSmartTableBasedUserType(sUserType);
+                sUserType = this.getUserType();           
+          
 
                 this._PromiseWaitEbelnCheckEbeln = new Promise(function (fnResolve, fnReject) {
                     this._fnResolveCheckEbeln = fnResolve;
@@ -184,7 +184,7 @@ sap.ui.define([
                 }.bind(this));
 
 
-                if (sUserType === '04') {
+                if (sUserType === '04' || sUserType === '05') {
                     // this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_USER_INFO).setProperty("/bEnable", false);
                     this._fnResolveWaitGetLifnr();
                 }
@@ -228,7 +228,7 @@ sap.ui.define([
                             // this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_USER_INFO).setProperty("/bEnable", false);
                             return;
                         }
-                    } else {
+                    } else if(sUserType === '02' || sUserType === '03'){
                         this._getDialogEbelnLogon();
                     }
 
@@ -283,6 +283,10 @@ sap.ui.define([
             },
             _bindSmartTable: function (oEvent) {
                 oEvent.getParameter("bindingParams").sorter.push(new Sorter("Zinvoicr_Id", true));
+               
+                // if(this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_HELP).getProperty("/oFilterForSmartTable")){
+                    
+                // }
                 if (Object.keys(this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_HELP).getProperty("/oFilterForSmartTable")).length === 0) {
                 } else {
                     oEvent.getParameter("bindingParams").filters.push(this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_HELP).getProperty("/oFilterForSmartTable"));
@@ -324,6 +328,7 @@ sap.ui.define([
                 oFilters = new Filter("Lifnr", FilterOperator.EQ, lifnr);
                 this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_HELP).setProperty("/oFilterForSmartTable", oFilters);
             },
+         
          
             _setFilterBindSmartTableBasedUserType(usertype) {
                 let oFilters, aFiltersMulti;

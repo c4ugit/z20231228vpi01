@@ -2,8 +2,10 @@ sap.ui.define(
   [
     "./BaseController",
     "sap/ui/model/json/JSONModel",
+        "sap/ui/model/Filter",
+    "sap/ui/model/FilterOperator"
   ],
-  function (BaseController, JSONModel) {
+  function (BaseController, JSONModel, Filter,FilterOperator) {
     "use strict";
 
     return BaseController.extend("zmmvpi01.app.z20231228mmvpi01.controller.App", {
@@ -142,7 +144,7 @@ sap.ui.define(
             this._oComponent._PromiseHelpForUser,      
             this._oComponent._PromiseInfoForUser    
           //  this._oComponent._PromiseReasonRequestList      
-        ]).then(function (aPromise) {
+        ]).then(async function (aPromise) {
        
             this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_USER_INFO).setData(aPromise[0].results[0]);     
             this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_STATUS_NAME).setData(aPromise[1]);     
@@ -155,25 +157,29 @@ sap.ui.define(
               odata.Footertext = "";
               odata.Footermessagetype = "Information";
               this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_INFO_FOR_USER).setData(odata);     
-            }
+            } 
+            
+            this._setFilterBindSmartTableInit();
 
+            // let sUserType;
+            // sUserType = this.getUserType();
+            // if(sUserType === '05') {
+            //     await this._callGetUserAuthorizations();
+            // }
 
-            // <MessageStrip  showCloseButton="true" visible="{globalModelInfoForUser>/Bfooterdisplay}" 
-            //     showIcon="true" type="{globalModelInfoForUser>/Footermessagetype}" text="{globalModelInfoForUser>/Footertext}"/>
-
-
-            // this.byId(this.CO_SMART_FILTER_INVOICE_ID).getSmartVariant().setVisible(false)
-            // this.byId(this.CO_SMART_TABLE_INVOICE_ID).setShowTablePersonalisation(false)
 
           this.getOwnerComponent()._fnResolveDataLoadedInit();
         }.bind(this)).catch(async function (msg) {
           await this.messageBoxError(this.getMessagesBase().findFirstErrorMessage(this));
-      
-          // this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_USER_INFO).setProperty("/bEnable", false);
-          // await this.messageBoxError(msg);
         }.bind(this));
 
       },
+
+      _setFilterBindSmartTableInit() {
+        let oFilters;
+        oFilters = {};
+        this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_HELP).setProperty("/oFilterForSmartTable", oFilters);
+    },
 
 
 
@@ -212,6 +218,39 @@ sap.ui.define(
       /* =========================================================== */
       /* begin: Call to backendu                                     */
       /* =========================================================== */
+      
+      _callGetUserAuthorizations: async function ()
+      {
+       
+          let oDataGetEKGRP = {};
+          try
+          {
+            oDataGetEKGRP = await this.getCallToBackendBase().callGetUserAuthorizations(this);
+
+         
+            let aFiltersMulti = [];
+            let aFilters = [];
+
+            for (let index = 0; index < oDataGetEKGRP.results.length; index++) {
+              let Ekgrp = oDataGetEKGRP.results[index].Ekgrp;
+              let oFilters = {};
+              oFilters = new Filter("Ekgrp", FilterOperator.EQ, Ekgrp);
+              aFiltersMulti.push(oFilters);
+            } 
+          aFilters.push(new Filter({
+              and: false,
+              filters: aFiltersMulti
+          }));
+
+          this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_HELP).setProperty("/oFilterForSmartTable", aFilters[0]);
+
+ 
+
+          } catch (error)
+          {
+              await this.messageBoxError(error);
+          }
+      },
     });
   }
 );

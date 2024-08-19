@@ -94,6 +94,9 @@ sap.ui.define([
                     case "11":
                         oComponent._fnResolveInfoForUser(oDataServer);
                         break;
+                    case "12":
+                        oComponent._fnResolveGetUserAuthorizations(oDataServer);
+                        break;
 
 
                     default:
@@ -142,6 +145,9 @@ sap.ui.define([
                         break;
                     case "11":
                         oComponent._fnRejectInfoForUser(oError);
+                        break;
+                    case "12":
+                        oComponent._fnRejectGetUserAuthorizations(oError);
                         break;
                     default:
                         break;

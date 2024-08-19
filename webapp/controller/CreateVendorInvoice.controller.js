@@ -281,7 +281,7 @@ sap.ui.define([
                     this._fnRejectWaitGetLifnr = fnReject;
                 }.bind(this));
 
-                if (sUserType === '04') {
+                if (sUserType === '04' || sUserType ===  '05') {
                     // this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_USER_INFO).setProperty("/bEnable", false);
                     this._fnResolveWaitGetLifnr();
                 }
