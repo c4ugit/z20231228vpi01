@@ -719,7 +719,8 @@ sap.ui.define([
                 let oDataConfirmSaveInvoice = {};
                 try {
                     oDataConfirmSaveInvoice = await this.getCallToBackendBase().callSaveNewInvoice(sPath, oData, this);
-                    await this.messageToastShow(this.getResourceBundle().getText("theSaveWasSuccessful"), 1200);
+                    // await this.messageToastShow(this.getResourceBundle().getText("theSaveWasSuccessful"), 1200);
+                    await this.messageBoxSuccess(this.getResourceBundle().getText("theSaveWasSuccessful"));
                     this.getRouter().navTo(
                         this.getConstantBase().getConstants().ROUTE_OVERVIEW_VENDOR_INVOICE,
                         {
@@ -739,7 +740,8 @@ sap.ui.define([
                 // let oDataConfirmDeleteInvoiceIT = {};
                 try {
                     await this.getCallToBackendBase().callDeleteInvoiceAttachmentIT(sPath, this);
-                    await this.messageToastShow(this.getResourceBundle().getText("theAttachmentWasDeleted"), 1200);
+                    // await this.messageToastShow(this.getResourceBundle().getText("theAttachmentWasDeleted"), 1200);
+                    await this.messageBoxSuccess(this.getResourceBundle().getText("theAttachmentWasDeleted"));
                 } catch (error) {
                     await this.messageBoxError(error);
                     this._setInitStep();
@@ -748,10 +750,17 @@ sap.ui.define([
                 }
             },
             _callDeleteInvoiceAttach: async function (sPath,zinvoicrId) {
-
+                let bReplace = !Device.system.phone;
                 try {
                     await this.getCallToBackendBase().callDeleteInvoiceAttachment(sPath, this);
-                    await this.messageToastShow(this.getResourceBundle().getText("theAttachmentWasDeleted"), 1200);
+                    // await this.messageToastShow(this.getResourceBundle().getText("theAttachmentWasDeleted"), 1200);
+                    await this.messageBoxSuccess(this.getResourceBundle().getText("theAttachmentWasDeleted"));
+                    this.getRouter().navTo(
+                        this.getConstantBase().getConstants().ROUTE_OVERVIEW_VENDOR_INVOICE,
+                        {
+                        },
+                        bReplace
+                    );
                 } catch (error) {
                     await this.messageBoxError(error);
                     this._setInitStep();
