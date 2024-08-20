@@ -161,11 +161,11 @@ sap.ui.define(
             
             this._setFilterBindSmartTableInit();
 
-            // let sUserType;
-            // sUserType = this.getUserType();
-            // if(sUserType === '05') {
-            //     await this._callGetUserAuthorizations();
-            // }
+            let sUserType;
+            sUserType = this.getUserType();
+            if(sUserType === '05') {
+                await this._callGetUserAuthorizations();
+            }
 
 
           this.getOwnerComponent()._fnResolveDataLoadedInit();
