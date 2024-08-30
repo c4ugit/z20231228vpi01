@@ -807,8 +807,8 @@ sap.ui.define([
                     this.getModel(this.CO_ODATA_INVOICE_ITEM_INCOMPLETE_ATTACH_MODEL).setData({ results: [] });
 
 
-                    // await this.messageToastShow(this.getResourceBundle().getText("theSaveWasSuccessful"), 1200);
-                    await this.messageBoxSuccess(this.getResourceBundle().getText("theSaveWasSuccessful"));
+                     await this.messageToastShow(this.getResourceBundle().getText("theSaveWasSuccessful"), 1000);
+                    // await this.messageBoxSuccess(this.getResourceBundle().getText("theSaveWasSuccessful"));
                     if (this._oUploadSetOthersAttachment.getIncompleteItems().length > 0)
                     {
                         for (let index = this._oUploadSetOthersAttachment.getIncompleteItems().length - 1; index >= 0; index--)
