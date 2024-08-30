@@ -626,7 +626,7 @@ sap.ui.define([
                     //10_1
                     this._oUploadSetAttachment.getItems()[index].setVisibleEdit(false);
                     //10_2 pokud je status jiný než 1, pak i visible remove
-                    if (this.getModel(this.CO_ODATA_INVOICE_HEADER_MODEL).getProperty("/Status") === "1") {
+                    if (this.getModel(this.CO_ODATA_USER_TYPE_STATUS).getProperty("/Editattach") === true) {
                         this._oUploadSetAttachment.getItems()[index].setVisibleRemove(true);
 
                     } else {
@@ -637,10 +637,10 @@ sap.ui.define([
                     //10_1
                     this._oUploadSetOthersAttachment.getItems()[index].setVisibleEdit(false);
                     //10_2 pokud je status jiný než 1, pak i visible remove
-                    if (this.getModel(this.CO_ODATA_INVOICE_HEADER_MODEL).getProperty("/Status") === "1") {
+                    if (this.getModel(this.CO_ODATA_USER_TYPE_STATUS).getProperty("/Editallowed") === true) {
                         this._oUploadSetOthersAttachment.getItems()[index].setVisibleRemove(true);
 
-                    } else {
+                    } else {   
                         this._oUploadSetOthersAttachment.getItems()[index].setVisibleRemove(false);
                     }
                 }
