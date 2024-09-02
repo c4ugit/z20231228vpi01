@@ -70,9 +70,12 @@ sap.ui.define([
             // for (let index = 0; index < aMessagesObject.length; index++) {
                 for (let index = aMessagesObject.length - 1; index >= 0; index--) {
                 const oMessages = aMessagesObject[index];
-                if (String(oMessages.getTechnicalDetails().statusCode) === "400" || String(oMessages.getTechnicalDetails().statusCode) === "500") {
-                    return oMessages.getMessage();                    
+                if(oMessages.type === "Error") {
+                    return oMessages.getMessage();      
                 }
+                // if (String(oMessages.getTechnicalDetails().statusCode) === "400" || String(oMessages.getTechnicalDetails().statusCode) === "500") {
+                //     return oMessages.getMessage();                    
+                // }
                 
             }
 
