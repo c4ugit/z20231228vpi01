@@ -301,7 +301,7 @@
                 text="{i18n>saveChanges}"
                 press=".onSaveInvoiceChange"
                 enabled="{userTypeStatusModel>/Editallowed}"               
-                visible="{userTypeStatusModel>/Editallowed}"
+                 visible="{globalModelHelp>/bVISInApp}"
             />
                 <!-- visible="{= ${globalModelUserInfo>/UserType} !== '04'}" -->
                 <!-- enabled="{= ${invoiceModel>/Status} === '1' || ${invoiceModel>/Status} === '9'}" -->

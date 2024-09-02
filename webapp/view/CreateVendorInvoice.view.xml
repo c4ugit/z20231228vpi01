@@ -181,7 +181,7 @@
                 text="{i18n>saveInvoice}"
                 press=".onSaveNewInvoice"         
                   enabled="{globalModelUserInfo>/editallowed}"               
-                visible="{globalModelUserInfo>/editallowed}"
+                visible="{globalModelHelp>/bVISInApp}"
 
             />
                 <!-- enabled="{globalModelUserInfo>/bEnable}"

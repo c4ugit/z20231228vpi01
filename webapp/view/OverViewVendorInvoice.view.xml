@@ -109,6 +109,7 @@
                                     icon="sap-icon://attachment"
                                     press=".onNewInvoiceAttachCreatePressed"
                                     enabled="{globalModelUserInfo>/newattachment}"
+                                      visible="{globalModelHelp>/bVISInApp}"
                                 />
                                 <OverflowToolbarButton
                                     text="{i18n>help}"
@@ -118,6 +119,7 @@
                                     press=".onPressOpenHelpForUser"
                                     enabled="true"
                                     visible="{globalModelUserInfo>/helpforuser}"
+                                    
                                 />
                             </OverflowToolbar>
                         </smartTable:customToolbar>
