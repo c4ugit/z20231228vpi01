@@ -642,7 +642,7 @@ sap.ui.define([
 
                 if (this._oUploadSetAttachment.getIncompleteItems().length === 0)
                 {
-                    this.getMessagesBase().addMessage(this.getResourceBundle().getText("noAttachmentUploaded"), "", this.getModel());
+                    this.getMessagesBase().addMessage(this.getResourceBundle().getText("noAttachmentUploaded"),"Error", "", this.getModel());
                     this.getModel(this.CO_VIEW_MODEL).setProperty("/bValid", false);
                 }
                 if (this._oUploadSetOthersAttachment.getIncompleteItems().length === 0)
