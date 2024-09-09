@@ -231,6 +231,9 @@ sap.ui.define([
             onCloseEbelnLogon: function (oEvent) {
                 this._closeEbelnLogon(oEvent);
             },
+            onDeleteCookie: function (oEvent) {
+                this._deleteCookieRefresh();
+            },
 
 
 
@@ -413,6 +416,15 @@ sap.ui.define([
             /* =========================================================== */
             /* begin: internal methods                                     */
             /* =========================================================== */
+            _deleteCookieRefresh: function (oFifnr) {
+                var that = this;
+                this.deleteCookie();
+                var oHashChanger = this.getRouter().oHashChanger;
+                oHashChanger.setHash("");
+                this.getModel().removeData();
+                window.location.reload();
+
+            },
 
             _beforeItemRemoveIT: function (oEvent)
             {

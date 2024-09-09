@@ -27,7 +27,12 @@
             />
         </semantic:titleHeading>
         <semantic:titleExpandedContent>
-            <!-- <Toolbar width="auto" /> -->
+          <Toolbar width="auto">
+                <content>
+                         <ToolbarSpacer />
+                    <Button press=".onDeleteCookie" type="Emphasized" visible="{globalModelUserInfo>/bLogonEbeln}" text="{i18n>changeOrder}"></Button>
+                </content>
+            </Toolbar>
         </semantic:titleExpandedContent>
         <semantic:headerContent />
         <!--Semantic ShareMenu Buttons-->
