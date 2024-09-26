@@ -284,12 +284,12 @@ sap.ui.define([
                     this._fnRejectWaitGetLifnr = fnReject;
                 }.bind(this));
 
-                if (sUserType === '04' || sUserType === '05' || sUserType === '06' || sUserType === '07'|| sUserType === '08') 
+                if (sUserType === '04' || sUserType === '05' || sUserType === '07'|| sUserType === '08') 
                     {
                     this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_HELP).setProperty("/bVISInApp", true);
                     this._fnResolveWaitGetLifnr();
                 }
-                else if (sUserType === '01') {
+                else if (sUserType === '01' || sUserType === '06' ) {
                     try {
                         let oLifnr = await this.callGetLifnr(
                             "",
