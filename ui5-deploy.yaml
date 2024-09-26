@@ -18,9 +18,9 @@ builder:
           url:  https://czsap-d.linetgroup.com
           #url: http://hnk89d:8400
           # destination: D89_odata_C4U_LIC
-          client: "200"
+          client: "100"
         app:
           name: zmmvpi01
           description: Portál pro zpracování faktur
           package: ZC4U_VPI
-          transport:   LSDK934632 
+          transport:    LSDK934857 
