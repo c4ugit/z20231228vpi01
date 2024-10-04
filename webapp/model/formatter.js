@@ -303,6 +303,9 @@ sap.ui.define([
                 case "7":
                     Status = "Error";
                     break;
+                case "8":
+                    Status = "Error";
+                    break;
                 case "9":
                     Status = "Error";
                     break;
@@ -335,6 +338,9 @@ sap.ui.define([
                     Status = "Success";
                     break;
                 case "7":
+                    Status = "Error";
+                    break;
+                case "8":
                     Status = "Error";
                     break;
                 case "9":
