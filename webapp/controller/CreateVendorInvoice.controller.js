@@ -665,6 +665,10 @@ sap.ui.define([
 
               if (this.getModel(this.CO_VIEW_MODEL).getProperty("/bValid") === true)
                 {
+                    if ( this.getUserType() === '06') {
+                        this._prepraveSaveNewInvoice();
+                        return;
+                    }
                     let message = this.getResourceBundle().getText("saveNewInvoice");
                     if (await this.messageBoxConfirm(message) === false)
                     {
@@ -829,7 +833,10 @@ sap.ui.define([
                             this._oUploadSetOthersAttachment.removeIncompleteItem(this._oUploadSetOthersAttachment.getIncompleteItems()[index])
                         }
                     }
-
+                    
+                    if ( this.getUserType() === '06') {
+                        return;
+                    }
 
                     let message = this.getResourceBundle().getText("uploadNextInvoice");
                     if (await this.messageBoxConfirm(message) === false)
