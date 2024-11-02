@@ -44,6 +44,8 @@
             />
               <MessageStrip  showCloseButton="true" visible="{globalModelInfoForUser>/Bfooterdisplay}" 
                 showIcon="true" type="{globalModelInfoForUser>/Footermessagetype}" text="{globalModelInfoForUser>/Footertext}"/>
+              <MessageStrip class="sapUiTinyMarginTop" showCloseButton="false" visible="{globalModelInfoForUserFooter>/Bfooterdisplay}" 
+                showIcon="true" type="{globalModelInfoForUserFooter>/Footermessagetype}" text="{globalModelInfoForUserFooter>/Footertext}"/>
         </semantic:headerContent>
         <semantic:titleExpandedHeading />
         <semantic:titleExpandedContent>
@@ -406,5 +408,11 @@
                 tooltip="{i18n>messages}"
             />
         </semantic:messagesIndicator>
+        <!-- <semantic:footerCustomActions>
+        <Button text="{globalModelInfoForUserFooter>/Footertext}" enabled="false" type="Reject"></Button>
+        </semantic:footerCustomActions> -->
+        <semantic:negativeAction>
+     <semantic:NegativeAction  text="{globalModelInfoForUserFooter>/Footertext}" enabled="false"></semantic:NegativeAction>
+        </semantic:negativeAction>
     </semantic:SemanticPage>
 </mvc:View>

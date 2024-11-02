@@ -116,6 +116,10 @@
             "globalModelUserTypeStatus": {
                 "type": "sap.ui.model.json.JSONModel",
                 "preload": true
+            },
+            "globalModelInfoForUserFooter": {
+                "type": "sap.ui.model.json.JSONModel",
+                "preload": true
             }
         },
         "resources": {

@@ -7,6 +7,7 @@ sap.ui.define([], function () {
 
                 GLOBAL_MODEL_HELP: "globalModelHelp",   //Pomocný globální model           
                 GLOBAL_MODEL_HELP_FOR_USER: "globalModelHelpForUser",   //Pomocný globální model           
+                GLOBAL_MODEL_USER_INFO_FOOTER: "globalModelInfoForUserFooter",   //Pomocný globální model           
                 GLOBAL_MODEL_INFO_FOR_USER: "globalModelInfoForUser",   //Pomocný globální model           
                 GLOBAL_MODEL_USER_TYPE_STATUS: "globalModelUserTypeStatus",   //Pomocný globální model           
                 GLOBAL_MODEL_AUTH: "globalModelAuthorization", //        

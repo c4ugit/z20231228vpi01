@@ -146,10 +146,17 @@ sap.ui.define(
           //  this._oComponent._PromiseReasonRequestList      
         ]).then(async function (aPromise) {
        
-            this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_USER_INFO).setData(aPromise[0].results[0]);     
+            this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_USER_INFO).setData(aPromise[0].results[0]); 
             this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_STATUS_NAME).setData(aPromise[1]);     
             this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_HELP_FOR_USER).setData(aPromise[2]);     
-            this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_INFO_FOR_USER).setData(aPromise[3].results[0]);    
+            this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_INFO_FOR_USER).setData(aPromise[3].results[0]);  
+            let aFooter =   aPromise[3].results.filter(function(oResult) {
+              return oResult.Footerid === '999' //Musí být nastavené v tabulce 
+            })
+            if( aFooter.length >= 0) {
+              this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_USER_INFO_FOOTER).setData(aFooter[0]); 
+            }
+  
             
             this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_HELP).setProperty("/bVISInApp", false);
 
