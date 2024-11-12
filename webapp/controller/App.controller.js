@@ -150,22 +150,41 @@ sap.ui.define(
             this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_STATUS_NAME).setData(aPromise[1]);     
             this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_HELP_FOR_USER).setData(aPromise[2]);     
             this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_INFO_FOR_USER).setData(aPromise[3].results[0]);  
+
             let aFooter =   aPromise[3].results.filter(function(oResult) {
               return oResult.Footerid === '999' //Musí být nastavené v tabulce 
             })
             if( aFooter.length > 0) {
               this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_USER_INFO_FOOTER).setData(aFooter[0]); 
             }
+
+            let aMessages =  aPromise[3].results.filter(function(oResult) {
+              return oResult.Footerid !== '999' //Musí být nastavené v tabulce 
+            })
+
+            if( aFooter.length > 0) {
+              this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_USER_INFO_FOOTER).setData(aFooter[0]); 
+            }
+            if( aMessages.length > 0) {
+              this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_INFO_FOR_USER).setData(aMessages[0]); 
+            }
   
             
             this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_HELP).setProperty("/bVISInApp", false);
 
-            if (aPromise[3].results.length === 0) {
+            if (aMessages.length === 0) {
               let odata = {};
               odata.Bfooterdisplay = false;
               odata.Footertext = "";
               odata.Footermessagetype = "Information";
               this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_INFO_FOR_USER).setData(odata);     
+            } 
+            if (aFooter.length === 0) {
+              let odata2 = {};
+              odata2.Bfooterdisplay = false;
+              odata2.Footertext = "";
+              odata2.Footermessagetype = "Information";
+              this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_USER_INFO_FOOTER).setData(odata2);     
             } 
             
             this._setFilterBindSmartTableInit();
