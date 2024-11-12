@@ -153,7 +153,7 @@ sap.ui.define(
             let aFooter =   aPromise[3].results.filter(function(oResult) {
               return oResult.Footerid === '999' //Musí být nastavené v tabulce 
             })
-            if( aFooter.length >= 0) {
+            if( aFooter.length > 0) {
               this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_USER_INFO_FOOTER).setData(aFooter[0]); 
             }
   

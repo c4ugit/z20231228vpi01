@@ -411,8 +411,8 @@
         <!-- <semantic:footerCustomActions>
         <Button text="{globalModelInfoForUserFooter>/Footertext}" enabled="false" type="Reject"></Button>
         </semantic:footerCustomActions> -->
-        <semantic:negativeAction>
+        <!-- <semantic:negativeAction>
      <semantic:NegativeAction  text="{globalModelInfoForUserFooter>/Footertext}" enabled="false"></semantic:NegativeAction>
-        </semantic:negativeAction>
+        </semantic:negativeAction> -->
     </semantic:SemanticPage>
 </mvc:View>
