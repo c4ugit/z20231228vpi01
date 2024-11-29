@@ -137,12 +137,14 @@ sap.ui.define(
         this.getCallToBackendBase().callStatusName(this);     
         this.getCallToBackendBase().callHelpForUser(this);     
         this.getCallToBackendBase().callInfoForUser(this);     
+        this.getCallToBackendBase().callConstant(this);     
         // this.getCallToBackendBase().callReasonRequestList(this);     
         Promise.all([
             this._oComponent._PromiseInfoUser,
             this._oComponent._PromiseStatusName,      
             this._oComponent._PromiseHelpForUser,      
-            this._oComponent._PromiseInfoForUser    
+            this._oComponent._PromiseInfoForUser,    
+            this._oComponent._PromiseGetConstant    
           //  this._oComponent._PromiseReasonRequestList      
         ]).then(async function (aPromise) {
        
@@ -150,6 +152,7 @@ sap.ui.define(
             this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_STATUS_NAME).setData(aPromise[1]);     
             this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_HELP_FOR_USER).setData(aPromise[2]);     
             this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_INFO_FOR_USER).setData(aPromise[3].results[0]);  
+            this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_CONSTANT).setData(aPromise[4]);  
 
             let aFooter =   aPromise[3].results.filter(function(oResult) {
               return oResult.Footerid === '999' //Musí být nastavené v tabulce 

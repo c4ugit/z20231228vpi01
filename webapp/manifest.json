@@ -120,6 +120,10 @@
             "globalModelInfoForUserFooter": {
                 "type": "sap.ui.model.json.JSONModel",
                 "preload": true
+            },
+            "globalModelConstant": {
+                "type": "sap.ui.model.json.JSONModel",
+                "preload": true
             }
         },
         "resources": {

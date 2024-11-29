@@ -23,4 +23,4 @@ builder:
           name: zmmvpi01
           description: Portál pro zpracování faktur
           package: ZC4U_VPI
-          transport:       LSDK935260 
+          transport:       LSDK935288 

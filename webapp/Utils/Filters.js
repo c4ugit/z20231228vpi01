@@ -188,7 +188,7 @@ sap.ui.define([
 
             return aFilter[0];
         },
-        setFiltersMaterialList: function (sQuery) {
+        setFiltersOverViewList: function (lifnr,robot) {
             var aFilter;
             aFilter = [
                 new Filter({
@@ -197,21 +197,15 @@ sap.ui.define([
                         new Filter({
                             and: true,
                             filters: [
-                                new Filter("matnr", FilterOperator.Contains, sQuery)
+                                new Filter("Lifnr", FilterOperator.EQ, lifnr)
                             ]
                         }),
                         new Filter({
                             and: true,
                             filters: [
-                                new Filter("maktx", FilterOperator.Contains, sQuery)
+                                new Filter("Ernam", FilterOperator.EQ, robot)
                             ]
-                        }),
-                        new Filter({
-                            and: true,
-                            filters: [
-                                new Filter("meins", FilterOperator.Contains, sQuery)
-                            ]
-                        })
+                        })                   
                     ]
                 })
 

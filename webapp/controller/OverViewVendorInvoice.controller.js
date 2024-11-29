@@ -328,7 +328,24 @@ sap.ui.define([
             _setFilterBindSmartTable: function (lifnr) {
                 let oFilters;
                 oFilters = {};
-                oFilters = new Filter("Lifnr", FilterOperator.EQ, lifnr);
+                //  oFilters = new Filter("Lifnr", FilterOperator.EQ, lifnr);
+                let robot;
+
+                robot = this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_CONSTANT).getData().results.filter(function (oDataConstant){
+                    return oDataConstant.Attribut === this.getConstantBase().getConstants().ROBOT_IRPA;
+                }.bind(this))
+                // oFilters = this.getFilterBase().setFiltersOverViewList(lifnr,robot[0].AttributValue);
+
+                oFilters =   new Filter({
+                            and: true,
+                            filters: [
+                                new Filter("Lifnr", FilterOperator.EQ, lifnr)
+                                // new Filter("Ernam", FilterOperator.EQ, robot[0].AttributValue)
+                            ]
+                        })                                  
+               
+              
+                
                 this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_HELP).setProperty("/oFilterForSmartTable", oFilters);
             },
          

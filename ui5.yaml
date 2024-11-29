@@ -15,6 +15,7 @@ server:
             - /resources
             - /test-resources
           url: https://ui5.sap.com
+          version: 1.120.14
         backend:
           - path: /sap # url: http://hnk49d:8400
             url: https://czsap-d.linetgroup.com #url: https://d89.heicz.cz:8492/sap/bc/ui2/flp?saml2=disabled   
@@ -31,3 +32,4 @@ server:
       configuration:
         component: zmmvpi01.app.z20231228mmvpi01
         ui5Theme: sap_fiori_3
+

@@ -460,6 +460,37 @@ sap.ui.define([
                 DataOperation.dataOperation(oParam);
             })
         },
+        
+        callConstant: function (that) {
+            return new Promise(function (resolve, reject) {
+                let oParam = {};
+
+                oParam = DataOperation.getListOfCallVar();
+
+                that._oComponent._PromiseGetConstant = new Promise(function (fnResolve, fnReject) {
+                    that._oComponent._fnResolveGetConstant = fnResolve;
+                    that._oComponent._fnRejectGetConstant = fnReject;
+                }.bind(that));
+                that._oComponent._PromiseGetConstant.then(function (oData) {
+                    resolve(Object.freeze(oData));
+                }.bind(that)).catch(function (oError) {
+                    reject(that.getMessagesBase().findFirstErrorMessage(that));
+                }.bind(that));
+
+                oParam.sNamePromise = "13";
+                oParam.oParameters = {            
+                  
+                };
+                oParam.bFunction = false;
+                oParam.sObjectPath = "/ZC_Constant";
+                oParam.sViewmodel = that.CO_VIEW_MODEL;
+                oParam.scope = that;
+                oParam.component = that._oComponent;
+                oParam.bBusyelement = false;
+
+                DataOperation.dataOperation(oParam);
+            })
+        },
     };
 
 

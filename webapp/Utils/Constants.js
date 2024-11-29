@@ -9,6 +9,7 @@ sap.ui.define([], function () {
                 GLOBAL_MODEL_HELP_FOR_USER: "globalModelHelpForUser",   //Pomocný globální model           
                 GLOBAL_MODEL_USER_INFO_FOOTER: "globalModelInfoForUserFooter",   //Pomocný globální model           
                 GLOBAL_MODEL_INFO_FOR_USER: "globalModelInfoForUser",   //Pomocný globální model           
+                GLOBAL_MODEL_CONSTANT: "globalModelConstant",   //Pomocný globální model           
                 GLOBAL_MODEL_USER_TYPE_STATUS: "globalModelUserTypeStatus",   //Pomocný globální model           
                 GLOBAL_MODEL_AUTH: "globalModelAuthorization", //        
                 GLOBAL_MODEL_FC: "globalModelFieldsControl", //Možnosti nastavení aplikace            
@@ -23,6 +24,7 @@ sap.ui.define([], function () {
                 GLOBAL_MODEL_REASON_REQ_LIST: "globalModelReasonReqList", 
 
                 APP_VIEW_MODEL: "appView", 
+                ROBOT_IRPA: "UserForRobot", 
 
 
 
