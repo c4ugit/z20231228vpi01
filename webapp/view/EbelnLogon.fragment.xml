@@ -1,5 +1,5 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
-	<Dialog title="{i18n>login}" type="Message" afterClose="onCloseEbelnLogon" escapeHandler=".onESCEbelnLogon">
+	<Dialog title="{i18n>login}" type="Message" afterClose="onCloseEbelnLogon" >
 		<content>
 			<MessageStrip text="{i18n>enterEbelnAndPasw}" showIcon="true"/>
 			<Input width="100%" placeholder="{i18n>purchaseOrder}" type="Number" maxLength="10"/>
