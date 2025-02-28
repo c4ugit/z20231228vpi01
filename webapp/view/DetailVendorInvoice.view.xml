@@ -186,7 +186,7 @@
                     showIcons="true"
                     uploadEnabled="{userTypeStatusModel>/Editallowed}"
                     terminationEnabled="true"
-                    fileTypes="txt,doc,png,pdf,xls,xlsx,docx,csv"
+                    fileTypes="txt,doc,png,pdf,xls,xlsx,docx,csv,jpg,jpeg"
                     maxFileNameLength="70"
                     maxFileSize="200"
                     mediaTypes="text/plain,application/msword,image/jpeg,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf"

@@ -118,13 +118,14 @@
                 valueLiveUpdate="false"
                 
                 />
+                <!-- Other Item -->
                 <upload:UploadSet  class="sapUiTinyMarginTop"
                     id="createUploadSetOthersAttachment"
                     instantUpload="false"
                     showIcons="true"
                     uploadEnabled="{globalModelUserInfo>/editallowed}"
                     terminationEnabled="true"
-                    fileTypes="txt,doc,png,pdf,xls,xlsx,docx,csv"
+                    fileTypes="txt,doc,png,pdf,xls,xlsx,docx,csv,jpg,jpeg"
                     maxFileNameLength="70"
                     maxFileSize="200"
                     mediaTypes="text/plain,application/msword,image/jpeg,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf"
