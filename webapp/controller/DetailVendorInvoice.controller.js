@@ -138,9 +138,12 @@ sap.ui.define([
                 this._removeAttachmentPressedIT(oEvent);
             },
             onBeforeItemAddedIT: function (oEvent) {
-
+                this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_HELP).setProperty(this.getConstantBase().getConstants().BEFORE_ITEM_ADDED, true);    
+           
             },
             onAfterItemAddedIT:  function (oEvent) {
+                this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_HELP).setProperty(this.getConstantBase().getConstants().BEFORE_ITEM_ADDED, false);    
+           
                 this._afterItemAddedIT(oEvent);      
             },
             onBeforeItemEditedIT: function (oEvent) {
@@ -155,6 +158,7 @@ sap.ui.define([
             },
             onFileSizeExceededIT: function (oEvent) {
                 this.getAttachmentBase().setPropertyAttachFC(this.getConstantBase().getConstants().FILE_NAME_SIZE_EXCEEDED_IT, false, this);
+                this._checkIfBeforeItemAdd();
             },
             onFileTypeMismatchIT: function (oEvent) {
                 this.getAttachmentBase().setPropertyAttachFC(this.getConstantBase().getConstants().FILE_TYPE_MISMATCH_EXCEEDED_IT, false, this);
@@ -188,19 +192,24 @@ sap.ui.define([
                 this._beforeItemRemove(oEvent,oEvent.getSource(),oEvent.getParameter("item"));
             },
             onBeforeItemAdded: function (oEvent) {
-
+                this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_HELP).setProperty(this.getConstantBase().getConstants().BEFORE_ITEM_ADDED, true);  
+         
             },
             onAfterItemAdded: async function (oEvent) {
+                this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_HELP).setProperty(this.getConstantBase().getConstants().BEFORE_ITEM_ADDED, false);    
+           
                 this._afterItemAdded(oEvent);                
             },
             onBeforeItemEdited: function (oEvent) {
-
+                  
+           
             },
             onFileNameLengthExceeded: function (oEvent) {
                 this.getAttachmentBase().setPropertyAttachFC(this.getConstantBase().getConstants().FILE_NAME_LENGTH_EXCEEDED, false, this);
             },
             onFileSizeExceeded: function (oEvent) {
                 this.getAttachmentBase().setPropertyAttachFC(this.getConstantBase().getConstants().FILE_NAME_SIZE_EXCEEDED, false, this);
+                this._checkIfBeforeItemAdd();
             },
             onFileTypeMismatch: function (oEvent) {
                 this.getAttachmentBase().setPropertyAttachFC(this.getConstantBase().getConstants().FILE_TYPE_MISMATCH_EXCEEDED, false, this);
@@ -290,6 +299,19 @@ sap.ui.define([
             /* =========================================================== */
             /* begin: internal methods                                     */
             /* =========================================================== */
+            _checkIfBeforeItemAdd: async function(){
+                if ( this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_HELP).getProperty(this.getConstantBase().getConstants().BEFORE_ITEM_ADDED) === false ||
+                this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_HELP).getProperty(this.getConstantBase().getConstants().BEFORE_ITEM_ADDED) === undefined ) {
+                    let bCheckPropertiesAttachFC = await this.getAttachmentBase().checkPropertiesAttachFC(this);
+                    if (bCheckPropertiesAttachFC === false)
+                    {                  
+                        this.getAttachmentBase().initFCFields(this);
+                        return;
+                    };
+                } else {
+                    return;
+                }
+            },
             _setInitStep:function () {
                 if (this._oUploadSetAttachment.getIncompleteItems().length > 0) {
                     for (let index = this._oUploadSetAttachment.getIncompleteItems().length - 1; index >= 0; index--) {

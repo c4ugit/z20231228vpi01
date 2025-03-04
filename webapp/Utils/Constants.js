@@ -57,6 +57,10 @@ sap.ui.define([], function () {
                 FILE_TYPE_MISMATCH_EXCEEDED_IT :"/FileTypeMismatchIT",
 
 
+
+                BEFORE_ITEM_REMOVE: "/bBeforeItemRemove",
+                BEFORE_ITEM_ADDED: "/bBeforeItemAdded",
+
                 OVERVIEW: "overview",
                 CREATE : "create"
 
