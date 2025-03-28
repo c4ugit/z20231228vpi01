@@ -17,9 +17,9 @@
         id="overviewinvoicePage"
         preserveHeaderStateOnScroll="true"
         toggleHeaderOnTitleClick="false"
-        showFooter="true"
+        showFooter="{=${message>/}.length &gt; 0}"
         busy="{vendorInvoiceOverViewModel>/busy}"
-        busyIndicatorDelay="0"
+        busyIndicatorDelay="0"        
     >
         <semantic:titleHeading>
             <Title
