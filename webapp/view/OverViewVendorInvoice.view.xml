@@ -258,20 +258,20 @@
                                         wrapping="true"
                                     />
                                 </Column> -->
-                                <!-- <Column width="12rem"
+                                <Column width="12rem"
                                 hAlign="Begin"
                                 >
                                     <customData>
                                         <core:CustomData
                                             key="p13nData"
-                                            value='\{"columnKey": "BusinessPartnerName", "maxLength": "30", "columnIndex":"63","sortProperty": "BusinessPartnerName",  "filterProperty": "BusinessPartnerName", "leadingProperty": "BusinessPartnerName"}'
+                                            value='\{"columnKey": "Filename", "maxLength": "30", "columnIndex":"63","sortProperty": "Filename",  "filterProperty": "Filename", "leadingProperty": "Filename"}'
                                         />
                                     </customData>
                                     <Text
-                                        text="Název dodavatele"
+                                        text="{i18n>filename}"
                                         wrapping="true"
                                     />
-                                </Column> -->
+                                </Column>
                                 <Column width="25rem"
                                 hAlign="Begin"
                                 >
