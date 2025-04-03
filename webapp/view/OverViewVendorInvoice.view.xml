@@ -272,7 +272,7 @@
                                         wrapping="true"
                                     />
                                 </Column>
-                                <Column width="25rem"
+                                <!-- <Column width="25rem"
                                 hAlign="Begin"
                                 >
                                     <customData>
@@ -285,7 +285,7 @@
                                         text="{i18n>text}"
                                         wrapping="false"
                                     />
-                                </Column>
+                                </Column> -->
                                 <Column width="25rem"
                                 hAlign="Begin"
                                 >
