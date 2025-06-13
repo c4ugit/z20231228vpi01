@@ -125,7 +125,7 @@
                     showIcons="true"
                     uploadEnabled="{globalModelUserInfo>/editallowed}"
                     terminationEnabled="true"
-                    fileTypes="txt,doc,png,pdf,xls,xlsx,docx,csv,jpg,jpeg"
+                    fileTypes="txt,doc,png,pdf,xls,xlsx,docx,csv,jpg,jpeg,ods"
                     maxFileNameLength="70"
                     maxFileSize="10"
                     mediaTypes="text/plain,application/msword,image/jpeg,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf"
