@@ -10,8 +10,8 @@
   ],
   "main": "webapp/index.html",
   "devDependencies": {
-    "@sap/ux-ui5-tooling": "^1.15.1",
-    "@ui5/cli": "^3.11.1"
+    "@sap/ux-ui5-tooling": "^1.16.3",
+    "@ui5/cli": "^3.11.13"
   },
   "scripts": {
     "start": "fiori run --open \"test/flpSandbox.html?sap-language=CS&sap-ui-xx-viewCache=false#zmmvpi01appz20231228mmvpi01-display\"",
