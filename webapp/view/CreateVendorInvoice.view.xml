@@ -111,13 +111,25 @@
             
                 maxLength="249"
                 placeholder="{i18n>noteToAttachedInvoice}" 
-                value="{invoiceModel>/Description}"
+                value="{invoiceModel>/Description}" 
                 editable="true"
                    enabled="{globalModelUserInfo>/editallowed}"
                 width="100%"
                 valueLiveUpdate="false"
                 
                 />
+                <HBox alignContent="Center" alignItems="Center" justifyContent="Center" renderType="Bare">
+               
+               
+                <!-- <Input  placeholder="{i18n>purchaseOrder}" type="Number"
+                value="{ path: 'invoiceModel>/PurchaseOrder',
+                type: 'sap.ui.model.type.Integer',
+                constraints: { maximum: 9999999999 } }"/> -->
+                <Input  placeholder="{i18n>purchaseOrder}" type="Text"
+                value="{ path: 'invoiceModel>/PurchaseOrder'}" maxLength="10"/>
+                
+                </HBox>
+
                 <!-- Other Item -->
                 <upload:UploadSet  class="sapUiTinyMarginTop"
                     id="createUploadSetOthersAttachment"

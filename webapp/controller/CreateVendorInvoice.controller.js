@@ -715,6 +715,7 @@ sap.ui.define([
                 // oInvoiceDataObject.Bldat = new Date();
                 // oInvoiceDataObject.Zfbdt = new Date();
                 oInvoiceDataObject.Description = this.getModel(this.CO_ODATA_INVOICE_HEADER_MODEL).getProperty("/Description");
+                oInvoiceDataObject.PurchaseOrder = this.getModel(this.CO_ODATA_INVOICE_HEADER_MODEL).getProperty("/PurchaseOrder");
                 oInvoiceDataObject.ShortDescr = this.getModel(this.CO_ODATA_INVOICE_HEADER_MODEL).getProperty("/ShortDescr");
                 oInvoiceDataObject.Lifnr = this.getModel(this.getConstantBase().getConstants().GLOBAL_MODEL_USER_INFO).getProperty("/Lifnr");
                 oInvoiceDataObject.to_invoiceAtt = this.getDataOperationBase()
